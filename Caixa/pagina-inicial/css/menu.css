@@ -1,0 +1,200 @@
+:root{
+    --rosa: #E000C2;
+    --azulClaro: #07E8FF;
+    --azul: #0000FF;
+    --azulEscuro:#170F40; 
+    --azulDiferenciado:#3214E1;   
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    font-family: sans-serif;
+    color: #fff;
+}
+.fundo{
+    position: absolute;
+    background-image: linear-gradient(to left, var(--rosa), var(--azul));
+    width: 100%;
+    height: 100%;
+}
+.border{
+    border: 1px solid red;
+}
+
+.sidebar{
+    position: fixed;
+    background-color: var(--azulEscuro);
+    top: 15px;
+    left: 15px;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 220px;  
+    padding: 40px 10px 30px 10px;
+    border-right: 1px solid #0000FF;
+    border-radius: 20px;
+}
+
+.sidebar-header{
+    display: flex;
+    width: 100%;
+    margin-top: 16px;
+}
+
+.dados{
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.nome{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.id{
+    font-size: 13px;
+}
+
+#options{
+    display: flex;
+    justify-content: flex-end;
+    align-items: start;
+    gap: 1px;
+    width: 100%;
+    height: 8px;
+}
+
+.opcoes{
+    text-align: center;
+    width: 40px;
+    height: 20px;
+}
+
+.opcoesAble{
+    background-color: #000;
+    border-radius: 0px 0px 10px 10px;  
+}
+
+.ball{
+    display: inline-block;
+    background-color: #fff;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.logo-img{
+    width: 35px;
+    min-height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform .4s;
+}
+
+.logo-img:hover{
+    transform: scale(1.5);
+}
+
+.optionsMenu{
+    position: absolute;
+    background-color: #000;
+    padding:10px;
+    bottom: 68px;
+    left: 9px;
+    border-radius: 20px 20px 0px 20px;
+    width: 200px;
+    text-align: center;
+}
+
+.disable{
+    display: none;
+}
+.able{
+    display: block;
+}
+
+.sidebar button{
+    height: 60px;
+    background: transparent;
+    border: 0;
+    font-family: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+    padding: 0;
+    width: 100%;
+}
+.sidebar button > span{
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    height: 48px;
+    border-radius: 24px;
+    padding: 0 16px 0 12px;
+    line-height: 1;
+    transition: all .2s;
+    width: 100%;
+    font-size: 1.2rem;
+}
+.sidebar button:hover > span{
+    background-color: #000;
+}
+
+.active > span{
+    background-color: #000;
+}
+
+.sidebar button i{
+    position: relative;
+    font-size: 28px;
+    transition: .2s;
+}
+
+.sidebar button span{
+    font-size: 1.4em;
+}
+
+.sidebar>nav{
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/*Main*/
+.main { 
+    position: fixed;
+    margin-left: 250px;
+    margin-top: 16px;
+    height: 95%;
+   width: 80%;
+    border-radius: 20px;
+    background-color: var(--azulEscuro);
+    z-index: 0;
+}
+
+.header{
+    margin-left: 30px;
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+
+.header i{
+    font-size: 1.6em;
+}
+
+.header span{
+    font-size: 2em;
+}
+
+hr{
+    background-image: linear-gradient(to right, var(--azul), var(--rosa));
+    height: 3px;
+    border: none; 
+    padding: 0px;
+}
