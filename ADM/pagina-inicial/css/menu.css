@@ -193,6 +193,12 @@ body{
     display: flex;
     flex-direction: column;
     width: 100%;
+    font-size: .8em;
+}
+
+.sidebar>nav a{
+    text-decoration: none;
+    color: #FFF;
 }
 
 /*Main*/
@@ -229,34 +235,3 @@ body{
     padding: 0px;
     opacity: 100;
 }
-
-.mainArea{
-    
-}
-.mainArea div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-    
-}
-.mainArea a{
-    /*Area*/
-    padding: 10px 0px;
-    width: 80%;
-    border: 5px solid #000;
-    border-radius: 20px;
-    /*Fonte*/
-    font-size: 2.5em;
-    color: #FFF;
-    text-decoration: none;
-    text-align: center;
-    /*Extra*/
-    transition: .3s;
-}
-
-.mainArea a:hover{
-    /*Borda*/
-    border-color: #FFF;
-}
-

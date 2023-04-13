@@ -230,16 +230,7 @@ body{
     opacity: 100;
 }
 
-.mainArea{
-    
-}
-.mainArea div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-    
-}
+
 .mainArea a{
     /*Area*/
     padding: 10px 0px;
