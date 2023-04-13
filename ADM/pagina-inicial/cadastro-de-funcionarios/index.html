@@ -12,7 +12,7 @@
   />
   <title>Página inicial</title>
 </head>
-<body onload="dtAdimissao()">
+<body onload="formulariojs()">
     <div class="fundo">
         <aside class="sidebar">
             <nav>
@@ -114,7 +114,7 @@
                                 <div>
                                     <!--Sexo do funcionário-->
                                     <label for="sexo_func">Sexo:</label><br>
-                                    <input type="radio" name="sexo_func" id="Masc"><label for="Masc">Masculino</label><br>
+                                    <input type="radio" name="sexo_func" id="Masc"><label for="Masc" aria-checked="">Masculino</label><br>
                                     <input type="radio" name="sexo_func" id="Femi"><label for="Femi">Feminino</label>
                                 </div>
                                 <div>
@@ -141,7 +141,7 @@
                                     <!--Habilitação do funcionário-->
                                     <label for="habi_func">Habilitação</label><br>
                                     <input type="radio" name="habi_func" id="Sim"><label for="Sim">Sim</label><br>
-                                    <input type="radio" name="habi_func" id="Nao"><label for="Nao">Não</label>
+                                    <input type="radio" name="habi_func" id="Nao" checked><label for="Nao">Não</label>
                                 </div>
                                 <div>
                                     <!--Tipo sanguíneo do funcionário-->
