@@ -1,0 +1,89 @@
+/*Main Area*/
+.mainLinha{
+    background-image: linear-gradient(to right, var(--azul), var(--rosa));
+    height: 3px;
+    border: none; 
+    padding: 0px;
+    opacity: 100;
+}
+
+.mainArea{
+    height: 80%;
+}
+.filtro{
+    display: flex;
+    justify-content: end;
+}
+
+.filtro button{
+    /*tamanho*/
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    border: 3px solid var(--rosa);
+    border-radius: 20px;
+    /*Cores*/
+    background-color: var(--azulEscuro);
+    color: white; 
+    /*fonte*/
+    font-size: 1.5em;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.filtro button:hover{
+    border-color: #fff;
+}
+
+.estoqueItem{
+    border: 3px solid var(--rosa);
+    border-radius: 20px;
+    height: 130px;
+}
+
+.estoqueLinha{
+   background-color: var(--rosa) !important;
+   height: 3px;
+    border: none; 
+    padding: 0px;
+    opacity: 100;
+    margin-left: -15px;
+    width: 120px;
+}
+
+.estoqueItem .itemHeader{
+    margin-top: 15px;
+}
+
+.estoqueItem .imgItem{
+    border-right: 3px solid var(--rosa);
+    height: 127px;
+    display: flex;
+    width:50%;
+    height: 127px;
+}
+
+.imgItem img{
+    height: 100px;
+    margin: auto;
+}
+
+.estoqueItem p {
+    line-height: 5px;
+}
+.blocos, .tabela{
+    display: none;
+}
+
+.active{
+    display: block;
+}
+
+.activeBtn{
+    border-color: #fff !important; 
+    cursor: default !important;
+}
+
+table, tr, td, th{
+    border: 3px solid var(--rosa);
+}

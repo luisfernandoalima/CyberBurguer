@@ -1,0 +1,35 @@
+.mesa{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: rgb(255, 237, 215);
+    margin-right: 50px;
+    margin-bottom: 50px;
+}
+
+.info{
+    position: absolute;
+    left: -9999px;
+    width: 130px;
+    height: 150px;
+    border-radius: 15px;
+    box-shadow: 5px 8px 50px #000;
+    background-color: #fff;
+    color: #000;
+    z-index: 1;
+}
+
+.legenda{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    z-index: 1;
+}
+
+.Livre{
+    background-color: #00FF00;
+}
+
+.Ocupada{
+    background-color: #FF0000;
+}
