@@ -48,7 +48,7 @@
     padding: 0px;
     opacity: 100;
     margin-left: -15px;
-    width: 120px;
+    width: 165px;
 }
 
 .estoqueItem .itemHeader{
@@ -84,6 +84,43 @@
     cursor: default !important;
 }
 
-table, tr, td, th{
-    border: 3px solid var(--rosa);
+thead, tbody{
+    display: block;
+    border: 2px solid var(--rosa);
+    border-top: 2px solid var(--rosa);
+}
+
+thead{
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top: 4px solid var(--rosa);
+    border-bottom: 1px solid var(--rosa);
+}
+
+tbody{
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top: 1px solid var(--rosa);
+    border-bottom: 2px solid var(--rosa);
+}
+
+#tabelaReal{
+    margin-top: 50px !important;
+    margin: auto;
+    height: 100px;
+}
+
+th{
+  text-align: center;  
+}
+
+tr{
+    border-bottom: 2px solid var(--rosa);
+}
+
+td, th{
+    height: 2em;
+    width: 170px;
+    border-left: 2px solid var(--rosa);
+    border-right: 2px solid var(--rosa);
 }
