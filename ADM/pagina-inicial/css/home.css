@@ -2,9 +2,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
-    
+    margin-top: 20px;
+    width: 100%;
 }
+
 .mainArea a{
     /*Area*/
     padding: 10px 0px;
@@ -12,7 +13,7 @@
     border: 5px solid #000;
     border-radius: 20px;
     /*Fonte*/
-    font-size: 2.5em;
+    font-size: 2em;
     color: #FFF;
     text-decoration: none;
     text-align: center;
@@ -23,5 +24,6 @@
 .mainArea a:hover{
     /*Borda*/
     border-color: #FFF;
+    box-shadow: 4px 5px 10px #000;
 }
 

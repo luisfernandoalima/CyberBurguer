@@ -1,0 +1,75 @@
+.hover{
+    text-decoration: underline;
+}
+
+.card{
+    margin: auto;
+    width: 400px !important;
+    background-color: var(--azulescuro);
+    color: #fff;
+    border: 2px solid transparent;
+    border-image: linear-gradient(to left top, var(--rosa), var(--azul));
+    border-image-slice: 1;
+}
+
+.card p{
+    line-height: 20px;
+    width: 100%;
+}
+
+.card span{
+    display: block;
+}
+
+.card strong{
+    font-size: 1.8em;
+    text-decoration: underline;
+}
+.card-text{
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.card-text::before{
+    content: '- ' ;
+}
+
+.informacoes{
+    border: 2px solid transparent;
+    border-image: linear-gradient(to left top, var(--rosa), var(--azul));
+    border-image-slice: 1;
+}
+
+.informacoes > div{
+    margin-top: 10px;
+}
+
+.text{
+    width: 350px;
+    margin: auto;
+    margin-top: 15px;
+}
+
+p{
+    line-height: 10px;
+    font-size: 1.1em;
+    width: 200px;
+}
+
+
+.res{
+    margin-left: 25px;
+    font-size: 1.3em;
+    line-height: 15px;
+    font-weight: bold;
+    cursor: default;
+}
+
+.res::before{
+    content: '- ';
+}
+
+.btn{
+    width: 80%;
+}
+
