@@ -36,8 +36,9 @@ body{
     align-items: flex-start;
     width: 220px;  
     padding: 40px 10px 30px 10px;
-    border-right: 1px solid #0000FF;
+
     border-radius: 20px;
+    box-shadow: 4px 4px 8px black;
 }
 
 .sidebar-header{
@@ -210,6 +211,7 @@ body{
    width: 80%;
     border-radius: 20px;
     background-color: var(--azulEscuro);
+    box-shadow: 4px 4px 8px black;
 }
 
 .header{

@@ -1,13 +1,33 @@
 .mesa{
+    display: inline-block;
     width: 150px;
     height: 150px;
     border-radius: 50%;
     background-color: rgb(255, 237, 215);
-    margin-right: 50px;
     margin-bottom: 50px;
+    margin-left: 20px;
+}
+.mesaArea{
+    height: auto;
+    width: 90%;
+    margin: auto;
+}
+.infoArea{
+    width: 100%;
+    height: 400px;
+    background-color: #fff;
+    border-radius: 20px;
+    color: #000;
+    box-shadow: 8px 8px 10px rgb(48, 48, 48);
+}
+
+.mesas{
+    height: 400px;
+    overflow: auto;
 }
 
 .info{
+    display: none;
     position: absolute;
     left: -9999px;
     width: 130px;
@@ -32,4 +52,8 @@
 
 .Ocupada{
     background-color: #FF0000;
+}
+
+.hoverMesa{
+    border: 5px solid black;
 }

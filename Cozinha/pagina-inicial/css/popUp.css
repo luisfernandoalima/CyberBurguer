@@ -1,0 +1,66 @@
+.opaco{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(97, 97, 97, 0.514);
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popUp{
+    position: absolute;
+    background-color: rgb(230, 230, 230);
+    margin: auto;
+    width: 50%;
+    border-radius: 20px;
+    z-index: 1;
+}
+
+.popUpHeader{
+    background-color: var(--azulEscuro);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    text-align: center;
+}
+
+.popUpInfo{
+    color: #000;
+    font-size: 1.6em;
+    text-align: center;
+}
+
+.popUpInfo p {
+    margin-bottom: 0px;
+}
+
+.inputPedido{
+    background-color: transparent;
+    border: none;
+    cursor: default;
+}
+
+.inputPedido:focus{
+    outline: none;
+}
+
+.inputSenha{
+    border-radius: 20px;
+}
+
+.popDown{
+    display: none;
+}
+
+.btnConfirm{
+    color: #fff;
+    background-color: var(--azulEscuro);
+    border-radius: 20px;
+    margin: 20px 0px;
+    transition: .3s;
+}
+
+.btnConfirm:hover{
+    background-color: #352197
+}

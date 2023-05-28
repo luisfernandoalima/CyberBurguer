@@ -1,5 +1,115 @@
-.pedido{
+.pedidos {
+    margin-top: 15px;
+}
+
+.pedidoArea{
+   background-color: var(--azulEscuro);
+   width: 100%;
+   border-radius: 20px;
+   border: 2px solid var(--azulEscuro);
+   box-shadow: 3px 2px 10px black;
+}
+
+.pedidoHeader{
+    display: flex;
+    justify-content: space-between; 
+}
+
+.pedidoID{
+    margin-left: 20px;
+}
+
+.pedidoID>span, .pedidoHora>span{
+    display: block;
+}
+
+.pedidoHora{
+    margin-right: 20px;
+}
+
+.btnCancel{
+    color: rgb(255, 0, 0);
+    cursor: pointer;
+}
+
+.btnCancel:hover{
+    text-decoration: underline;
+}
+
+.pedidoInfo{
+    background-color: rgb(230, 230, 230);
+    color: #000;
+}
+
+#itens{
+    width: 200px;
+}
+
+#Qtd{
+    width: 100px;
+    text-align: center;
+    list-style-type: none;
+}
+
+.pedidoInfo>h1{
+    margin-left: 15px;
+    margin-bottom: 0px;
+}
+
+.pedidoInfo>hr{
+    border: 1.5px solid var(--azulEscuro);
+    opacity: 100%;
+    margin-top: 10px;
+}
+
+.pedidoInfo>ul{
+    margin-bottom: 0rem;
+}
+
+.pedidoItem{
+    display: flex;
+    justify-content: center;
+}
+
+.pedidoConcluir{
+    background-color: rgb(0, 129, 0);
+    height: 30px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.pedidoConcluir:hover{
+    background-color: rgb(0, 68, 0);
+}
+
+form{
     width: 100%;
-    height: 80px;
-    border: 3px solid var(--rosa);
+}
+
+.btnConcluir{
+    display: block;
+    border: none;
+    background-color: transparent;
+    color: #FFF;
+    width: 100%;
+}
+
+.pedidoConcluido p, .pedidoCancelado p{
+    margin: .2rem 0px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.pedidoCancelado{
+    background-color: rgb(175, 0, 0);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

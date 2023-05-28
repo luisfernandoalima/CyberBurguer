@@ -11,79 +11,133 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
   <link rel="stylesheet" href="css/menu.css">
   <link rel="stylesheet" href="css/pedidos.css">
-  <title>Página inicial</title>
+  <link rel="stylesheet" href="css/popUp.css">
+  <title>Pedidos</title>
 </head>
 <body>
     <div class="fundo">
-        <aside class="sidebar">
-            <nav>
-                <button class="active">
-                    <span>
-                        <i class="material-symbols-outlined">home</i>
-                        <span>Pedidos</span>
-                    </span>
-                </button>
-
-                <button>
-                    <span>
-                        <i class="material-symbols-outlined">table_restaurant</i>
-                        <span>Mesas</span>
-                    </span>
-                </button>
-                
-                <button>
-                    <span>
-                        <i class="material-symbols-outlined">inventory</i>
-                        <span>Estoque</span>
-                    </span>
-                </button>
+        <header>
+            <nav class="menuArea">
+                <span class="active"><a href="index.html" ><i class="material-symbols-outlined" >table_restaurant</i></a></span>
+                <span><a href="pedidos-cocluidos/index.html"><i class="material-symbols-outlined">done</i></a></span>
+                <span><a href="pedidos-cancelados/index.html"><i class="material-symbols-outlined">close</i></a></span>
             </nav>
-            
-            <header class="sidebar-header">
-                <!--Foto Usuário-->
+            <aside class="sidebar-header">
                 <img class="logo-img" src="https://sujeitoprogramador.com/steve.png" alt="Foto do usuário">
                 <span class="dados">
                     <!--Nome do Usuário-->
                     <span class="nome">Nome</span>
-                    <br>
                     <!--Número de identificação-->
                     <span class="id">#565555</span>
                 </span>
-                <span id="options">
-                    <span class="opcoes">
-                        <div class="optionsMenu disable">
-                            <div class="itemList">
-                               <a href=""><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
-                            </div>
-                            <hr class="menuLinha">
-                            <p><a href="">Sair da conta</a></p>
+            </aside>
+        </header>
+        <main>
+            <div class="container">
+                <div class="pedidos">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="pedidoArea">
+                                <div class="pedidoHeader">
+                                    <div class="pedidoID">
+                                        <span class="numPedido">0001</span>
+                                        <span>Mesa 03</span>
+                                    </div>
+                                    <div class="pedidoHora">
+                                        <span>14:43:09</span>
+                                        <span class="btnCancel">Cancelar</span>
+                                    </div>
+                                </div>
+                                <div class="pedidoInfo">
+                                    <h1>Pedido:</h1>
+                                    <hr>
+                                    <div class="pedidoItem">
+                                        <ul id="itens">
+                                            <li>Hamburgão</li>
+                                            <li>Danonão</li>
+                                            <li>Sucão</li>
+                                        </ul>
+                                        <ul id="Qtd">
+                                            <li>1x</li>
+                                            <li>2x</li>
+                                            <li>3x</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="pedidoConcluir">
+                                    <form action="" method="post">
+                                        <input type="submit" value="Concluir" class="btnConcluir">
+                                    </form>
+                                </div>
+                            </div>     
                         </div>
-                        <span class="ball"></span>
-                        <span class="ball"></span>
-                        <span class="ball"></span>
-                    </span>
-                </span>
-            </header>
-        </aside>
-
-        <!--Principal-->
-        <main class="main">
-            <div class="header">
-                <i class="material-symbols-outlined">home</i><span>Pedidos</span>
-            </div>
-            <hr>
-            <div class="mainArea">
-                <div class="container text-center">
-                    <div class="row row-cols-4">
-                      <div class="col-3">
-                        <div class="pedido"></div>
-                      </div>
+                        <div class="col-4">
+                            <div class="pedidoArea">
+                                <div class="pedidoHeader">
+                                    <div class="pedidoID">
+                                        <span class="numPedido">0000</span>
+                                        <span>Mesa 03</span>
+                                    </div>
+                                    <div class="pedidoHora">
+                                        <span>14:43:09</span>
+                                        <span class="btnCancel">Cancelar</span>
+                                    </div>
+                                </div>
+                                <div class="pedidoInfo">
+                                    <h1>Pedido:</h1>
+                                    <hr>
+                                    <div class="pedidoItem">
+                                        <ul id="itens">
+                                            <li>Hamburgão</li>
+                                            <li>Danonão</li>
+                                            <li>Sucão</li>
+                                        </ul>
+                                        <ul id="Qtd">
+                                            <li>1x</li>
+                                            <li>2x</li>
+                                            <li>3x</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="pedidoConcluir">
+                                    <form action="" method="post">
+                                        <input type="submit" value="Concluir" class="btnConcluir">
+                                    </form>
+                                </div>
+                            </div>     
+                        </div>
                     </div>
-                  </div>
+                </div>
             </div>
         </main>
+        <div class="opaco popDown">
+        <aside class="popUp popDown">
+            <div>
+                <div class="popUpHeader">
+                    <h2>Cancelamento de pedido</h2>
+                </div>
+                <div class="popUpInfo">
+                    <p>Digite seu RM para o cancelamento do pedido</p>
+                    <div>
+                        <form action="" method="post">
+                            <div>
+                                <input type="text" name="" id="" class="inputPedido" readonly>
+                            </div>
+                            <div>
+                                <input type="text" name="" id="" class="inputSenha" required>
+                            </div>
+                            <div>
+                                <input type="submit" value="Confirmar" class="btnConfirm">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            
+            </div>
+        </aside>
     </div>
-    <script src="js/sidebar.js"></script>
+    </div>
+    <script src="js/popUp.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 </html>
