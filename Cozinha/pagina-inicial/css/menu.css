@@ -44,13 +44,17 @@ header{
 }
 
 .menuArea span{
-    color: #fff;
     height: 100%;
     width: 30px;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: .3s;
+}
+
+.menuArea span:hover{
+    background-color: #000;
 }
 
 .menuArea span a{
@@ -85,11 +89,83 @@ header{
 margin-right: 15px;
 }
 
+/*Menu Hamburguer*/
+
+.hamburger-menu{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+  #checkbox-menu{
+    position: absolute;
+    opacity: 0;
+  }
+  
+  label{
+    cursor: pointer;
+    position: relative;
+    display: block;
+    height: 22px;
+    width: 30px;
+  }
+  
+  label span{
+    position: absolute;
+    display: block;
+    height: 5px;
+    width: 100%;
+    border-radius: 30px;
+    background: #fff;
+    transition: 0.25s ease-in-out;
+  }
+  
+  label span:nth-child(1){
+    top: 0;
+  }
+  
+  label span:nth-child(2){
+    top: 8px;
+  }
+  
+  label span:nth-child(3){
+    top: 16px;
+  }
+  
+  #checkbox-menu:checked + label span:nth-child(1){
+    transform: rotate(-45deg);
+    top: 8px;
+  }
+  
+  #checkbox-menu:checked + label span:nth-child(2){
+    opacity: 0;
+  }
+  
+  #checkbox-menu:checked + label span:nth-child(3){
+    transform: rotate(45deg);
+    top:8px;
+  }
+
 /*Menu de configurações*/
 
 .menuConfig{
     position: absolute;
     background-color: #000;
-    top: 64px;
-    right: 10px;
+    top: 60px;
+    right: 0;
+    display: none;
+    border-bottom-left-radius: 20px;
+}
+
+.menuConfig a{
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 10px 25px;
+    margin: 5px 0;
+}
+
+.menuConfig a>i{
+    padding-right: 10px;
 }

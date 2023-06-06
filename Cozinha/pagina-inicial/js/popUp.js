@@ -8,13 +8,23 @@ const inputPedido = document.querySelector('.inputPedido')
 const numPedido = document.querySelectorAll('.numPedido')
 
 for(var i = 0; i < btnCancel.length; i++){
-        (function(index) {
-        btnCancel[index].addEventListener("click", function() {
-          popUp.classList.remove('popDown');
-          fundoOpaco.classList.remove('popDown');
+  (function(index) {
+    btnCancel[index].addEventListener("click", function() {
+      popUp.classList.remove('popDown');
+      fundoOpaco.classList.remove('popDown');
 
-          inputPedido.value = numPedido[index].textContent;
-        });
-      })(i);
+      inputPedido.value = numPedido[index].textContent;
+    });
+  })(i);
 }
 
+//Fechar PopUp
+
+const fecharPopUp = document.querySelector('.fecharPopUp')
+
+const fecharPOP = () =>{
+  popUp.classList.add('popDown');
+  fundoOpaco.classList.add('popDown');
+}
+
+fecharPopUp.addEventListener("click", fecharPOP)

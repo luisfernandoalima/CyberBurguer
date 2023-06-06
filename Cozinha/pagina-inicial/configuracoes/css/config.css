@@ -1,0 +1,53 @@
+.fundoMain{
+    background-color: var(--azulEscuro);
+
+    margin-top: 5px;
+    border-radius: 20px;
+}
+
+.menuTopics{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.configMenu>li{
+    list-style-type: none;
+    font-size: 1.5em;
+    margin: 15px 0px;
+}
+
+.camposConfig{
+    border-bottom: 2px solid #fff;
+    width: 90%;
+}
+
+.camposConfig div{
+    font-size: 1.3em;
+    margin-left: 10px;
+}
+
+.camposConfig p{
+    font-size: 1.8em;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+.info{
+    border-left: 1px solid #fff;
+}
+
+.configMenu a{
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    width: 270px;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.activeConfig, .configMenu a:hover{
+    background-color: #000;
+}
