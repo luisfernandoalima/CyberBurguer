@@ -2,6 +2,7 @@
 
 const menuCheckBox = document.querySelector('#checkbox-menu')
 
+
 const menuHamburguer = () => {
 
   const menuConfig = document.querySelector('.menuConfig')
