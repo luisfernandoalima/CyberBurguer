@@ -6,15 +6,15 @@ const formConfirm = document.querySelector('.confirmForms')
 const infoContaShow = () =>{
     infoPessoais.classList.remove('activeConfig')
     infoConta.classList.add('activeConfig')
-    info.style.display = 'block'
-    formConfirm.style.display = 'none'
+    info.classList.remove('disable')
+    formConfirm.classList.add('disable')
 }
 
 const confirmForms = () =>{
     infoPessoais.classList.add('activeConfig')
     infoConta.classList.remove('activeConfig')
-    info.style.display = 'none'
-    formConfirm.style.display = 'block'
+    info.classList.add('disable')
+    formConfirm.classList.remove('disable')
 
     infoConta.addEventListener('click', infoContaShow)
 }

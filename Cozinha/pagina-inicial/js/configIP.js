@@ -19,8 +19,6 @@ const inputSenha = document.querySelector('#senhaPessoal')
 const divSenha = document.querySelector('.passwordClass')
 const inputConfirmSenha = document.querySelector('#senhaConPessoal')
 
-inputConfirmSenha.value = inputSenha.value
-
 const mudarSenha = () =>{
     divSenha.style.display = 'block'
     btnConfirm.disabled = false
