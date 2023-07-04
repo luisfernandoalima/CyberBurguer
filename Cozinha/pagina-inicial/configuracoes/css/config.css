@@ -1,6 +1,7 @@
 .fundoMain{
+    display: block;
     background-color: var(--azulEscuro);
-
+    box-shadow: 6px 8px 10px #000;
     margin-top: 5px;
     border-radius: 20px;
 }
@@ -18,9 +19,12 @@
     margin: 15px 0px;
 }
 
+.infoItens{
+    width: 100%;
+    margin-top: 15px
+}
+
 .camposConfig{
-    border-bottom: 2px solid #fff;
-    width: 90%;
 }
 
 .camposConfig div{
@@ -29,7 +33,8 @@
 }
 
 .camposConfig p{
-    font-size: 1.8em;
+    border-bottom: 2px solid #fff;
+    font-size: 1.2Zem;
     margin-left: 10px;
     margin-bottom: 0;
 }
@@ -72,6 +77,7 @@
 .menuOptionConfig img{
     display: block;
     margin: auto;
+    padding: 5px;
     width: 250px;
     height: 250px;
     border-radius: 50%;

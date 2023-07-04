@@ -16,7 +16,8 @@ const confirmForms = () =>{
     info.classList.add('disable')
     formConfirm.classList.remove('disable')
 
-    infoConta.addEventListener('click', infoContaShow)
+    infoConta.addEventListener('click', infoContaShow)  
+
 }
 
 infoPessoais.addEventListener('click', confirmForms)

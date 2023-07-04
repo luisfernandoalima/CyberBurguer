@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../img/icons/CyberBurguerLogoSmall.png" type="image/x-icon">
     <!--Font Awesome-->
     <script src="https://kit.fontawesome.com/b95d68622e.js" crossorigin="anonymous"></script>
     <!--Material Symbols Outlined-->
@@ -20,15 +21,16 @@
     <title>Configurações</title>
 </head>
 <style>
-    
+
 </style>
+
 <body>
     <div class="fundo">
         <header>
             <nav class="menuArea">
-                <span><a href="../index.html"><i class="material-symbols-outlined">table_restaurant</i></a></span>
-                <span><a href="../pedidos-cocluidos/index.html"><i class="material-symbols-outlined">done</i></a></span>
-                <span><a href="../pedidos-cancelados/index.html"><i
+                <span><a href="../index.php"><i class="material-symbols-outlined">table_restaurant</i></a></span>
+                <span><a href="../pedidos-cocluidos/index.php"><i class="material-symbols-outlined">done</i></a></span>
+                <span><a href="../pedidos-cancelados/index.php"><i
                             class="material-symbols-outlined">close</i></a></span>
             </nav>
             <aside class="sidebar-header">
@@ -50,7 +52,7 @@
                 </div>
             </aside>
             <aside class="menuConfig">
-                <a href="index.html"><i class="fa-solid fa-gear" style="color: #ffffff;"></i>Configurações</a>
+                <a href="index.php"><i class="fa-solid fa-gear" style="color: #ffffff;"></i>Configurações</a>
                 <br>
                 <a href="../../index.html">Sair</a>
             </aside>
@@ -69,26 +71,37 @@
                                 </li>
                             </ul>
                         </div>
+
                         <div class="col-8 info">
                             <h1>Informações da conta</h1>
                             <div class="menuOptionConfig">
-                                <div class="camposConfig">
-                                    <div>Nome:</div>
-                                    <p>l</p>
+                                <picture>
+                                    <img src="https://sujeitoprogramador.com/steve.png" alt="">
+                                </picture>
+                                <div class="row infoItens">
+                                    <div class="camposConfig col">
+                                        <div>Nome:</div>
+                                        <p>l</p>
+                                    </div>
+                                    <div class="camposConfig col">
+                                        <div>Cargo:</div>
+                                        <p>l</p>
+                                    </div>
                                 </div>
-                                <div class="camposConfig">
-                                    <div>Email:</div>
-                                    <p>l</p>
-                                </div>
-                                <div class="camposConfig">
-                                    <div>Cargo:</div>
-                                </div>
-                                <div class="camposConfig">
-                                    <div>Horário de trabalho:</div>
+
+                                <div class="row infoItens">
+                                    <div class="camposConfig col">
+                                        <div>Email:</div>
+                                        <p>l</p>
+                                    </div>
+                                    <div class="camposConfig col">
+                                        <div>Horário de trabalho:</div>
+                                        <p>l</p>
+                                    </div>
                                 </div>
                             </div>
-                            <form action="" method="post" class="confirmForms disable">                          <div class="forms">
-                                
+                            <form action="" method="post" class="confirmForms disable">
+                                <div class="forms">
                                     <h2>Confirmar informações</h2>
                                     <div class="input-contain">
                                         <label for="emailInput">Email</label>
@@ -100,9 +113,8 @@
                                         <input type="password" name="senhaInput" id="senhaInput" autocomplete="off"
                                             aria-labelledby="placeholder-senha" value="" required>
                                     </div>
-                                    <input type="submit" value="Entrar"
-                                    class="btnEntrar">
-                            </div>
+                                    <input type="submit" value="Entrar" class="btnEntrar">
+                                </div>
                             </form>
                         </div>
                     </div>

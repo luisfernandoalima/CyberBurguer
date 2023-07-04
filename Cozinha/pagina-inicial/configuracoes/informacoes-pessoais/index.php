@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../../img/icons/CyberBurguerLogoSmall.png" type="image/x-icon">
     <!--Font Awesome-->
     <script src="https://kit.fontawesome.com/b95d68622e.js" crossorigin="anonymous"></script>
     <!--Material Symbols Outlined-->
@@ -13,15 +14,15 @@
     <!--CSS-->
     <link rel="stylesheet" href="../../css/menu.css">
     <link rel="stylesheet" href="../css/config.css">
-  <title>Configurações</title>
+  <title>Informações Pessoais</title>
 </head>
 <body>
     <div class="fundo">
         <header>
             <nav class="menuArea">
-                <span><a href="../../index.html" ><i class="material-symbols-outlined" >table_restaurant</i></a></span>
-                <span><a href="../../pedidos-cocluidos/index.html"><i class="material-symbols-outlined">done</i></a></span>
-                <span><a href="../../pedidos-cancelados/index.html"><i class="material-symbols-outlined">close</i></a></span>
+                <span><a href="../../index.php" ><i class="material-symbols-outlined" >table_restaurant</i></a></span>
+                <span><a href="../../pedidos-cocluidos/index.php"><i class="material-symbols-outlined">done</i></a></span>
+                <span><a href="../../pedidos-cancelados/index.php"><i class="material-symbols-outlined">close</i></a></span>
             </nav>
             <aside class="sidebar-header">
                 <img class="logo-img" src="https://sujeitoprogramador.com/steve.png" alt="Foto do usuário">
@@ -42,7 +43,7 @@
                 </div>
             </aside>
             <aside class="menuConfig">
-                <a href="../index.html"><i class="fa-solid fa-gear" style="color: #ffffff;"></i>Configurações</a>
+                <a href="../index.php"><i class="fa-solid fa-gear" style="color: #ffffff;"></i>Configurações</a>
                 <br>
                 <a href="../../../index.html">Sair</a>
             </aside>
@@ -54,10 +55,10 @@
                         <div class="col-4 menuTopics">
                             <ul class="configMenu">
                                 <li>
-                                    <a href="../index.html">Informações da conta</a>
+                                    <a href="../index.php">Informações da conta</a>
                                 </li>
                                 <li>
-                                    <a href="index.html"  class="activeConfig">Informações pessoais</a>
+                                    <a href="index.php"  class="activeConfig">Informações pessoais</a>
                                 </li>
                             </ul>
                         </div>

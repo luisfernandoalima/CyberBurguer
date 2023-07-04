@@ -2,7 +2,7 @@
     --rosa: #E000C2;
     --azulClaro: #07E8FF;
     --azul: #0000FF;
-    --azulEscuro:#170F40; 
+    --azulEscuro:#191143; 
     --azulDiferenciado:#3214E1;   
 }
 
@@ -11,6 +11,7 @@ body{
 }
 
 main{
+    box-shadow: 2px 4px 10px #000;
     background-color: var(--azulEscuro);
     border-radius: 20px;
     width: 80%;
@@ -108,16 +109,17 @@ input, .placeholder-text{
     display: block;
     margin-left: 25%;
     margin-top: 20px;
+    cursor: pointer;
     color: #fff;
     background-color: var(--azul);
     width: 200px;
     height: 50px;
     border-radius: 50px;
     font-size:24px;
+    transition: .4s;
 }
 
 .btnEntrar:hover{
-    border-color: #fff;
     background-color: var(--azulDiferenciado);
 }
 
