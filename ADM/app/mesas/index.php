@@ -23,7 +23,7 @@
         <aside class="sidebar">
             <nav>
                 <a href="../pagina-inicial/index.php">
-                    <button class="active">
+                    <button>
                         <span>
                             <i class="material-symbols-outlined">home</i>
                             <span>Home</span>
@@ -32,7 +32,7 @@
                 </a>
 
                 <a href="../mesas/index.php">
-                    <button>
+                    <button  class="active">
                         <span>
                             <i class="material-symbols-outlined">table_restaurant</i>
                             <span>Mesas</span>
@@ -108,63 +108,14 @@
                             </div>
                             <div class="info">
                                 <p class="mesaNome">Mesa: 1</p>
-                                <p class="mesaEstado">Estado: Ocupada</p>
+                                <p class="mesaEstado">Estado: <span class="ocupaçãoMesa">Ocupada</span></p>
                                 <p class="mesaPedido">Pedido: 12345</p>
                             </div>
-                        </div>
-                        <div class="col-2 mesas">
-                            <div class="mesaArea">
-                                <div class="mesa">
-                                    <div class="fundoMesa">
-                                        <div class="fondoMesaAzul">
-                                            <div class="linhaHorizontal"></div>
-                                            <div class="linhaVertical"></div>
-                                            <h1 id="nMesaGrande">1</h1>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="info">
-                                <p class="mesaNome">Mesa: 1</p>
-                                <p class="mesaEstado">Estado: Ocupada</p>
-                                <p class="mesaPedido">Pedido: 12345</p>
-                            </div>
-                        </div><div class="col-2 mesas">
-                            <div class="mesaArea">
-                                <div class="mesa">
-                                    <div class="fundoMesa">
-                                        <div class="fondoMesaAzul">
-                                            <div class="linhaHorizontal"></div>
-                                            <div class="linhaVertical"></div>
-                                            <h1 id="nMesaGrande">1</h1>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="info">
-                                <p class="mesaNome">Mesa: 1</p>
-                                <p class="mesaEstado">Estado: Ocupada</p>
-                                <p class="mesaPedido">Pedido: 12345</p>
-                            </div>
-                        </div><div class="col-2 mesas">
-                            <div class="mesaArea">
-                                <div class="mesa">
-                                    <div class="fundoMesa">
-                                        <div class="fondoMesaAzul">
-                                            <div class="linhaHorizontal"></div>
-                                            <div class="linhaVertical"></div>
-                                            <h1 id="nMesaGrande">1</h1>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="info">
-                                <p class="mesaNome">Mesa: 1</p>
-                                <p class="mesaEstado">Estado: Ocupada</p>
-                                <p class="mesaPedido">Pedido: 12345</p>
-                            </div>
-                        </div>
-                    <div class="row">
+                        </div>                           
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row legendaArea">
                         <p><span class="legenda Livre"></span> Livre</p>
                         <p><span class="legenda Ocupada"></span> Ocupada</p>
                     </div>

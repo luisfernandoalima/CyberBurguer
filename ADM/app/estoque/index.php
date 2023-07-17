@@ -4,20 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../assets/img/icons/CyberBurguerLogoSmall.png" type="image/x-icon">
+    <!--CSS do BootStrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/menu.css">
-    <link rel="stylesheet" href="css/estoque.css">
-    <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
-  />
+    <!--Material Symbols Outlined-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <!--Font Awesome-->
+    <script src="https://kit.fontawesome.com/b95d68622e.js" crossorigin="anonymous"></script>
+    <!--CSS-->
+    <link rel="stylesheet" href="../../assets/css/menu.css">
+    <link rel="stylesheet" href="../../assets/css/estoque/estoque.css">
   <title>Estoque</title>
 </head>
 <body>
     <div class="fundo">
         <aside class="sidebar">
             <nav>
-                <a href="../pagina-inicial/index.html">
+                <a href="../pagina-inicial/index.php">
                     <button >
                         <span>
                                 <i class="material-symbols-outlined">home</i>
@@ -26,7 +29,7 @@
                     </button>
                 </a>
 
-                <a href="../mesas/index.html">
+                <a href="../mesas/index.php">
                     <button>
                         <span>
                             <i class="material-symbols-outlined">table_restaurant</i>
@@ -35,7 +38,7 @@
                     </button>
                 </a>
                 
-                <a href="../estoque/index.html">
+                <a href="../estoque/index.php">
                     <button class="active">
                         <span>
                             <i class="material-symbols-outlined">inventory</i>
@@ -44,7 +47,7 @@
                     </button>
                 </a>
 
-                <a href="../estatisticas/index.html">
+                <a href="../estatisticas/index.php">
                     <button>
                         <span>
                             <i class="material-symbols-outlined">paid</i>
@@ -68,7 +71,7 @@
                     <span class="opcoes">
                         <div class="optionsMenu disable">
                             <div class="itemList">
-                               <a href="../meu-perfil/index.html"><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
+                               <a href="../meu-perfil/index.php"><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
                             </div>
                             <hr class="menuLinha">
                             <p><a href="">Sair da conta</a></p>
@@ -84,7 +87,7 @@
         <!--Principal-->
         <main class="main">
             <div class="header">
-                <i class="material-symbols-outlined">inventory</i><span>ESTOQUE</span>
+                <div><i class="material-symbols-outlined">inventory</i><span>ESTOQUE</span></div>
             </div>
             <hr class="mainLinha">
             <div class="mainArea">
@@ -118,9 +121,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>   
-                        
+                            </div>                            
+                        </div>                           
                     </div>        
                     <div class="tabela active">
                         <table id="tabelaReal" style="border-radius: 10px;">
@@ -136,24 +138,18 @@
                                     <Td>6164343</Td>
                                     <td>45</td>
                                     <td>14-4-2025</td>
-                                </tr>
-                                <tr>
-                                    <td>Tomate</td>
-                                    <Td>6164343</Td>
-                                    <td>45</td>
-                                    <td>14-4-2025</td>
-                                </tr>
+                                </tr>                                
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div>
-                    <a href=""><Button>Editar</Button></a>
+                    <a href="" class="btnEditar"><Button>Editar</Button></a>
                 </div>
             </div>
         </main>
     </div>
-    <script src="js/estoque.js"></script>
+    <script src="../../assets/js/estoque/estoque.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 </html>
