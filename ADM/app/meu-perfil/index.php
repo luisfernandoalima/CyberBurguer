@@ -5,8 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/menu.css">
-    <link rel="stylesheet" href="css/perfil.css">
+    <!--Font Awesome-->
+    <script src="https://kit.fontawesome.com/b95d68622e.js" crossorigin="anonymous"></script>
+    <!--CSS-->
+    <link rel="stylesheet" href="../../assets/css/menu.css">
+    <link rel="stylesheet" href="../../assets/css/meu-perfil/perfil.css">
     <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
@@ -17,8 +20,8 @@
     <div class="fundo">
         <aside class="sidebar">
             <nav>
-                <a href="../pagina-inicial/index.html">
-                    <button class="active">
+                <a href="../pagina-inicial/index.php">
+                    <button>
                         <span>
                                 <i class="material-symbols-outlined">home</i>
                                 <span>Home</span>
@@ -26,7 +29,7 @@
                     </button>
                 </a>
 
-                <a href="../mesas/index.html">
+                <a href="../mesas/index.php">
                     <button>
                         <span>
                             <i class="material-symbols-outlined">table_restaurant</i>
@@ -35,7 +38,7 @@
                     </button>
                 </a>
                 
-                <a href="../estoque/index.html">
+                <a href="../estoque/index.php">
                     <button>
                         <span>
                             <i class="material-symbols-outlined">inventory</i>
@@ -44,7 +47,7 @@
                     </button>
                 </a>
 
-                <a href="../estatisticas/index.html">
+                <a href="../estatisticas/index.php">
                     <button>
                         <span>
                             <i class="material-symbols-outlined">paid</i>
@@ -68,7 +71,7 @@
                     <span class="opcoes">
                         <div class="optionsMenu disable">
                             <div class="itemList">
-                               <a href="../meu-perfil/index.html"><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
+                               <a href="../meu-perfil/index.php"><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
                             </div>
                             <hr class="menuLinha">
                             <p><a href="">Sair da conta</a></p>
@@ -84,7 +87,7 @@
         <!--Principal-->
         <main class="main">
             <div class="header">
-                <i class="material-symbols-outlined">home</i><span>HOME</span>
+                <div><i class="material-symbols-outlined">user</i><span>Meu Perfil</span></div>
             </div>
             <hr>
             <div class="mainArea">
@@ -97,7 +100,7 @@
             </div>
         </main>
     </div>
-    <script src="js/sidebar.js"></script>
+    <script src="../../assets/js/paginaInicial/sidebar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 </html>
