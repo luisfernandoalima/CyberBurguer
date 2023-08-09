@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../assets/img/icons/CyberBurguerLogoSmall.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/menu.css">
-    <link rel="stylesheet" href="css/home.css">
-    <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
-  />
-  <title>Estatísticas</title>
+    <!--Font Awesome-->
+    <script src="https://kit.fontawesome.com/b95d68622e.js" crossorigin="anonymous"></script>
+    <!--CSS-->
+    <link rel="stylesheet" href="../../assets/css/menu.css">
+    <link rel="stylesheet" href="../../assets/css/estatisticas/estatisticas.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <title>Estatísticas</title>
 </head>
+
 <body>
     <div class="fundo">
         <aside class="sidebar">
             <nav>
                 <a href="../pagina-inicial/index.html">
-                    <button >
+                    <button>
                         <span>
-                                <i class="material-symbols-outlined">home</i>
-                                <span>Home</span>
+                            <i class="material-symbols-outlined">home</i>
+                            <span>Home</span>
                         </span>
                     </button>
                 </a>
@@ -34,7 +37,7 @@
                         </span>
                     </button>
                 </a>
-                
+
                 <a href="../estoque/index.html">
                     <button>
                         <span>
@@ -53,7 +56,7 @@
                     </button>
                 </a>
             </nav>
-            
+
             <header class="sidebar-header">
                 <!--Foto Usuário-->
                 <img class="logo-img" src="https://sujeitoprogramador.com/steve.png" alt="Foto do usuário">
@@ -68,7 +71,7 @@
                     <span class="opcoes">
                         <div class="optionsMenu disable">
                             <div class="itemList">
-                               <a href="../meu-perfil/index.html"><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
+                                <a href="../meu-perfil/index.html"><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
                             </div>
                             <hr class="menuLinha">
                             <p><a href="">Sair da conta</a></p>
@@ -84,26 +87,37 @@
         <!--Principal-->
         <main class="main">
             <div class="header">
-                <i class="material-symbols-outlined">home</i><span>HOME</span>
+                <div><i class="material-symbols-outlined">paid</i><span>Estatísticas</span></div>
             </div>
             <hr>
             <div class="mainArea">
-                <div>
-                    <a href="">Novo pedido +</a>
-                </div>
-                <div>
-                    <a href="">Fechar pedido -</a>
-                </div>
-                <div>
-                    <a href="">Cadastro de clientes</a>
-                </div>
-                <div>
-                    <a href="cadastro-de-funcionarios/index.html">Cadastro de funcionários</a>
+                <div class="filtros">
+                    <div class="filtroData">
+                        <form action="">
+                            <label for="selectData">Filtrar por:</label>
+                            <span class="selectDataArea">
+                                <select name="selectData" id="selectData">
+                                    <option value="">Dia</option>
+                                    <option value="">Mês</option>
+                                    <option value="">Ano</option>
+                                </select>
+                                <i class="fa-solid fa-down-long seta-dia" style="color: #000000;"></i>
+                            </span>
+                        </form>
+                    </div>
+                    <div class="filtroVenda">
+                        <form action="">
+                            <select name="" id="selectVendas">
+                                <option value="">Ultimas vendas</option>
+                            </select>
+                        </form>
+                    </div>
                 </div>
             </div>
         </main>
     </div>
-    <script src="js/sidebar.js"></script>
+    <script src="../../assets/js/paginaInicial/sidebar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
+
 </html>

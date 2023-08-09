@@ -1,0 +1,37 @@
+.filtros{
+    display: flex;
+    justify-content: space-between;
+}
+
+.filtroData{
+    margin-left: 10px;
+}
+
+.selectDataArea{
+    display: inline-block;
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding-right: 20px;
+    padding-left: 10px;
+}
+
+.seta-dia{
+    position: absolute;
+    margin-top: 8px;
+}
+
+#selectVendas{
+    border: none;
+}
+
+#selectData{
+    border: none;
+    background-color: #ffffff;
+   color: #000;
+   padding-right: 5px;
+   padding-left: 5px;
+}
+
+option{
+    width: 200px;
+}
