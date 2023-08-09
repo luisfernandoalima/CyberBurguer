@@ -91,26 +91,34 @@
             </div>
             <hr>
             <div class="mainArea">
-                <div class="filtros">
-                    <div class="filtroData">
-                        <form action="">
-                            <label for="selectData">Filtrar por:</label>
-                            <span class="selectDataArea">
-                                <select name="selectData" id="selectData">
-                                    <option value="">Dia</option>
-                                    <option value="">Mês</option>
-                                    <option value="">Ano</option>
+                <div class="container">
+                    <div class="filtros">
+                        <div class="filtroData">
+                            <form action="">
+                                <label for="selectData">Filtrar por:</label>
+                                <span class="selectDataArea">
+                                    <select name="selectData" id="selectData">
+                                        <option value="">Dia</option>
+                                        <option value="">Mês</option>
+                                        <option value="">Ano</option>
+                                    </select>
+                                    <i class="fa-solid fa-down-long seta-dia" style="color: #000000;"></i>
+                                </span>
+                            </form>
+                        </div>
+                        <div class="filtroVenda">
+                            <form action="">
+                                <select name="" id="selectVendas">
+                                    <option value="">Ultimas vendas</option>
                                 </select>
-                                <i class="fa-solid fa-down-long seta-dia" style="color: #000000;"></i>
-                            </span>
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                    <div class="filtroVenda">
-                        <form action="">
-                            <select name="" id="selectVendas">
-                                <option value="">Ultimas vendas</option>
-                            </select>
-                        </form>
+                    <div class="numArea">
+
+                    </div>
+                    <div class="graphcsOptions">
+                        
                     </div>
                 </div>
             </div>
