@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="../../../../assets/img/icons/CyberBurguerLogoSmall.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="../../../../assets/css/menu.css">
-    <link rel="stylesheet" href="../../../../assets/css/paginaInicial/func.css">
+    <link rel="stylesheet" href="../../../../assets/css/paginaInicial/edit-func.css">
     <!--Font Awesome-->
     <script src="https://kit.fontawesome.com/b95d68622e.js" crossorigin="anonymous"></script>
     <!--Material Symbols Outlined-->
@@ -103,59 +103,62 @@
                                     <h1 class="card-title">Bill Gates</h1>
                                     <div>
                                         <span>Email:</span>
-                                        <p class="card-text importantInfo">billgatezinhosonylixo@sansung.com</p>
+                                        <input type="text" class="res card-text importantInfo" value="billgatezinhosonylixo@sansung.com">
                                         <span>Cargo:</span>
-                                        <p class="card-text importantInfo">Criador do Uno com Escada</p>
+                                        <input type="text" class="res card-text importantInfo" value="Criador do Uno com Escada">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-7 informacoes">
-                            <div class="row">
-                                <div class="col-6">
-                                    <p class="perg">Sexo:</p>
-                                    <p class="res">Masculino</p>
-                                    <p class="perg">Data de nascimento:</p>
-                                    <p class="res">27/09/2005</p>
-                                    <p class="perg">Data de admissãp</p>
-                                    <p class="res">23/04/2023</p>
-                                    <p class="perg">Religião</p>
-                                    <p class="res">Petista</p>
-                                    <p class="perg">Tipo sanguíneo:</p>
-                                    <p class="res">Vermelho</p>
-                                    <p class="perg">Habilitado:</p>
-                                    <p class="res">Talvez</p>
-                                    <p class="perg">Telefone:</p>
-                                    <p class="res">Bill Gates</p>
-                                    <p class="perg">Tel. emergência:</p>
-                                    <p class="res">Bill Gates</p>
 
+                        <div class="col-7 informacoes">
+                            <form action="">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="perg">Sexo:</p>
+                                        <input type="text" class="res" value="Masculino">
+                                        <p class="perg">Data de nascimento:</p>
+                                        <input type="text" class="res" value="2005-09-27">
+                                        <p class="perg">Data de admissãp</p>
+                                        <input type="text" class="res" value="2023-04-23">
+                                        <p class="perg">Religião</p>
+                                        <input type="text" class="res" value="Católico">
+                                        <p class="perg">Tipo sanguíneo:</p>
+                                        <input type="text" class="res" value="A+">
+                                        <p class="perg">Habilitado:</p>
+                                        <input type="text" class="res" value="Sim">
+                                        <p class="perg">Telefone:</p>
+                                        <input type="text" class="res" value="11999999999">
+                                        <p class="perg">Tel. emergência:</p>
+                                        <input type="text" class="res" value="11999999999">
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="perg">Ctps:</p>
+                                        <input type="text" class="res" value="11999999999">
+                                        <p class="perg">Pis:</p>
+                                        <input type="text" class="res" value="11999999999">
+                                        <p class="perg">Título de eleitor:</p>
+                                        <input type="text" class="res" value="11999999999">
+                                        <p class="perg">Reservista:</p>
+                                        <input type="text" class="res" value="11999999999">
+                                        <p class="perg">Vale refeição:</p>
+                                        <input type="text" class="res" value="11999999999">
+                                        <p class="perg">Vale Transporte:</p>
+                                        <input type="text" class="res" value="11999999999">
+                                        <p class="perg">Conta bancária:</p>
+                                        <input type="text" class="res" value="11999999999">
+                                        <input type="submit" value="Salvar" class="btn btn-primary">
+                                    </div>
                                 </div>
-                                <div class="col-6">
-                                    <p class="perg">Ctps:</p>
-                                    <p class="res">Bill Gates</p>
-                                    <p class="perg">Pis:</p>
-                                    <p class="res">Bill Gates</p>
-                                    <p class="perg">Título de eleitor:</p>
-                                    <p class="res">Bill Gates</p>
-                                    <p class="perg">Reservista:</p>
-                                    <p class="res">Bill Gates</p>
-                                    <p class="perg">Vale refeição:</p>
-                                    <p class="res">Bill Gates</p>
-                                    <p class="perg">Vale Transporte:</p>
-                                    <p class="res">Bill Gates</p>
-                                    <p class="perg">Conta bancária:</p>
-                                    <p class="res">Bill Gates</p>
-                                    <a href="../editar-funcionario/editar-funcionario.php"><button class="btn btn-primary">Editar</button></a>
-                                </div>
-                            </div>
+                            </form>
                         </div>
+
                     </div>
                 </div>
             </div>
         </main>
     </div>
-    <script src="../../../../assets/js/paginaInicial/func.js"></script>
+    <script src="../../../../assets/js/paginaInicial/edit-func.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="../../../../assets/js/paginaInicial/sidebar.js"></script>
 

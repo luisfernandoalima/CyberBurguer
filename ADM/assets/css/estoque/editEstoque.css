@@ -68,21 +68,21 @@
     border-bottom: 2px solid var(--azul);
 }
 
-.checkBtn {
+.checkBtn, .cancelBtn, .trashBtn {
     width: 30px;
     height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
     border: none;
+    border-radius: 50%;
     background-color: transparent;
     text-decoration: none;
     transition: .4s;
 }
 
-.checkBtn:hover {
+.checkBtn:hover, .cancelBtn:hover, .trashBtn:hover {
     background-color: var(--rosa);
-    border-radius: 50%;
 }
 
 .formEstoque {

@@ -68,7 +68,7 @@
                     <span class="opcoes">
                         <div class="optionsMenu disable">
                             <div class="itemList">
-                                <a href=""><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
+                                <a href="../../meu-perfil/index.php"><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
                             </div>
                             <hr class="menuLinha">
                             <p><a href="">Sair da conta</a></p>

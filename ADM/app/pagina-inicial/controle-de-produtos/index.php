@@ -6,13 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../../assets/img/icons/CyberBurguerLogoSmall.png" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="../../../assets/css/menu.css">
     <link rel="stylesheet" href="../../../assets/css/paginaInicial/cont-func.css">
     <!--Font Awesome-->
     <script src="https://kit.fontawesome.com/b95d68622e.js" crossorigin="anonymous"></script>
     <!--Material Symbols Outlined-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <title>Controle de produtos</title>
 </head>
 
@@ -28,6 +30,24 @@
 
     .tabela {
         height: 300px;
+    }
+
+    .labelFiltro {
+        display: block;
+        padding-left: 5%;
+        margin-left: 10%;
+        width: 80%;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: .3s;
+    }
+
+    .radioButton{
+        display: none;
+    }
+
+    .labelFiltro:hover{
+        background-color: #dbdbdb;
     }
 </style>
 
@@ -86,7 +106,8 @@
                     <span class="opcoes">
                         <div class="optionsMenu disable">
                             <div class="itemList">
-                                <a href=""><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
+                                <a href="../../meu-perfil/index.php"><i
+                                        class="material-symbols-outlined">settings</i><span>Configurações</span></a>
                             </div>
                             <hr class="menuLinha">
                             <p><a href="">Sair da conta</a></p>
@@ -107,14 +128,31 @@
             <hr>
             <div class="mainArea">
                 <div class="container">
-                    <label for="cat_prod">Categoria:</label><br>
-                    <select name="cat_prod" id="cat_prod">
-                        <option value="1">Produtos</option>
-                        <option value="2">Hamburguer</option>
-                        <option value="3">Bebida</option>
-                        <option value="4">Acompanhamento</option>
-                        <option value="5">Fornecedor</option>
-                    </select>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Filtro
+                        </button>
+                        <ul class="dropdown-menu">
+                            <form action="">
+                                <li>
+                                    <label for="radioProdutos" class="labelFiltro">Produtos</label><input type="radio" name="filtroRadio" id="radioProdutos" class="radioButton">
+                                </li>
+                                <li>
+                                    <label for="radioHamburguer" class="labelFiltro">Hamburguer</label><input type="radio" name="filtroRadio" id="radioHamburguer" class="radioButton">
+                                </li>
+                                <li>
+                                    <label for="radioBebida" class="labelFiltro">Bebida</label><input type="radio" name="filtroRadio" id="radioBebida" class="radioButton">
+                                </li>
+                                <li>
+                                    <label for="radioAcomp" class="labelFiltro">Acompanhamento</label><input type="radio" name="filtroRadio" id="radioAcomp" class="radioButton">
+                                </li>
+                                <li>
+                                    <label for="radioForn" class="labelFiltro">Fornecedor</label><input type="radio" name="filtroRadio" id="radioForn" class="radioButton">
+                                </li>
+                            </form>
+                        </ul>
+                    </div>
                 </div>
                 <!--Barra de Pesquisa-->
                 <div class="searchArea">
@@ -156,7 +194,8 @@
                                 <td>132</td>
                                 <td>132</td>
                                 <td>1313</td>
-                                <td class="moreOptions"><a href=""><i class="fa-solid fa-x" style="color: #ffffff;"></i></a></td>
+                                <td class="moreOptions"><a href=""><i class="fa-solid fa-x"
+                                            style="color: #ffffff;"></i></a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -239,7 +278,9 @@
         </main>
     </div>
     <script src="../../../assets/js/paginaInicial/contProd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
     <script src="../../../assets/js/paginaInicial/searchBar.js"></script>
     <script src="../../../assets/js/paginaInicial/sidebar.js"></script>
 </body>

@@ -73,7 +73,7 @@
                     <span class="opcoes">
                         <div class="optionsMenu disable">
                             <div class="itemList">
-                                <a href="../meu-perfil/index.html"><i class="fa-solid fa-gear" style="color: #ffffff;"></i><span>Configurações</span></a>
+                                <a href="../meu-perfil/index.php"><i class="fa-solid fa-gear" style="color: #ffffff;"></i><span>Configurações</span></a>
                             </div>
                             <hr class="menuLinha">
                             <p><a href="">Sair da conta</a></p>

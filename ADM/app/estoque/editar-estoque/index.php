@@ -114,28 +114,31 @@
                                 <img src="../../../assets/img/produtos/mesa-redonda 3.png" alt="">
                             </picture>
                         </div>
-                        <form action="" class="col-10 formEstoque">
+                        <form action="" class="col-11 formEstoque">
                             <div class="row">
                                 <div class="col-3">
                                     <input type="text" name="nomeProd" placeholder="Nome" class="nomeProd">
                                 </div>
-                                <div class="col-3">
+                                <div class="col-2">
                                     <input type="text" name="loteProd" placeholder="Lote" class="loteProd">
                                 </div>
                                 <div class="col-2">
                                     <input type="text" name="qtdProd" placeholder="Quantidade" class="qtdProd">
                                 </div>
-                                <div class="col-3">
+                                <div class="col-2">
                                     <abbr title="Validade"><input type="date" name="valProd" class="valProd"></abbr>
                                 </div>
                                 <div class="col-1">
                                     <button href="" class="checkBtn"><i class="fa-solid fa-check" style="color: #ffffff;"></i></button>
                                 </div>
+                                <div class="col-1">
+                                    <button class="cancelBtn"><i class="fa-solid fa-x" style="color: #ffffff;"></i></button>
+                                </div>
+                                <div class="col-1">
+                                    <button href="" class="trashBtn"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
+                                </div>
                             </div>
                         </form>
-                        <div class="col-1">
-                            <a href=""><i class="fa-solid fa-x" style="color: #ffffff;"></i></a>
-                        </div>
                     </div>
                 </div>
             </div>

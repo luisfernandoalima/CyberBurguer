@@ -20,7 +20,7 @@
     <div class="fundo">
         <aside class="sidebar">
             <nav>
-                <a href="../pagina-inicial/index.html">
+                <a href="../pagina-inicial/index.php">
                     <button>
                         <span>
                             <i class="material-symbols-outlined">home</i>
@@ -29,7 +29,7 @@
                     </button>
                 </a>
 
-                <a href="../mesas/index.html">
+                <a href="../mesas/index.php">
                     <button>
                         <span>
                             <i class="material-symbols-outlined">table_restaurant</i>
@@ -38,7 +38,7 @@
                     </button>
                 </a>
 
-                <a href="../estoque/index.html">
+                <a href="../estoque/index.php">
                     <button>
                         <span>
                             <i class="material-symbols-outlined">inventory</i>
@@ -47,7 +47,7 @@
                     </button>
                 </a>
 
-                <a href="../estatisticas/index.html">
+                <a href="../estatisticas/index.php">
                     <button class="active">
                         <span>
                             <i class="material-symbols-outlined">paid</i>
@@ -71,7 +71,7 @@
                     <span class="opcoes">
                         <div class="optionsMenu disable">
                             <div class="itemList">
-                                <a href="../meu-perfil/index.html"><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
+                                <a href="../meu-perfil/index.php"><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
                             </div>
                             <hr class="menuLinha">
                             <p><a href="">Sair da conta</a></p>
@@ -102,7 +102,8 @@
                                         <option value="">Mês</option>
                                         <option value="">Ano</option>
                                     </select>
-                                    <i class="fa-solid fa-down-long seta-dia" style="color: #000000;"></i>
+                                    <span><i class="fa-solid fa-caret-up seta-dia" style="color: #000; transform: rotate(180deg);"></i></span>
+                                    
                                 </span>
                             </form>
                         </div>
@@ -111,20 +112,59 @@
                                 <select name="" id="selectVendas">
                                     <option value="">Ultimas vendas</option>
                                 </select>
+                                <span><i class="fa-solid fa-caret-up" style="color: #ffffff; transform: rotate(180deg);"></i></span>
                             </form>
                         </div>
                     </div>
                     <div class="numArea">
-
+                        <div class="row">
+                            <div class="col-6 infoAreaEst">
+                                <h2>Total de vendas: <span>142</span></h2>
+                                <ul>
+                                    <li>Vendas no estabelecimento: </li>
+                                    <li>Vendas por delivery: </li>
+                                </ul>
+                                <p>Lucro total: <span></span></p>
+                            </div>
+                        </div>
                     </div>
                     <div class="graphcsOptions">
-                        
+                        <div>
+                            <p style="text-align: center; margin-top: 15px;">Modos de visualização</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 gaficoBtnArea">
+                                <a href="">
+                                    <button class="graficoBtn">
+                                        <img src="../../assets/img/icons/grafico-de-pizza.png" alt="Gráfico de pizza" class="graficoImg">
+                                    </button>
+                                    <p class="graficoTexto">Gráfico de pizza</p>
+                                </a>
+                            </div>
+                            <div class="col-4 gaficoBtnArea">
+                                <a href="">
+                                    <button class="graficoBtn">
+                                        <img src="../../assets/img/icons/grafico-de-linha.png" alt="Gráfico de linhas" class="graficoImg">
+                                    </button>
+                                    <p class="graficoTexto">Gráfico de linhas</p>
+                                </a>
+                            </div>
+                            <div class="col-4 gaficoBtnArea">
+                                <a href="">
+                                    <button class="graficoBtn">
+                                        <img src="../../assets/img/icons/grafico-de-coluna.png" alt="Gráfico de Coluna" class="graficoImg">
+                                    </button>
+                                    <p class="graficoTexto">Gráfico de Coluna</p>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
     <script src="../../assets/js/paginaInicial/sidebar.js"></script>
+    <script src="../../assets/js/estatisticas/est.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 
