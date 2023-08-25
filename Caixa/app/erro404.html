@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../assets/img/icons/CyberBurguerLogoSmall.png" type="image/x-icon">
+    <!--Font Awesome-->
+    <script src="https://kit.fontawesome.com/b95d68622e.js" crossorigin="anonymous"></script>
+    <title>Página não encontrada</title>
+</head>
+<style>
+    :root {
+        --rosa: #E000C2;
+        --azulClaro: #07E8FF;
+        --azul: #0000FF;
+        --azulEscuro: #170F40;
+        --azulDiferenciado: #3214E1;
+    }
+
+    body {
+        background-image: linear-gradient(to right, var(--azul), var(--rosa));
+    }
+
+    main {
+        box-shadow: 2px 4px 10px #000;
+        color: #fff;
+        background-color: var(--azulEscuro);
+        border-radius: 20px;
+        width: 80%;
+        height: 500px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        top: 50%;
+        transform: translateY(10%);
+    }
+
+    .row {
+        display: flex;
+        align-items: center;
+    }
+
+    .mensagem {
+        margin-left: 10%;
+        width: 40%;
+    }
+
+    .mensagem h1 {
+        font-size: 3.5em;
+    }
+
+    .mensagem p {
+        font-size: 2em;
+    }
+
+    .mensagem a{
+        text-decoration: none;
+    }
+
+    /*Botão*/
+.mensagem button{
+    display: block;
+    margin-top: 20px;
+    color: #fff;
+    background-color: var(--azul);
+    width: 200px;
+    height: 50px;
+    border-radius: 50px;
+    border: 2px solid var(--azulDiferenciado);
+    font-size:24px;
+}
+
+.mensagem button:hover{
+    border-color: #fff;
+}
+
+
+.mensagem button:focus{
+    background-color: var(--azulEscuro);
+    border-color: var(--rosa);
+}
+
+</style>
+
+<body>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-6 mensagem">
+                    <h1>Erro 404</h1>
+                    <p>Página não encontrada</p>
+                    <a href="index.html"><button>Voltar</button></a>
+                </div>
+                <div class="col-6">
+                    <img src="../assets/img/icons/Erro404.png" alt="Erro 404">
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>
+
+</html>

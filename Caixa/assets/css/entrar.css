@@ -1,16 +1,16 @@
-:root{
+:root {
     --rosa: #E000C2;
     --azulClaro: #07E8FF;
     --azul: #0000FF;
-    --azulEscuro:#170F40; 
-    --azulDiferenciado:#3214E1;   
+    --azulEscuro: #191143;
+    --azulDiferenciado: #3214E1;
 }
 
-body{
+body {
     background-image: linear-gradient(to right, var(--azul), var(--rosa));
 }
 
-main{
+main {
     background-color: var(--azulEscuro);
     border-radius: 20px;
     width: 80%;
@@ -21,7 +21,7 @@ main{
     justify-content: center;
     position: relative;
     top: 50%;
-    transform: translateY(10%); 
+    transform: translateY(10%);
 }
 
 /*Imagem*/
@@ -29,20 +29,20 @@ main{
     width: 50%;
 }
 
-#img > img{
+#img>img {
     display: block;
     margin: auto;
     height: 400px;
 }
 
 /*formulário*/
-form{
+form {
     width: 50%;
     color: #fff;
 }
 
 /*input*/
-.input-contain{
+.input-contain {
     position: relative;
     margin-top: 17px;
 }
@@ -56,26 +56,27 @@ input {
     background-color: var(--azulEscuro);
 }
 
-input:focus{
+input:focus {
     outline: none;
     border-color: var(--rosa);
 }
 
-input:focus + .placeholder-text .text, :not(input[value=""]) + .placeholder-text .text{
+input:focus+.placeholder-text .text,
+:not(input[value=""])+.placeholder-text .text {
     background-color: var(--azulEscuro);
     font-size: 1.1rem;
     color: white;
     transform: translate(0, -100%);
-} 
+}
 
-input :focus + .placeholder-text .text{
+input :focus+.placeholder-text .text {
     border-color: var(--rosa);
     color: var(--rosa);
-} 
+}
 
 
 /*Texto do placeholder*/
-.placeholder-text{
+.placeholder-text {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -89,7 +90,7 @@ input :focus + .placeholder-text .text{
 }
 
 
-.text{
+.text {
     font-size: 1.4rem;
     padding: 0 0.5rem;
     background-color: transparent;
@@ -98,13 +99,14 @@ input :focus + .placeholder-text .text{
     transition: transform 0.15s ease-out, font-size 0.15s ease-out, background-color 0.2s ease-out, color 0.15s ease-out;
 }
 
-input, .placeholder-text{
+input,
+.placeholder-text {
     font-size: 1.4rem;
     padding: 0 1.2rem;
 }
 
 /*Botão*/
-.btnEntrar{
+.btnEntrar {
     display: block;
     margin-left: 25%;
     margin-top: 20px;
@@ -113,11 +115,15 @@ input, .placeholder-text{
     width: 200px;
     height: 50px;
     border-radius: 50px;
-    font-size:24px;
+    font-size: 24px;
 }
 
-.btnEntrar:hover{
+.btnEntrar:hover {
     border-color: #fff;
-    background-color: var(--azulDiferenciado);
 }
 
+
+.btnEntrar:focus {
+    background-color: var(--azulEscuro);
+    border-color: var(--rosa);
+}
