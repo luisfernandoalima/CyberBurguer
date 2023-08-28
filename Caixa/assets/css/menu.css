@@ -79,7 +79,7 @@ header {
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
-    transition: transform .4s;
+    transition: .4s;
 }
 
 .logo-img:hover {
