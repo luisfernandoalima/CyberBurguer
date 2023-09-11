@@ -16,8 +16,8 @@
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <!--CSS-->
     <link rel="stylesheet" href="../../assets/css/menu.css">
-    <link rel="stylesheet" href="../../assets/css/pagina-inicial/home.css">
-    <title>Home</title>
+    <link rel="stylesheet" href="../../assets/css/novo-pedido/novo-pedido.css">
+    <title>Novo pedido</title>
 </head>
 
 <body>
@@ -64,38 +64,249 @@
                 </div>
             </aside>
             <aside class="menuConfig">
-                <a href="configuracoes/index.php"><i class="fa-solid fa-gear"
-                        style="color: #ffffff;"></i>Configurações</a>
+                <a href="configuracoes/index.php">
+                    <i class="fa-solid fa-gear" style="color: #ffffff;"></i>Configurações
+                </a>
                 <br>
                 <a href="../index.html">Sair</a>
             </aside>
+            
         </header>
         <main>
             <div class="container">
                 <div class="row">
-                    <div class="col-4">
-                        <div class="novoPedido option">
-                            <img src="../../assets/img/icons/approved-delivery.png" alt="">
-                            <p>Novo Pedido</p>
-                        </div>
+                    <div class="col-3">
+                        <section class="sidebar">
+                            <div class="opcoesSidebar">
+                                <div class="option">
+                                    <div class="row">
+                                        <div class="col-6 imgOption">
+                                            <img src="../../assets/img/icons/MenuCyberOfertas.png" alt="">
+                                        </div>
+                                        <div class="col-6 textOption">
+                                            <span>
+                                                <input type="radio" name="optionMenu" id="combos">
+                                                <label for="combos" class="labelText">
+                                                    Combos
+                                                </label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="option">
+                                    <div class="row">
+                                        <div class="col-6 imgOption">
+                                            <img src="../../assets/img/icons/Burger 2.png" alt="">
+                                        </div>
+                                        <div class="col-6 textOption">
+                                            <span>
+                                                <input type="radio" name="optionMenu" id="Hamburguer">
+                                                <label for="Hamburguer" class="labelText backgroundLabel">
+                                                    Hamburguer
+                                                </label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="option">
+                                    <div class="row">
+                                        <div class="col-6 imgOption">
+                                            <img src="../../assets/img/icons/french-fries.png" alt="">
+                                        </div>
+                                        <div class="col-6 textOption">
+                                            <span>
+                                                <input type="radio" name="optionMenu" id="Porções">
+                                                <label for="Porções" class="labelText">
+                                                    Porções
+                                                </label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="option">
+                                    <div class="row">
+                                        <div class="col-6 imgOption">
+                                            <img src="../../assets/img/icons/sobremesa 1.png" alt="">
+                                        </div>
+                                        <div class="col-6 textOption">
+                                            <span>
+                                                <input type="radio" name="optionMenu" id="Sobremesas">
+                                                <label for="Sobremesas" class="labelText">
+                                                    Sobremesas
+                                                </label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="option">
+                                    <div class="row">
+                                        <div class="col-6 imgOption">
+                                            <img src="../../assets/img/icons/soda.png" alt="">
+                                        </div>
+                                        <div class="col-6 textOption">
+                                            <span>
+                                                <input type="radio" name="optionMenu" id="Bebidas">
+                                                <label for="Bebidas" class="labelText">
+                                                    Bebidas
+                                                </label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btnArea">
+                                <a href="">
+                                    <button class="btnCarrinho">
+                                        <p>Pedido</p> <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </section>
                     </div>
-                    <div class="col-4">
-                        <div class="novoPedido option">
-                            <img src="../../assets/img/icons/pendente.png" alt="">
-                            <p>Fechar Pedido</p>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="novoPedido option">
-                            <img src="../../assets/img/icons/user-interface.png" alt="">
-                            <p>Cadastro de Clientes</p>
-                        </div>
+                    <div class="col-9">
+                        <section class="areaPedidos">
+                            <!--Combos-->
+                            <div class="combos">
+                                <h1>Combos</h1>
+                                <hr class="linha">
+                                <div class="pedidos container">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="pedido">
+                                                <div class="infoPedido">
+                                                    <a href=""><i class="fa-solid fa-circle-info"></i></a>
+                                                </div>
+                                                <div class="imgPedido">
+                                                    <img src="../../assets/img/produtos/hamburguer/download.png"
+                                                        style="width: 145px; display: block; margin: auto;" alt="">
+                                                </div>
+                                                <div class="textAreaPedido">
+                                                    <div class="textPedido">
+                                                        <p>Sales Burguer</p>
+                                                        <p>R$90,00</p>
+                                                        <a href=""><button>Adicionar</button></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Hamburguer-->
+                            <div class="hamburguer disable">
+                                <h1>Hamburguer</h1>
+                                <hr class="linha">
+                                <div class="pedidos container">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="pedido">
+                                                <div class="infoPedido">
+                                                    <a href=""><i class="fa-solid fa-circle-info"></i></a>
+                                                </div>
+                                                <div class="imgPedido">
+                                                    <img src="../../assets/img/produtos/hamburguer/download.png"
+                                                        style="width: 145px; display: block; margin: auto;" alt="">
+                                                </div>
+                                                <div class="textAreaPedido">
+                                                    <div class="textPedido">
+                                                        <p>Sales Burguer</p>
+                                                        <p>R$90,00</p>
+                                                        <a href=""><button>Adicionar</button></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Porções-->
+                            <div class="porcoes disable">
+                                <h1>Porções</h1>
+                                <hr class="linha">
+                                <div class="pedidos container">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="pedido">
+                                                <div class="infoPedido">
+                                                    <a href=""><i class="fa-solid fa-circle-info"></i></a>
+                                                </div>
+                                                <div class="imgPedido">
+                                                    <img src="../../assets/img/produtos/hamburguer/download.png"
+                                                        style="width: 145px; display: block; margin: auto;" alt="">
+                                                </div>
+                                                <div class="textAreaPedido">
+                                                    <div class="textPedido">
+                                                        <p>Sales Burguer</p>
+                                                        <p>R$90,00</p>
+                                                        <a href=""><button>Adicionar</button></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Sobremesa-->
+                            <div class="sobremesas disable">
+                                <h1>Sobremesas</h1>
+                                <hr class="linha">
+                                <div class="pedidos container">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="pedido">
+                                                <div class="infoPedido">
+                                                    <a href=""><i class="fa-solid fa-circle-info"></i></a>
+                                                </div>
+                                                <div class="imgPedido">
+                                                    <img src="../../assets/img/produtos/hamburguer/download.png"
+                                                        style="width: 145px; display: block; margin: auto;" alt="">
+                                                </div>
+                                                <div class="textAreaPedido">
+                                                    <div class="textPedido">
+                                                        <p>Sales Burguer</p>
+                                                        <p>R$90,00</p>
+                                                        <a href=""><button>Adicionar</button></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Bebidas-->
+                            <div class="bebidas disable">
+                                <h1>Bebidas</h1>
+                                <hr class="linha">
+                                <div class="pedidos container">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="pedido">
+                                                <div class="infoPedido">
+                                                    <a href=""><i class="fa-solid fa-circle-info"></i></a>
+                                                </div>
+                                                <div class="imgPedido">
+                                                    <img src="../../assets/img/produtos/hamburguer/download.png"
+                                                        style="width: 145px; display: block; margin: auto;" alt="">
+                                                </div>
+                                                <div class="textAreaPedido">
+                                                    <div class="textPedido">
+                                                        <p>Sales Burguer</p>
+                                                        <p>R$90,00</p>
+                                                        <a href=""><button>Adicionar</button></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>
         </main>
     </div>
-    <script src="../../assets/js/pagina-inicial/home.js"></script>
+    <script src="../../assets/js/novo-pedido/novo-pedido.js"></script>
     <script src="../../assets/js/configPopUp.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
