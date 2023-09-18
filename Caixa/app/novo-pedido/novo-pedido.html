@@ -70,7 +70,7 @@
                 <br>
                 <a href="../index.html">Sair</a>
             </aside>
-            
+
         </header>
         <main>
             <div class="container">
@@ -155,11 +155,11 @@
                                 </div>
                             </div>
                             <div class="btnArea">
-                                <a href="">
-                                    <button class="btnCarrinho">
-                                        <p>Pedido</p> <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
-                                    </button>
-                                </a>
+
+                                <button class="btnCarrinho">
+                                    <p>Pedido</p> <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
+                                </button>
+
                             </div>
                         </section>
                     </div>
@@ -169,7 +169,7 @@
                             <div class="combos">
                                 <h1>Combos</h1>
                                 <hr class="linha">
-                                <div class="pedidos container">
+                                <div class="pedidos barra container">
                                     <div class="row">
                                         <div class="col-3">
                                             <div class="pedido">
@@ -196,7 +196,7 @@
                             <div class="hamburguer disable">
                                 <h1>Hamburguer</h1>
                                 <hr class="linha">
-                                <div class="pedidos container">
+                                <div class="pedidos barra container">
                                     <div class="row">
                                         <div class="col-3">
                                             <div class="pedido">
@@ -215,7 +215,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>                                        
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -223,7 +223,7 @@
                             <div class="porcoes disable">
                                 <h1>Porções</h1>
                                 <hr class="linha">
-                                <div class="pedidos container">
+                                <div class="pedidos barra container">
                                     <div class="row">
                                         <div class="col-3">
                                             <div class="pedido">
@@ -250,7 +250,7 @@
                             <div class="sobremesas disable">
                                 <h1>Sobremesas</h1>
                                 <hr class="linha">
-                                <div class="pedidos container">
+                                <div class="pedidos barra container">
                                     <div class="row">
                                         <div class="col-3">
                                             <div class="pedido">
@@ -277,7 +277,7 @@
                             <div class="bebidas disable">
                                 <h1>Bebidas</h1>
                                 <hr class="linha">
-                                <div class="pedidos container">
+                                <div class="pedidos barra container">
                                     <div class="row">
                                         <div class="col-3">
                                             <div class="pedido">
@@ -305,6 +305,60 @@
                 </div>
             </div>
         </main>
+        <div class="opaco popDown">
+            <aside class="popUp popDown">
+                <div>
+                    <div class="popUpHeader">
+                        <h2>Pedido</h2>
+                        <button class="fecharPopUp"><i class="fa-solid fa-x" style="color: #ffffff;"></i></button>
+                    </div>
+                    <hr class="popupLinha">
+                    <div class="popUpInfo container">
+                        <p>Itens no pedido:</p>
+                        <div class="itensPedido barra">
+                            <ul>
+                                <li class="row">
+                                    <span class="col-6">- Combo Sales Burguer</span>
+                                    <span class="col-2">x1</span>
+                                    <span class="col-4"><a href=""><i class="fa-solid fa-x" style="color: #ffffff;"></i></a></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="popUpButtonsArea">
+                        <button class="btnCancel">Cancelar pedido</button>
+                        <button class="btnConfirm">Concluir pedido</button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+        <div class="opacoConfirm popDown">
+            <aside class="popUpConfirm popDown">
+                <div>
+                    <div class="popUpHeaderConfirm">
+                        <h2>Confirmar <span id="tipoConfirmacao"></span></h2>
+                        <button class="fecharPopUpConfirm"><i class="fa-solid fa-x" style="color: #ffffff;"></i></button>
+                    </div>
+                    <hr class="popupLinha">
+                    <div class="popUpInfoConfirm container">
+                        <p>Digite o nº da comanda e seu nº de identificação para <span id="textoConfirm"></span> do pedido</p>
+                        <div>
+                            <form  method="post" class="formsConfirm">
+                                <div>
+                                    <input type="text" name="" id="" class="inputComanda" placeholder="Número da comanda..." required>
+                                </div>
+                                <div>
+                                    <input type="text" name="" id="" class="inputSenha" placeholder="Número de identificação..." required>
+                                </div>
+                                <div>
+                                    <input type="submit" value="Confirmar" class="btnConfirmForms">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
     </div>
     <script src="../../assets/js/novo-pedido/novo-pedido.js"></script>
     <script src="../../assets/js/configPopUp.js"></script>

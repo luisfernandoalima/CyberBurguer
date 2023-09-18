@@ -42,3 +42,64 @@ for (let i = 0; i < radioButtons.length; i++) {
 
 imgOptions[0].classList.add('ampliar', 'background');
 textLabel[0].classList.add('backgroundColor')
+
+//PopUp do carrinho
+
+const btnCarrinho = document.querySelector('.btnCarrinho')
+const popUp = document.querySelector('.popUp')
+const fundoOpaco = document.querySelector('.opaco')
+
+btnCarrinho.addEventListener("click", function () {
+    popUp.classList.remove('popDown');
+    fundoOpaco.classList.remove('popDown');
+});
+
+//Fechar PopUp
+
+const fecharPopUp = document.querySelector('.fecharPopUp')
+
+const fecharPOP = () => {
+    popUp.classList.add('popDown');
+    fundoOpaco.classList.add('popDown');
+}
+
+fecharPopUp.addEventListener("click", fecharPOP)
+
+//PopUp de confirmação
+const btnConfirm = document.querySelector('.btnConfirm')
+const btnCancel = document.querySelector('.btnCancel')
+const popUpConfirm = document.querySelector('.popUpConfirm')
+const opacoConfirm = document.querySelector('.opacoConfirm')
+
+const tipoConfirmacao = document.querySelector('#tipoConfirmacao')
+const textoConfirm = document.querySelector('#textoConfirm')
+
+const form = document.querySelectorAll('.formsConfirm')
+
+const mostrarPopUp = () => {
+    popUpConfirm.classList.remove('popDown');
+    opacoConfirm.classList.remove('popDown');
+}
+
+btnCancel.addEventListener("click", function () {
+    tipoConfirmacao.innerHTML = 'cancelamento'
+    textoConfirm.innerHTML = 'o cancelamento'
+    form.action = 'oi.php'
+    mostrarPopUp()
+});
+
+btnConfirm.addEventListener("click", function () {
+    tipoConfirmacao.innerHTML = 'pedido'
+    textoConfirm.innerHTML = 'a aprovação'
+    form.action = 'tchau.php'
+    mostrarPopUp()
+});
+
+//Fechar PopUp
+
+const fecharPopUpConfirm = document.querySelector('.fecharPopUpConfirm')
+
+fecharPopUpConfirm.addEventListener("click", () => {
+    popUpConfirm.classList.add('popDown');
+    opacoConfirm.classList.add('popDown');
+})

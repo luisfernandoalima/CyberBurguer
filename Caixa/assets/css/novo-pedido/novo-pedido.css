@@ -3,15 +3,6 @@ main {
     display: flex;
     align-items: center;
 }
-
-
-.fundo {
-    position: absolute;
-    background-image: linear-gradient(to left, var(--rosa), var(--azul));
-    width: 100%;
-    height: 100%;
-}
-
 .sidebar {
     background-color: var(--azulEscuro);
     height: 550px;
@@ -213,26 +204,193 @@ input[type="radio"] {
     overflow: auto;
 }
 
-.pedidos::-webkit-scrollbar {
+.barra::-webkit-scrollbar {
     width: 10px;
     /* Largura da barra de rolagem */
 }
 
-.pedidos::-webkit-scrollbar-track {
+.barra::-webkit-scrollbar-track {
     background-color: var(--azulEscuro);
     /* Cor de fundo da área da barra de rolagem */
     border: 2px solid var(--rosa);
     border-radius: 20px;
 }
 
-.pedidos::-webkit-scrollbar-thumb {
+.barra::-webkit-scrollbar-thumb {
     background-color: #b4b4b4;
     /* Cor do polegar da barra de rolagem */
     border-radius: 20px;
     width: 6px;
 }
 
-.pedidos::-webkit-scrollbar-thumb:hover {
+.barra::-webkit-scrollbar-thumb:hover {
     background-color: #808080;
     /* Cor do polegar da barra de rolagem ao passar o mouse */
+}
+
+/*PopUp*/
+.opaco{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(97, 97, 97, 0.514);
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.opacoConfirm{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(97, 97, 97, 0.514);
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.popUp{
+    position: absolute;
+    box-shadow: #000 4px 4px 10px;
+    background-color: var(--azulEscuro);
+    height: 70%;
+    margin: auto;
+    width: 50%;
+    border-radius: 20px;
+    z-index: 1;
+}
+
+.popUpConfirm{
+    position: absolute;
+    box-shadow: #000 4px 4px 10px;
+    background-color: var(--azulEscuro);
+    margin: auto;
+    width: 50%;
+    border-radius: 20px;
+    z-index: 3;
+}
+
+.popUpHeader{
+    background-color: var(--azulEscuro);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popUpHeaderConfirm{
+    background-color: var(--azulEscuro);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popUpHeader>h2{
+  width: 90%;
+  margin-top: 10px;
+}
+.popUpHeaderConfirm>h2{
+  width: 90%;
+  margin-top: 10px;
+}
+
+.popUpHeader>button{
+  background-color: transparent;
+  border: none;
+}
+.popUpHeaderConfirm>button{
+  background-color: transparent;
+  border: none;
+}
+
+
+.popupLinha{
+    border: 1px solid white;
+    opacity: 100;
+    width: 100%;
+    margin: 0%;
+}
+
+.popUpInfo{
+    margin-top: 15px;
+}
+
+li{
+    width: 100%;
+}
+
+.itensPedido{
+    overflow: auto;
+    height: 265px;
+}
+
+.popUpInfo p {
+    font-size: 2em;
+    margin-bottom: 8px;
+}
+
+.popUpButtonsArea{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.popUpButtonsArea button{
+    background-color: var(--azulEscuro);
+    color: #fff;
+    border: 2px solid var(--rosa);
+    border-radius: 20px;
+    margin: 0px 50px;
+    padding: 4px 8px;
+    width: 200px;
+    font-size: 1.2em;
+}
+
+.popDown{
+    display: none;
+}
+
+.btnConfirm, .btnCancel{
+    transition: .3s;
+}
+.btnCancel:hover{
+    background-color: #352197
+}
+
+.btnConfirm:hover{
+    background-color: #352197
+}
+
+.inputSenha, .inputComanda{
+    border-radius: 20px;
+    border: 2px solid black;
+    margin-bottom: 15px;
+}
+
+.popUpInfoConfirm{
+    font-size: 1.4em;
+    text-align: center;
+}
+
+.btnConfirmForms{
+    background-color: var(--azulEscuro);
+    color: #fff;
+    border: 2px solid var(--rosa);
+    border-radius: 20px;
+    margin: 0px 50px;
+    margin-bottom: 15px;
+    padding: 4px 8px;
+    width: 200px;
+    font-size: 1.2em;
+    transition: .3s;
+}
+
+.btnConfirmForms:hover{
+    background-color: #352197
 }
