@@ -21,6 +21,16 @@ main {
     border: 2px solid #ccc;
 }
 
+.optionComanda {
+    display: block;
+    width: 80%;
+    margin: auto;
+    border: 3px solid #fff;
+    border-radius: 20px;
+    transition: .3s;
+
+}
+
 table {
     width: 100%;
     border-collapse: collapse;

@@ -71,6 +71,8 @@ const btnCancel = document.querySelector('.btnCancel')
 const popUpConfirm = document.querySelector('.popUpConfirm')
 const opacoConfirm = document.querySelector('.opacoConfirm')
 
+const inputComandaArea = document.querySelector('.inputComandaArea')
+
 const tipoConfirmacao = document.querySelector('#tipoConfirmacao')
 const textoConfirm = document.querySelector('#textoConfirm')
 
@@ -84,15 +86,18 @@ const mostrarPopUp = () => {
 btnCancel.addEventListener("click", function () {
     tipoConfirmacao.innerHTML = 'cancelamento'
     textoConfirm.innerHTML = 'o cancelamento'
-    form.action = 'oi.php'
+    form.action = ''
+    inputComandaArea.classList.add('disable')
     mostrarPopUp()
 });
 
 btnConfirm.addEventListener("click", function () {
     tipoConfirmacao.innerHTML = 'pedido'
     textoConfirm.innerHTML = 'a aprovação'
-    form.action = 'tchau.php'
+    form.action = ''
+    inputComandaArea.classList.remove('disable')
     mostrarPopUp()
+    alert('Confira a comada e o valor pago pelo cliente. Qualquer irregularidade será de total responsabilidade do funcionário.')
 });
 
 //Fechar PopUp
