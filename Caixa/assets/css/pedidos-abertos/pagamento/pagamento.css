@@ -1,0 +1,44 @@
+main {
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pedidoArea,
+.confirmArea {
+    background-color: var(--azulEscuro);
+    height: 500px;
+    padding: 10px 15px;
+    border-radius: 20px;
+}
+
+.mainPedidoArea{
+    overflow: auto;
+}
+
+.confirmArea {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.confirmCompra {
+    width: 100%;
+}
+
+.confirmCompra button {
+    display: block;
+    margin: auto;
+    background-color: var(--azulEscuro);
+    border: 3px solid var(--rosa);
+    color: #fff;
+    border-radius: 20px;
+    font-size: 1.6em;
+    transition: .3s;
+}
+
+.confirmCompra button:hover{
+    background-color: var(--rosa);
+}

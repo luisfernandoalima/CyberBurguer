@@ -183,3 +183,28 @@ label span:nth-child(3) {
     opacity: 100;
     width: 100%;
 }
+
+
+.barra::-webkit-scrollbar {
+    width: 10px;
+    /* Largura da barra de rolagem */
+}
+
+.barra::-webkit-scrollbar-track {
+    background-color: var(--azulEscuro);
+    /* Cor de fundo da área da barra de rolagem */
+    border: 2px solid var(--rosa);
+    border-radius: 20px;
+}
+
+.barra::-webkit-scrollbar-thumb {
+    background-color: #b4b4b4;
+    /* Cor do polegar da barra de rolagem */
+    border-radius: 20px;
+    width: 6px;
+}
+
+.barra::-webkit-scrollbar-thumb:hover {
+    background-color: #808080;
+    /* Cor do polegar da barra de rolagem ao passar o mouse */
+}

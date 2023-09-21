@@ -17,40 +17,108 @@ main {
 
 .pedidosAbertosItems {
     overflow: auto;
-    height: 340px;
-    border: 2px solid #ccc;
+    height: 300px;
 }
 
 .optionComanda {
     display: block;
     width: 80%;
+    height: 2em;
     margin: auto;
     border: 3px solid #fff;
     border-radius: 20px;
     transition: .3s;
-
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: Arial, sans-serif;
+.optionComandaSelect{
+    border-color: var(--rosa);
+    background-color: var(--azulDiferenciado);
 }
 
-thead {
-    position: sticky;
-    top: 0;
+.pedidosAbertosItems input{
+    position: absolute;
+    left: -9999px;
+}
+
+.pedidosAbertosItemsArea{
+    margin-top: 10px
+}
+
+.optionButtonArea{
+    display: flex;
+    justify-content: space-between;
+}
+
+.optionButtonArea button{
     background-color: var(--azulEscuro);
+    color: #fff;
+    border: 3px solid var(--rosa);
+    border-radius: 20px;
+    transition: .3s;
+}
+
+.optionButtonArea button:hover{
+    border-color: #fff;
+    transform: scale(1.3);
+}
+
+/*PopUp*/
+/*PopUp*/
+.opaco{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(97, 97, 97, 0.514);
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
-tr {
-    border: 1px solid #ccc;
+
+.popUpPediodo{
+    position: absolute;
+    box-shadow: #000 4px 4px 10px;
+    background-color: var(--azulEscuro);
+    height: 70%;
+    margin: auto;
+    width: 50%;
+    border-radius: 20px;
+    z-index: 1;
 }
 
-td,
-th {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: center;
+.popUpHeader{
+    background-color: var(--azulEscuro);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popUpHeader>h2{
+  width: 90%;
+  margin-top: 10px;
+}
+
+.popUpHeader>button{
+  background-color: transparent;
+  border: none;
+}
+
+.popupLinha{
+    border: 1px solid white;
+    opacity: 100;
+    width: 100%;
+    margin: 0%;
+}
+
+.popUpInfo{
+    margin-top: 15px;
+}
+
+
+.popDown{
+    display: none;
 }
