@@ -1,0 +1,38 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+main{
+    height: 100vh;
+   background-image: url(../img/E000C2.png);
+}
+
+h1{
+    color: #fff;
+}
+
+h2{
+    width: 100%;
+    color: #fff;
+    margin-left: 15px;
+}
+
+.col-6{
+    padding: 0px;
+}
+
+.imgArea{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    
+}
+
+li{
+    list-style-type: none;
+    font-size: 3em;
+    font-weight: bold;
+    color: #fff;
+}
