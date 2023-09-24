@@ -9,11 +9,9 @@
     <!--Font Awesome-->
     <script src="https://kit.fontawesome.com/b95d68622e.js" crossorigin="anonymous"></script>
     <!--Material Symbols Outlined-->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <!--JavaScript do BootStrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <!--CSS-->
     <link rel="stylesheet" href="../../assets/css/menu.css">
     <link rel="stylesheet" href="../../assets/css/pedidos-abertos/pedidos-abertos.css">
@@ -25,22 +23,22 @@
         <header>
             <nav class="menuArea">
                 <span>
-                    <a href="index.php">
+                    <a href="../pagina-inicial/home.php">
                         <i class="fa-solid fa-house" style="color: #ffffff;"></i>
                     </a>
                 </span>
                 <span>
                     <a href="../novo-pedido/novo-pedido.php">
-                        <i class="material-symbols-outlined">done</i>
+                        <i class="fa-solid fa-cart-plus" style="color: #ffffff;"></i>
                     </a>
                 </span>
                 <span class="active">
-                    <a href="pedidos-cocluidos/index.php">
+                    <a href="../comandas-abertas/comandas-abertas.php">
                         <i class="fa-solid fa-clock-rotate-left" style="color: #ffffff;"></i>
                     </a>
                 </span>
                 <span>
-                    <a href="pedidos-cancelados/index.php">
+                    <a href="../area-do-cliente/area-do-cliente.php">
                         <i class="fa-solid fa-user-plus" style="color: #ffffff;"></i>
                     </a>
                 </span>
@@ -64,7 +62,7 @@
                 </div>
             </aside>
             <aside class="menuConfig">
-                <a href="../configuracoes/"><i class="fa-solid fa-gear" style="color: #ffffff;"></i>Configurações</a>
+                <a href="../configuracoes/informacoes.php"><i class="fa-solid fa-gear" style="color: #ffffff;"></i>Configurações</a>
                 <br>
                 <a href="../index.html">Sair</a>
             </aside>
@@ -76,12 +74,12 @@
                     <hr class="linha">
                     <div class="pedidosAbertosItems">
                         <div class="pedidosAbertosItemsArea">
-                            <input type="radio" name="Comanda" id="1">
+                            <input type="radio" name="Comanda" id="1" class="radioButton">
                             <label for="1" class="optionComanda">
                                 <div class="container">
                                     <div class="row">
                                         <div class="col-3">
-                                            <p>111</p>
+                                            <p class="numComanda">111</p>
                                         </div>
                                         <div class="col-3">
                                             <p class="btnVerPedido">Ver pedido</p>
@@ -96,11 +94,11 @@
                                 </div>
                             </label>
                         </div>
-                        
+
                     </div>
                     <div class="optionButtonArea">
                         <button class="">Excluir</button>
-                        <button>Concluir</button>
+                        <button class="btnConcluirPedido">Concluir</button>
                     </div>
                 </div>
             </div>
@@ -114,21 +112,21 @@
                     </div>
                     <hr class="popupLinha">
                     <div class="popUpInfo container">
-                       
+
                     </div>
                 </div>
             </aside>
         </div>
-        <div class="opaco popDown">
-            <aside class="popUpConfirmEx popDown">
+        <div class="opaco opacoConfirmEx popDown">
+            <aside class="popUp popUpConfirmEx popDown">
                 <div>
                     <div class="popUpHeader">
-                        <h2>Comanda <span>111</span></h2>
-                        <button class="fecharPopUp"><i class="fa-solid fa-x" style="color: #ffffff;"></i></button>
+                        <h2>Comanda <span class="numComandaArea">111</span></h2>
+                        <button class="fecharPopUpConfirm"><i class="fa-solid fa-x" style="color: #ffffff;"></i></button>
                     </div>
                     <hr class="popupLinha">
                     <div class="popUpInfo container">
-                       
+
                     </div>
                 </div>
             </aside>
@@ -136,9 +134,8 @@
     </div>
     <script src="../../assets/js/configPopUp.js"></script>
     <script src="../../assets/js/pedidos-abertos/pedidos-abertos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

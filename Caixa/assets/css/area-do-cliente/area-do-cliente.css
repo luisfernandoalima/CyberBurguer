@@ -5,7 +5,7 @@ main {
     justify-content: center;
 }
 
-.pedidosAbertosArea {
+.clienteArea {
     height: 80%;
     width: 80%;
     padding: 20px 10px 20px 10px;
@@ -15,12 +15,12 @@ main {
     box-shadow: 4px 4px 8px black;
 }
 
-.pedidosAbertosItems {
+.clienteItems {
     overflow: auto;
     height: 300px;
 }
 
-.optionComanda {
+.optionCliente {
     display: block;
     width: 80%;
     height: 2em;
@@ -30,26 +30,32 @@ main {
     transition: .3s;
 }
 
-.optionComandaSelect{
+.optionCliente abbr{
+    text-decoration: none;
+    text-align: center;
+}
+
+.optionClienteSelect{
     border-color: var(--rosa);
     transform: scale(1.1);
 }
 
-.pedidosAbertosItems input{
+.clienteItems input{
     position: absolute;
     left: -9999px;
 }
 
-.pedidosAbertosItemsArea{
+.clienteItemsArea{
     margin-top: 10px
 }
 
 .optionButtonArea{
-    display: flex;
-    justify-content: space-between;
+    width: 100%;
 }
 
 .optionButtonArea button{
+    display: block;
+    margin: auto;
     background-color: var(--azulEscuro);
     color: #fff;
     border: 3px solid var(--rosa);
@@ -61,8 +67,6 @@ main {
     border-color: #fff;
     transform: scale(1.3);
 }
-
-/*PopUp*/
 .opaco{
     position: absolute;
     height: 100%;
@@ -74,10 +78,9 @@ main {
     justify-content: center;
 }
 
+/*PopUp*/
 
-
-.popUpPediodo,
-.popUp{
+.popUpCliente{
     position: absolute;
     box-shadow: #000 4px 4px 10px;
     background-color: var(--azulEscuro);
@@ -116,6 +119,8 @@ main {
 
 .popUpInfo{
     margin-top: 15px;
+    overflow: auto;
+    height: 350px;
 }
 
 

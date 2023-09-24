@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../../../assets/img/icons/CyberBurguerLogoSmall.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../assets/img/icons/CyberBurguerLogoSmall.png" type="image/x-icon">
     <!--Font Awesome-->
     <script src="https://kit.fontawesome.com/b95d68622e.js" crossorigin="anonymous"></script>
     <!--Material Symbols Outlined-->
@@ -15,32 +15,32 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <!--CSS-->
-    <link rel="stylesheet" href="../../../assets/css/menu.css">
-    <link rel="stylesheet" href="../../../assets/css/pedidos-abertos/pagamento/pagamento.css">
-    <title>Área de pagamento</title>
+    <link rel="stylesheet" href="../../assets/css/menu.css">
+    <link rel="stylesheet" href="../../assets/css/pagina-inicial/home.css">
+    <title>Home</title>
 </head>
 
 <body>
     <div class="fundo">
         <header>
             <nav class="menuArea">
-                <span>
-                    <a href="index.php">
+                <span class="active">
+                    <a href="home.php">
                         <i class="fa-solid fa-house" style="color: #ffffff;"></i>
                     </a>
                 </span>
                 <span>
                     <a href="../novo-pedido/novo-pedido.php">
-                        <i class="material-symbols-outlined">done</i>
+                    <i class="fa-solid fa-cart-plus" style="color: #ffffff;"></i>
                     </a>
                 </span>
-                <span class="active">
-                    <a href="pedidos-cocluidos/index.php">
+                <span>
+                    <a href="../comandas-abertas/comandas-abertas.php">
                         <i class="fa-solid fa-clock-rotate-left" style="color: #ffffff;"></i>
                     </a>
                 </span>
                 <span>
-                    <a href="pedidos-cancelados/index.php">
+                    <a href="../area-do-cliente/area-do-cliente.php">
                         <i class="fa-solid fa-user-plus" style="color: #ffffff;"></i>
                     </a>
                 </span>
@@ -64,7 +64,8 @@
                 </div>
             </aside>
             <aside class="menuConfig">
-                <a href="../configuracoes/"><i class="fa-solid fa-gear" style="color: #ffffff;"></i>Configurações</a>
+                <a href="../configuracoes/informacoes.php"><i class="fa-solid fa-gear"
+                        style="color: #ffffff;"></i>Configurações</a>
                 <br>
                 <a href="../index.html">Sair</a>
             </aside>
@@ -72,41 +73,30 @@
         <main>
             <div class="container">
                 <div class="row">
-                    <div class="col-9">
-                        <div class="pedidoArea">
-                            <h1>Comanda <span>111</span></h1>
-                            <hr>
-                            <div class="mainPedidoArea barra">
-                                <details>
-                                    <summary>pedido 00001</summary>
-                                    <ul>
-                                        <li>Sales Burguer</li>
-                                        <li>Sales Burguer</li>
-                                    </ul>
-                                </details>
-                            </div>
+                    <div class="col-4">
+                        <div class="novoPedido option">
+                            <img src="../../assets/img/icons/approved-delivery.png" alt="">
+                            <p>Novo Pedido</p>
                         </div>
                     </div>
-                    <div class="col-3">
-                        <div class="confirmArea">
-                            <div class="valor">
-                                <p>Valor da compra: <span class="numValor"></span></p>
-                                <p>Valor do desconto: <span class="numValor"></span></p>
-                                <button class="btnCupom">Inserir cupom</button>
-                                <form action="" class="formularioCupom disable"><input type="text" name="" id="" placeholder="Cupom" class="inputCupom"></form>
-                                <p>Valor final: <span class="numValor"></span></p>
-                            </div>
-                            <div class="confirmCompra">
-                                <button>Finalizar compra</button>
-                            </div>
+                    <div class="col-4">
+                        <div class="novoPedido option">
+                            <img src="../../assets/img/icons/pendente.png" alt="">
+                            <p>Fechar Pedido</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="novoPedido option">
+                            <img src="../../assets/img/icons/user-interface.png" alt="">
+                            <p>Área do cliente</p>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
-    <script src="../../../assets/js/configPopUp.js"></script>
-    <script src="../../../assets/js/pedidos-abertos/pagamento/pagamento.js"></script>
+    <script src="../../assets/js/pagina-inicial/home.js"></script>
+    <script src="../../assets/js/configPopUp.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
     </script>

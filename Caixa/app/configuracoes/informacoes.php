@@ -22,25 +22,25 @@
 
 <body>
     <div class="fundo">
-        <header>
+    <header>
             <nav class="menuArea">
                 <span>
-                    <a href="index.php">
+                    <a href="../pagina-inicial/home.php">
                         <i class="fa-solid fa-house" style="color: #ffffff;"></i>
                     </a>
                 </span>
                 <span>
                     <a href="../novo-pedido/novo-pedido.php">
-                        <i class="material-symbols-outlined">done</i>
+                        <i class="fa-solid fa-cart-plus" style="color: #ffffff;"></i>
                     </a>
                 </span>
                 <span>
-                    <a href="pedidos-cocluidos/index.php">
+                    <a href="../comandas-abertas/comandas-abertas.php">
                         <i class="fa-solid fa-clock-rotate-left" style="color: #ffffff;"></i>
                     </a>
                 </span>
                 <span>
-                    <a href="pedidos-cancelados/index.php">
+                    <a href="../area-do-cliente/area-do-cliente.php">
                         <i class="fa-solid fa-user-plus" style="color: #ffffff;"></i>
                     </a>
                 </span>
@@ -64,7 +64,7 @@
                 </div>
             </aside>
             <aside class="menuConfig">
-                <a href="../configuracoes/"><i class="fa-solid fa-gear" style="color: #ffffff;"></i>Configurações</a>
+                <a href="../configuracoes/informacoes.php"><i class="fa-solid fa-gear" style="color: #ffffff;"></i>Configurações</a>
                 <br>
                 <a href="../index.html">Sair</a>
             </aside>
