@@ -1,0 +1,43 @@
+main {
+    flex-direction: column;
+}
+
+.imgArea img {
+    width: 250px;
+    height: 250px;
+    padding: 2px;
+    border: 5px solid var(--rosa3);
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.imgArea h2 {
+    display: block;
+    text-align: center;
+    font-size: 2em;
+    margin-top: 10px;
+}
+
+.imgArea,
+.infoArea {
+    margin: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.infoArea{
+    width: 100%;
+    margin-bottom: 25vh;
+}
+
+.infoOption {
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 20px;
+    width: 80%;
+    height: 2em;
+    background-color: var(--rosa1);
+    text-align: center;
+    font-size: 1.5em;
+}
