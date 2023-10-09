@@ -3,10 +3,11 @@ main {
 }
 
 .imgArea img {
+    margin-top: 15px;
     width: 250px;
     height: 250px;
     padding: 2px;
-    border: 5px solid var(--rosa3);
+    border: 5px solid var(--roxo);
     border-radius: 50%;
     object-fit: cover;
 }
@@ -27,7 +28,7 @@ main {
 
 .infoArea{
     width: 100%;
-    margin-bottom: 25vh;
+    margin-bottom: 20vh;
 }
 
 .infoOption {
@@ -37,7 +38,10 @@ main {
     border-radius: 20px;
     width: 80%;
     height: 2em;
-    background-color: var(--rosa1);
+    background-color: var(--roxo);
     text-align: center;
     font-size: 1.5em;
+}
+.infoOption p{
+    color: #000;
 }

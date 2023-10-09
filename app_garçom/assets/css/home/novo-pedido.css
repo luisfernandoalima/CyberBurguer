@@ -1,0 +1,66 @@
+form {
+    width: 90%;
+}
+
+.divisa {
+    display: block;
+    border-bottom: 5vh solid var(--rosa3);
+    opacity: 100;
+    margin-top: 8vh !important;
+}
+
+main {
+    height: 82vh;
+    margin-top: 5vh;
+}
+
+.inputArea {
+    margin-bottom: 20px;
+}
+
+.inputArea label {
+    color: var(--rosa3);
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.inputArea input,
+textarea {
+    caret-color: var(--rosa2);
+    color: #000;
+    background-color: var(--);
+    border-radius: 30px;
+    border: none;
+    font-size: 1.2em;
+}
+
+textarea {
+    border-radius: 20px;
+    height: 6em;
+}
+
+.inputArea input:focus,
+textarea:focus {
+    outline: none;
+}
+
+.itensPedido{
+    height: 120px;
+    overflow: auto;
+}
+
+.itensPedido .inputArea{
+    margin: 10px 0px;
+}
+
+.btn{
+    width: 100%;
+}
+.btn input{
+    display: block;
+    margin: auto;
+    font-size: 2em;
+    font-weight: bold;
+    background-color: var(--roxo);
+    padding: 10px;
+}
