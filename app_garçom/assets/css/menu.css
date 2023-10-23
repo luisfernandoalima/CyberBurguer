@@ -2,8 +2,7 @@
     --azulClaro: #07E8FF;
     --azul: #0000FF;    
     --azulDiferenciado:#3214E1; 
-    --azulEscuro1:#191143;
-    --azulEscuro2: #191143; 
+    --azulEscuro:#191143;
     --rosa1: #E000C2;
     --rosa2: #FF058C;
     --rosa3: #FF006B;
@@ -26,7 +25,7 @@
 }
 
 body{
-    background-image: url("../img/icons/fundoRoxo.jpg");
+    background-image: url("../img/icons/fundoRoxo.png");
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover; /* Resize the background image to cover the entire container */
@@ -65,4 +64,12 @@ main{
     display: flex;
     justify-content: center;
     overflow: auto;
+}
+
+.disable{
+    display: none !important;
+}
+
+.hidden{
+    visibility: hidden;
 }
