@@ -6,7 +6,7 @@ if (!isset($_SESSION['emailSession']) and !isset($_SESSION['senhaSession'])) {
     header("location: ../../index.php?erro=true");
     exit;
 } else
-$email = $_SESSION['emailSession'];
+    $email = $_SESSION['emailSession'];
 $senha = $_SESSION['senhaSession'];
 $nome = $_SESSION['nomeSession'];
 $id_func = $_SESSION['idFuncSession'];
@@ -94,7 +94,7 @@ $horarioAtual = date('Y-m-d H:i:s');
                                                 <div class="pedidoHora">
                                                     <span>
                                                         <?php if (isset($burguerProdutos['horaPedido']) && !empty($burguerProdutos['horaPedido'])) : ?>
-                                                            <span><?php echo date('d/m/Y H:i:s', strtotime($burguerProdutos['horaPedido']));?></span>
+                                                            <span><?php echo date('d/m/Y H:i:s', strtotime($burguerProdutos['horaPedido'])); ?></span>
                                                         <?php else : ?>
                                                             <span>Horário não disponível</span>
                                                         <?php endif; ?>
@@ -107,7 +107,7 @@ $horarioAtual = date('Y-m-d H:i:s');
                                                 <hr>
                                                 <div class="pedidoItem">
                                                     <ul id="itens">
-                                                    
+
 
                                                         <?php foreach ($burguerProdutos['itens'] as $burguer) : ?>
                                                             <p><?php echo $burguer['nome']; ?> (x<?php echo $burguer['quantidade']; ?>)</p>
@@ -136,7 +136,7 @@ $horarioAtual = date('Y-m-d H:i:s');
                                                                 <p><?php echo $molho['nome']; ?> (x<?php echo $molho['quantidade']; ?>)</p>
                                                             <?php endforeach; ?>
                                                         <?php endif; ?>
-                                                       
+
                                                     </ul>
                                                 </div>
                                             </div>
@@ -151,43 +151,37 @@ $horarioAtual = date('Y-m-d H:i:s');
                                     </div>
                                 <?php endif ?>
                             <?php endif ?>
-                          
                         <?php endforeach; ?>
-
                     </div>
-
                 </div>
-
-
             </div>
-
         </main>
         <div class="opaco popDown">
         </div>
-            <aside class="popUpDiv popDown">
-                <div class="popUp">
-                    <div class="popUpHeader">
-                        <h2>Cancelamento de pedido</h2>
-                        <button class="fecharPopUp"><i class="fa-solid fa-x" style="color: #ffffff;"></i></button>
-                    </div>
-                    <div class="popUpInfo">
-                        <p>Digite seu nº de identificação para o cancelamento do pedido</p>
-                        <div>
-                            <form action="../php/tela/cancelar.php" method="post">
-                                <div>
-                                    <input type="text" name="comanda" id="" class="inputPedido" value="<?php echo $comanda; ?>">
-                                </div>
-                                <div>
-                                    <input type="text" name="confirm" id="confirm" class="inputSenha" required>
-                                </div>
-                                <div>
-                                    <input type="submit" value="Confirmar" class="btnConfirm">
-                                </div>
-                            </form>
-                        </div>
+        <aside class="popUpDiv popDown">
+            <div class="popUp">
+                <div class="popUpHeader">
+                    <h2>Cancelamento de pedido</h2>
+                    <button class="fecharPopUp"><i class="fa-solid fa-x" style="color: #ffffff;"></i></button>
+                </div>
+                <div class="popUpInfo">
+                    <p>Digite seu nº de identificação para o cancelamento do pedido</p>
+                    <div>
+                        <form action="../php/tela/cancelar.php" method="post">
+                            <div>
+                                <input type="text" name="comanda" id="" class="inputPedido" value="<?php echo $comanda; ?>">
+                            </div>
+                            <div>
+                                <input type="text" name="confirm" id="confirm" class="inputSenha" required>
+                            </div>
+                            <div>
+                                <input type="submit" value="Confirmar" class="btnConfirm">
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </aside>
+            </div>
+        </aside>
     </div>
     <script src="../js/popUp.js"></script>
     <script src="../js/config.js"></script>
