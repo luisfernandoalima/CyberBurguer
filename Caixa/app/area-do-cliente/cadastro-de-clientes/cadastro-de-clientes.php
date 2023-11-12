@@ -1,3 +1,25 @@
+<?php
+session_start();
+include_once(__DIR__ . '/../../../PHP/conn.php'); //não faz parte da sessão mas linka com o banco de dados 
+if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha'])) == true){ //Se as variaveis de sessão estiverem vazias, fecha a sessão e joga para a pagina de login
+    unset($_SESSION['email']); //destroi a variavel sessão email
+    unset($_SESSION['senha']); //destroi a variavel sessão senha
+    echo '<script>alert("Acesso Negado faça o login primeiro"); window.location.href = "../../index.html";</script>';
+}
+$log = $_SESSION['email']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do email do usuario
+$nomeFunc = $_SESSION['nome']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do  nome do usuario
+$idFunc = $_SESSION['id_func']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do id do usuario
+$carrinho = $_SESSION['carrinho'];
+// Explode o nome completo em partes separadas por espaço
+$parts = explode(" ", $nomeFunc); //usado para separar o nome do primeiro nome 
+// Pega o primeiro elemento do array resultante
+$primeiroNome = $parts[0];
+// Explode o nome completo em partes separadas por espaço
+$avatar = '../../../../imgbd/' . $_SESSION['avatarSession'];
+//FIM codigo relacionado a sessão
+
+$vendas = $sql->query("SELECT * FROM venda");
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -46,12 +68,12 @@
                 </span>
             </nav>
             <aside class="sidebar-header">
-                <img class="logo-img" src="https://sujeitoprogramador.com/steve.png" alt="Foto do usuário">
+                <img class="logo-img" src="<?php echo $avatar; ?>" alt="Foto do usuário">
                 <span class="dados">
                     <!--Nome do Usuário-->
-                    <span class="nome">Nome</span>
+                    <span class="nome"><?php echo $primeiroNome; ?></span>
                     <!--Número de identificação-->
-                    <span class="id">#565555</span>
+                    <span class="id">#<?php echo $idFunc; ?></span>
                 </span>
                 <div class="hamburger-menu">
                     <input type="checkbox" id="checkbox-menu">
@@ -75,53 +97,53 @@
                     <h1>Cadastro de clientes</h1>
                     <hr class="linha">
                     <div class="clienteItems">
-                        <form action="">
+                        <form action="../../../PHP/CadastrarCliente.php" method="post">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="campoForms">
                                             <label for="nome">Nome:</label>
-                                            <input type="text" name="" id="nome">
+                                            <input type="text" name="Nome" id="nome">
                                         </div>
                                         <div class="campoForms">
                                             <label for="nome">CPF:</label>
-                                            <input type="text" name="" id="nome" class="cpfInput">
+                                            <input type="text" name="CPF" id="nome" class="cpfInput">
                                         </div>
                                         <div class="sexo">
                                             <!--Sexo do funcionário-->
                                             <label for="sexo_func">Sexo:</label><br>
-                                            <input type="radio" name="sexo_func" id="Masc" checked><label for="Masc">Masculino</label><br>
-                                            <input type="radio" name="sexo_func" id="Femi"><label for="Femi">Feminino</label>
+                                            <input type="radio" name="sexo_func" id="Masc" checked value="Masculino"><label for="Masc">Masculino</label><br>
+                                            <input type="radio" name="sexo_func" id="Femi" value="Feminino"><label for="Femi">Feminino</label>
                                         </div>
                                         <div class="campoForms">
                                             <label for="nome">Telefone:</label>
-                                            <input type="tel" name="" id="nome" class="telInput">
+                                            <input type="tel" name="Tel" id="nome" class="telInput">
                                         </div>
                                         <div class="campoForms">
                                             <label for="nome">Email:</label>
-                                            <input type="text" name="" id="nome">
+                                            <input type="text" name="Email" id="nome">
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="campoForms">
                                             <label for="CEP">CEP:</label>
-                                            <input type="text" name="" id="CEP" onblur="pesquisacep(this.value);">
+                                            <input type="text" name="CEP" id="CEP" onblur="pesquisacep(this.value);">
                                         </div>
                                         <div class="campoForms">
                                             <label for="cidade">Cidade:</label>
-                                            <input type="text" name="" id="cidade">
+                                            <input type="text" name="Cidade" id="cidade">
                                         </div>
                                         <div class="campoForms">
                                             <label for="Bairro">Bairro:</label>
-                                            <input type="text" name="" id="Bairro">
+                                            <input type="text" name="Bairro" id="Bairro">
                                         </div>
                                         <div class="campoForms">
                                             <label for="Rua">Rua:</label>
-                                            <input type="text" name="" id="Rua">
+                                            <input type="text" name="Rua" id="Rua">
                                         </div>
                                         <div class="campoForms">
                                             <label for="numero">Nº:</label>
-                                            <input type="text" name="" id="numero">
+                                            <input type="text" name="Numero" id="numero">
                                         </div>
                                         <input type="submit" value="Enviar" class="submitButton">
                                     </div>

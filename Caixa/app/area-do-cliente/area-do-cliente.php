@@ -1,3 +1,25 @@
+<?php
+session_start();
+include_once(__DIR__ . '/../../PHP/conn.php'); //não faz parte da sessão mas linka com o banco de dados 
+if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha'])) == true){ //Se as variaveis de sessão estiverem vazias, fecha a sessão e joga para a pagina de login
+    unset($_SESSION['email']); //destroi a variavel sessão email
+    unset($_SESSION['senha']); //destroi a variavel sessão senha
+    echo '<script>alert("Acesso Negado faça o login primeiro"); window.location.href = "../../index.html";</script>';
+}
+$log = $_SESSION['email']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do email do usuario
+$nomeFunc = $_SESSION['nome']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do  nome do usuario
+$idFunc = $_SESSION['id_func']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do id do usuario
+$carrinho = $_SESSION['carrinho'];
+// Explode o nome completo em partes separadas por espaço
+$parts = explode(" ", $nomeFunc); //usado para separar o nome do primeiro nome 
+// Pega o primeiro elemento do array resultante
+$primeiroNome = $parts[0];
+// Explode o nome completo em partes separadas por espaço
+$avatar = '../../../imgbd/' . $_SESSION['avatarSession'];
+//FIM codigo relacionado a sessão
+
+$vendas = $sql->query("SELECT * FROM venda");
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -44,12 +66,12 @@
                 </span>
             </nav>
             <aside class="sidebar-header">
-                <img class="logo-img" src="https://sujeitoprogramador.com/steve.png" alt="Foto do usuário">
+                <img class="logo-img" src="<?php echo $avatar; ?>" alt="Foto do usuário">
                 <span class="dados">
                     <!--Nome do Usuário-->
-                    <span class="nome">Nome</span>
+                    <span class="nome"><?php echo $primeiroNome; ?></span>
                     <!--Número de identificação-->
-                    <span class="id">#565555</span>
+                    <span class="id">#<?php echo $idFunc; ?></span>
                 </span>
                 <div class="hamburger-menu">
                     <input type="checkbox" id="checkbox-menu">
@@ -73,6 +95,7 @@
                     <h1>Comandas Abertas</h1>
                     <hr class="linha">
                     <div class="clienteItems">
+                    <?php foreach ($vendas AS $venda): ?>
                         <div class="clienteItemsArea">
                             <input type="radio" name="Cliente" id="1" class="radioButton">
                             <label for="1" class="optionCliente">
@@ -80,31 +103,37 @@
                                     <div class="row">
                                         <div class="col-2">
                                             <abbr title="CPF">
-                                                <p class="numComanda">12345678901</p>
+                                                <p class="numComanda"><?php echo $venda['id_cli'];?></p>
                                             </abbr>
                                         </div>
+                                        <?php     
+                                        $idCliente = $venda['id_cli'];
+                                        $sqlCliente = $sql->query("SELECT * FROM cliente WHERE id_cli = $idCliente");
+                                        $cliente = $sqlCliente->fetch_assoc(); 
+                                        ?>
                                         <div class="col-4">
                                             <abbr title="Nome">
-                                                <p class="btnVerPedido">Gabriel Félix de Oliveira</p>
+                                                <p class="btnVerPedido"><?php echo $cliente['nome'] ?></p>
                                             </abbr>
                                         </div>
                                         <div class="col-2">
                                             <abbr title="Data de nascimento">
-                                                <p>11/11/20023</p>
+                                                <p><?php echo $venda['valor_total'];?></p>
                                             </abbr>
                                         </div>
                                         <div class="col-2">
                                             <abbr title="Telefone">
-                                                <p>11/11/20023</p>
+                                                <p><?php echo $cliente['tel'] ?></p>
                                             </abbr>
                                         </div>
                                         <div class="col-2">
-                                            <p class="btnVerMais">Ver mais</p>
+                                            <p class="btnVerMais"  data-cliente-id="<?php echo $cliente['id_cli']; ?>" >Ver mais</p>
                                         </div>
                                     </div>
                                 </div>
                             </label>
                         </div>
+                        <?php endforeach; ?>
 
                     </div>
                     <div class="optionButtonArea">
@@ -123,27 +152,27 @@
                     <hr class="popupLinha">
                     <div class="popUpInfo container barra">
                         <div>
-                            <h3>Nome:</h3>
+                            <h3 data-info='nome'>Nome:</h3>
                             <p></p>
                         </div>
                         <div>
-                            <h3>email:</h3>
+                            <h3 data-info='email'>email:</h3>
                             <p></p>
                         </div>
                         <div>
-                            <h3>cpf:</h3>
+                            <h3 data-info='cpf'>cpf:</h3>
                             <p></p>
                         </div>
                         <div>
-                            <h3>telefone:</h3>
+                            <h3 data-info='telefone'>telefone:</h3>
                             <p></p>
                         </div>
                         <div>
-                            <h3>Data de nascimento:</h3>
+                            <h3 data-info='data-nascimento'>Data de nascimento:</h3>
                             <p></p>
                         </div>
                         <div>
-                            <h3>Endereço:</h3>
+                            <h3 data-info='endereco'>Endereço:</h3>
                             <p></p>
                         </div>
                     </div>
@@ -156,5 +185,39 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
     </script>
 </body>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const btnVerMaisList = document.querySelectorAll(".btnVerMais");
+    const popUpCliente = document.querySelector(".popUpCliente");
+
+    btnVerMaisList.forEach(function (btnVerMais) {
+        btnVerMais.addEventListener("click", function () {
+            const clienteId = this.getAttribute("data-cliente-id");
+
+            fetch(`../../PHP/BuscarInfoCli.php?id_cli=${clienteId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error("Erro ao buscar informações do cliente:", data.error);
+                    } else {
+                        // Preencha o pop-up com as informações do cliente
+                        popUpCliente.querySelector(".popUpHeader span").textContent = data.id_cli;
+                        popUpCliente.querySelector("h3[data-info='nome'] + p").textContent = data.nome;
+                        popUpCliente.querySelector("h3[data-info='email'] + p").textContent = data.email_cli;
+                        popUpCliente.querySelector("h3[data-info='cpf'] + p").textContent = data.cpf_cli;
+                        popUpCliente.querySelector("h3[data-info='telefone'] + p").textContent = data.tel;
+                        popUpCliente.querySelector("h3[data-info='data-nascimento'] + p").textContent = data.dta_nasc;
+                        popUpCliente.querySelector("h3[data-info='endereco'] + p").textContent = data.endereco;
+                        popUpCliente.style.display = "block";
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao buscar informações do cliente:", error);
+                });
+        });
+    });
+});
+
+</script>
 
 </html>

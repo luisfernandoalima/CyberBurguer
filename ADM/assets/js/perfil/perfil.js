@@ -58,55 +58,9 @@ const confirmSave = () => {
 
 btnConfirm.addEventListener('click', confirmSave)
 
-
-/*Script para abilitar o botão de salvar*/
-const inputForm = document.querySelectorAll('input[type="text"]')
-const senhaP = document.querySelector('#senhaPessoal')
-
-const ableConfirmBtn = () => {
-    btnConfirm.disabled = false
-}
-
-for (var i = 0; i < inputForm.length; i++) {
-    inputForm[i].addEventListener('change', ableConfirmBtn)
-    console.log(inputForm[i])
-}
-
-/*Mudar imagem*/
 const imagem = document.querySelector('.fotoUsuário')
 var inputArquivos = document.querySelector('.arquivos')
 
 imagem.addEventListener('click', () =>{
     inputArquivos.click()
 })
-
-inputArquivos.addEventListener('change', ableConfirmBtn)
-
-/*PopUp*/
-const info = document.querySelector('.popUpInfo')
-imagem.addEventListener('mouseover', (event) => {
-    /*Pegar os valores da posição do mouse*/
-    const mouseX = event.clientX;
-    const mouseY = event.clientY;
-
-    info.style.left = `${mouseX + 10}px`;
-    info.style.top = `${mouseY + 10}px`;
-
-    info.style.display = 'block';
-});
-
-imagem.addEventListener('mouseout', () => {
-    info.style.display = 'none';
-});
-
-
-/*Nome da imagem*/
-const nomeImagem = document.querySelector('.nomeImagem')
-const nomeImagemArea = document.querySelector('.nomeImagemArea')
-
-const mudarNomeImagem = () => {
-    nomeImagemArea.style.display = 'block'
-    nomeImagem.innerHTML = inputArquivos.value;
-}
-
-inputArquivos.addEventListener('change', mudarNomeImagem)

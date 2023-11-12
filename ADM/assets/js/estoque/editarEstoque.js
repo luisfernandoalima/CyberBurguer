@@ -26,12 +26,11 @@ btnVoltar.addEventListener('click', voltar)
 
 //Enviar forms
 const btnCheck = document.querySelectorAll('.checkBtn')
-const btnCancel = document.querySelectorAll('.cancelBtn')
 const forms = document.querySelectorAll('.formEstoque')
 
 for(var i = 0; i < forms; i++){
-    btnCancel[i].addEventListener('click', () => {
-        forms[i].reset()
+    btnCheck[i].addEventListener('click', () => {
+        forms[i].submit()
     })
 }
 

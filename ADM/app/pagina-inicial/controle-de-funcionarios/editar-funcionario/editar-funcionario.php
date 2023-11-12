@@ -1,3 +1,70 @@
+<?php
+//Codigo de sessão começo 
+session_start();
+include_once(__DIR__ . '/../../../../PHP/conn.php'); //não faz parte da sessão mas linka com o banco de dados 
+if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha'])) == true) { //Se as variaveis de sessão estiverem vazias, fecha a sessão e joga para a pagina de login
+    unset($_SESSION['email']); //destroi a variavel sessão email
+    unset($_SESSION['senha']); //destroi a variavel sessão senha
+    header('location: ../index.html'); //joga para a pagina de login
+} else {
+    $log = $_SESSION['email']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do email do usuario
+    $nomeFunc = $_SESSION['nome']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do  nome do usuario
+    $idFunc = $_SESSION['id_func']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do id do usuario
+    $parts = explode(" ", $nomeFunc); //usado para separar o nome do primeiro nome 
+    // Pega o primeiro elemento do array resultante
+    $primeiroNome = $parts[0];
+    // Explode o nome completo em partes separadas por espaço
+    //FIM codigo relacionado a sessão
+    $avatar = '../../../../../imgbd/' . $_SESSION['avatarSession']; //ARRUMAR 
+    if (!empty($_GET['id_func'])) {
+        $id = $_GET['id_func'];
+        $sqlc = "SELECT * FROM funcionarios WHERE id_func = '$id'";
+        $resultado = $sql->query($sqlc);
+
+        if($resultado->num_rows > 0){
+            while($user_dados = mysqli_fetch_assoc($resultado)){
+                $sexo = $user_dados['sexo'];
+                $dta_nasc = $user_dados['dta_nasc'];
+                $dta_admi = $user_dados['dta_admissao'];
+                $religiao = $user_dados['religiao'];
+                $tipo_sanguineo = $user_dados['tipo_sanguineo'];
+                $habilitado = $user_dados['habilitado'];
+                $tel = $user_dados['tel'];
+                $tel_emer = $user_dados['tel_emergencia'];
+                $ctps = $user_dados['ctps'];
+                $pis = $user_dados['pis'];
+                $tit_eleitor = $user_dados['tit_eleitor'];
+                $reservista = $user_dados['reservista'];
+                $vr = $user_dados['vr'];
+                $vt = $user_dados['vt'];
+                $conta_banc = $user_dados['conta_bancaria'];
+                
+                $id_tipo = $user_dados['id_tipo'];
+                $nome = $user_dados['nome'];
+                $cpf_func = $user_dados['cpf_func'];
+                $dta_demissao = $user_dados['dta_demissao'];
+                $comissao = $user_dados['comissao'];
+                $email_adm = $user_dados['email_adm'];
+                $senha_adm = $user_dados['senha_adm'];
+                $avatar_func = $user_dados['avatar']; // Pega o valor da coluna 'avatar' do banco de dados
+                $avatar_f = '../../../../../imgbd/' . $avatar_func; // Constrói o URL completo da imagem
+                $edit_cargo = $sql->query("SELECT cargo FROM tipo WHERE id_tipo = $id_tipo");
+                if ($edit_cargo->num_rows > 0) {
+                    $cargo = $edit_cargo->fetch_assoc()['cargo'];
+                } else {
+                    $cargo = "Cargo não encontrado";
+                }
+            }
+        }
+        else{
+            header('');
+
+        }
+    }
+}
+// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*--*-*-*-*-*-*-*-*-*-*
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -20,7 +87,7 @@
     <div class="fundo">
         <aside class="sidebar">
             <nav>
-                <a href="../../index.php">
+                <a href="../../home.php">
                     <button class="active">
                         <span>
                             <i class="material-symbols-outlined">home</i>
@@ -29,7 +96,7 @@
                     </button>
                 </a>
 
-                <a href="../../../mesas/index.php">
+                <a href="../../../mesas/home_mesa.php">
                     <button>
                         <span>
                             <i class="material-symbols-outlined">table_restaurant</i>
@@ -38,7 +105,7 @@
                     </button>
                 </a>
 
-                <a href="../../../estoque/index.php">
+                <a href="../../../estoque/estoque.php">
                     <button>
                         <span>
                             <i class="material-symbols-outlined">inventory</i>
@@ -47,7 +114,7 @@
                     </button>
                 </a>
 
-                <a href="../../../estatisticas/index.php">
+                <a href="../../../estatisticas/estatisticas.php">
                     <button>
                         <span>
                             <i class="material-symbols-outlined">paid</i>
@@ -59,22 +126,22 @@
 
             <header class="sidebar-header">
                 <!--Foto Usuário-->
-                <img class="logo-img" src="https://sujeitoprogramador.com/steve.png" alt="Foto do usuário">
+                <img class="logo-img" src="<?php echo $avatar; ?>" alt="Foto do usuário">
                 <span class="dados">
                     <!--Nome do Usuário-->
-                    <span class="nome">Nome</span>
+                    <span class="nome"><?php echo $primeiroNome; ?></span>
                     <br>
                     <!--Número de identificação-->
-                    <span class="id">#565555</span>
+                    <span class="id">#<?php echo $idFunc; ?></span>
                 </span>
                 <span id="options">
                     <span class="opcoes">
                         <div class="optionsMenu disable">
                             <div class="itemList">
-                                <a href="../../meu-perfil/index.php"><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
+                                <a href="../../../meu-perfil/login_info_pessoal.php"><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
                             </div>
                             <hr class="menuLinha">
-                            <p><a href="">Sair da conta</a></p>
+                            <p><a href="../../../../PHP/sair_sessao_Adm.php">Sair da conta</a></p>
                         </div>
                         <span class="ball"></span>
                         <span class="ball"></span>
@@ -98,56 +165,57 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="card" style="width: 18rem;">
-                                <img src="https://sujeitoprogramador.com/steve.png" class="card-img-top" alt="...">
+                                <img src="<?php echo $avatar_f; ?>" class="card-img-top" alt="...">
                                 <div class="card-body">
-                                    <h1 class="card-title">Bill Gates</h1>
+                                    <h1 class="card-title"><?php echo $nome;?></h1>
                                     <div>
                                         <span>Email:</span>
-                                        <input type="text" class="res card-text importantInfo" value="billgatezinhosonylixo@sansung.com">
+                                        <input type="text" class="res card-text importantInfo" value="<?php echo $email_adm;?>">
                                         <span>Cargo:</span>
-                                        <input type="text" class="res card-text importantInfo" value="Criador do Uno com Escada">
+                                        <input type="text" class="res card-text importantInfo" value="<?php echo $id_tipo . ' ' . '-' . ' ' . $cargo;?>">
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-7 informacoes">
-                            <form action="">
+                            <form action="../../../../PHP/att_info_adm.php" method="POST">
                                 <div class="row">
                                     <div class="col-6">
                                         <p class="perg">Sexo:</p>
-                                        <input type="text" class="res" value="Masculino">
+                                        <input type="text" class="res" name="sexo" value="<?php echo $sexo;?>">
                                         <p class="perg">Data de nascimento:</p>
-                                        <input type="text" class="res" value="2005-09-27">
+                                        <input type="text" class="res" name="dta_nasc" value="<?php echo $dta_nasc;?>">
                                         <p class="perg">Data de admissãp</p>
-                                        <input type="text" class="res" value="2023-04-23">
+                                        <input type="text" class="res" name="dta_admissao" value="<?php echo $dta_admi;?>">
                                         <p class="perg">Religião</p>
-                                        <input type="text" class="res" value="Católico">
+                                        <input type="text" class="res" name="religiao" value="<?php echo $religiao;?>">
                                         <p class="perg">Tipo sanguíneo:</p>
-                                        <input type="text" class="res" value="A+">
+                                        <input type="text" class="res" name="tipo_sanguineo" value="<?php echo $tipo_sanguineo;?>">
                                         <p class="perg">Habilitado:</p>
-                                        <input type="text" class="res" value="Sim">
+                                        <input type="text" class="res" name="habilitado" value="<?php echo $habilitado;?>">
                                         <p class="perg">Telefone:</p>
-                                        <input type="text" class="res" value="11999999999">
+                                        <input type="text" class="res" name="tel" value="<?php echo $tel;?>">
                                         <p class="perg">Tel. emergência:</p>
-                                        <input type="text" class="res" value="11999999999">
+                                        <input type="text" class="res" name="tel_emergencia" value="<?php echo $tel_emer;?>">
                                     </div>
                                     <div class="col-6">
                                         <p class="perg">Ctps:</p>
-                                        <input type="text" class="res" value="11999999999">
+                                        <input type="text" class="res" name="ctps" value="<?php echo $ctps;?>">
                                         <p class="perg">Pis:</p>
-                                        <input type="text" class="res" value="11999999999">
+                                        <input type="text" class="res" name="pis" value="<?php echo $pis;?>">
                                         <p class="perg">Título de eleitor:</p>
-                                        <input type="text" class="res" value="11999999999">
+                                        <input type="text" class="res" name="tit_eleitor" value="<?php echo $tit_eleitor;?>">
                                         <p class="perg">Reservista:</p>
-                                        <input type="text" class="res" value="11999999999">
+                                        <input type="text" class="res" name="reservista" value="<?php echo $reservista;?>">
                                         <p class="perg">Vale refeição:</p>
-                                        <input type="text" class="res" value="11999999999">
+                                        <input type="text" class="res" name="vr" value="<?php echo $vr;?>">
                                         <p class="perg">Vale Transporte:</p>
-                                        <input type="text" class="res" value="11999999999">
+                                        <input type="text" class="res" name="vt" value="<?php echo $vt;?>">
                                         <p class="perg">Conta bancária:</p>
-                                        <input type="text" class="res" value="11999999999">
-                                        <input type="submit" value="Salvar" class="btn btn-primary">
+                                        <input type="text" class="res" name="conta_bancaria" value="<?php echo $conta_banc;?>">
+                                        <input type="hidden" name="id_func" value="<?php echo $id;?>">
+                                        <input type="hidden" name="nome" value="<?php echo $nome;?>">
+                                        <input type="submit" value="Salvar" name="Salvar" class="btn btn-primary">
                                     </div>
                                 </div>
                             </form>

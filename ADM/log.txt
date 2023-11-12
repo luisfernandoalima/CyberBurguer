@@ -1,0 +1,3 @@
+por conta da mudança dos nomes dos arquivos de index para outra coisa, alguns caminhos ainda não estão operantes
+tal como alguns arquivos não foram mudados de uma vez para não ocorrer erros ou bugs gigantescos.
+até 26/08 tudo corrigido

@@ -5,4 +5,3 @@ const formulariojs = () =>{
 
     inputData.value = myDate
 }
-

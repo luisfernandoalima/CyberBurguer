@@ -12,6 +12,7 @@ const formBebidas = document.querySelector('#bebForms')
 const formAcompanhamento = document.querySelector('#acomForms')
 const formFornecedor = document.querySelector('#fornForms')
 
+
 var Formularios = [formProdutos,formHamburguer,formBebidas,formAcompanhamento,formFornecedor]
 
 const escondeForms = () => {
@@ -26,23 +27,28 @@ select.addEventListener('change', () => {
     if(select.value === '1'){
         escondeForms()
         formProdutos.classList.remove('disable')
-        form.action = ''
+        form.action = '../../../PHP/cadastro_prod.php'
+        //form.enctype = "multipart/form-data"
     } else if(select.value === '2'){
         escondeForms()
         formHamburguer.classList.remove('disable')
-        form.action = ''
+        form.action = '../../../PHP/cadastro_prod.php'
+        //form.enctype = "multipart/form-data"
     } else if(select.value === '3'){
         escondeForms()
         formBebidas.classList.remove('disable')
-        form.action = ''
+        form.action = '../../../PHP/cadastro_prod.php'
+        //form.enctype = "multipart/form-data"
     } else if(select.value === '4'){
         escondeForms()
         formAcompanhamento.classList.remove('disable')
-        form.action = ''
+        form.action = '../../../PHP/cadastro_prod.php'
+        //form.enctype = "multipart/form-data"
     } else if(select.value === '5'){
         escondeForms()
         formFornecedor.classList.remove('disable')
-        form.action = ''
+        form.action = '../../../PHP/cadastro_prod.php'
+        //form.enctype = "multipart/form-data"
     }
 })
 

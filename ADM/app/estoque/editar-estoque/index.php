@@ -1,3 +1,23 @@
+<?php
+session_start();
+include_once(__DIR__ . '/../../../PHP/conn.php'); //não faz parte da sessão mas linka com o banco de dados 
+if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha'])) == true){ //Se as variaveis de sessão estiverem vazias, fecha a sessão e joga para a pagina de login
+    unset($_SESSION['email']); //destroi a variavel sessão email
+    unset($_SESSION['senha']); //destroi a variavel sessão senha
+    echo '<script>alert("Acesso Negado faça o login primeiro"); window.location.href = "../../index.html";</script>';
+}
+$log = $_SESSION['email']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do email do usuario
+$nomeFunc = $_SESSION['nome']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do  nome do usuario
+$idFunc = $_SESSION['id_func']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do id do usuario
+// Explode o nome completo em partes separadas por espaço
+$parts = explode(" ", $nomeFunc); //usado para separar o nome do primeiro nome 
+// Pega o primeiro elemento do array resultante
+$primeiroNome = $parts[0];
+// Explode o nome completo em partes separadas por espaço
+$avatar = '../../../../imgbd/' . $_SESSION['avatarSession'];
+//FIM codigo relacionado a sessão
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -20,7 +40,7 @@
     <div class="fundo">
         <aside class="sidebar">
             <nav>
-                <a href="../../pagina-inicial/index.php">
+                <a href="../../pagina-inicial/home.php">
                     <button>
                         <span>
                             <i class="material-symbols-outlined">home</i>
@@ -28,7 +48,7 @@
                         </span>
                     </button>
                 </a>
-                <a href="../../mesas/index.php">
+                <a href="../../mesas/home_mesa.php">
                     <button>
                         <span>
                             <i class="material-symbols-outlined">table_restaurant</i>
@@ -55,22 +75,22 @@
             </nav>
             <header class="sidebar-header">
                 <!--Foto Usuário-->
-                <img class="logo-img" src="https://sujeitoprogramador.com/steve.png" alt="Foto do usuário">
+                <img class="logo-img" src="<?php echo $avatar; ?>" alt="Foto do usuário">
                 <span class="dados">
                     <!--Nome do Usuário-->
-                    <span class="nome">Nome</span>
+                    <span class="nome"><?php echo $primeiroNome; ?></span>
                     <br>
                     <!--Número de identificação-->
-                    <span class="id">#565555</span>
+                    <span class="id">#<?php echo $idFunc; ?></span>
                 </span>
                 <span id="options">
                     <span class="opcoes">
                         <div class="optionsMenu disable">
                             <div class="itemList">
-                                <a href="../../meu-perfil/index.php"><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
+                                <a href="../../meu-perfil/login_info_pessoal.php"><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
                             </div>
                             <hr class="menuLinha">
-                            <p><a href="">Sair da conta</a></p>
+                            <p><a href="../../../PHP/sair_sessao_Adm.php">Sair da conta</a></p>
                         </div>
                         <span class="ball"></span>
                         <span class="ball"></span>
@@ -114,31 +134,28 @@
                                 <img src="../../../assets/img/produtos/mesa-redonda 3.png" alt="">
                             </picture>
                         </div>
-                        <form action="" class="col-11 formEstoque">
+                        <form action="" class="col-10 formEstoque">
                             <div class="row">
                                 <div class="col-3">
                                     <input type="text" name="nomeProd" placeholder="Nome" class="nomeProd">
                                 </div>
-                                <div class="col-2">
+                                <div class="col-3">
                                     <input type="text" name="loteProd" placeholder="Lote" class="loteProd">
                                 </div>
                                 <div class="col-2">
                                     <input type="text" name="qtdProd" placeholder="Quantidade" class="qtdProd">
                                 </div>
-                                <div class="col-2">
+                                <div class="col-3">
                                     <abbr title="Validade"><input type="date" name="valProd" class="valProd"></abbr>
                                 </div>
                                 <div class="col-1">
                                     <button href="" class="checkBtn"><i class="fa-solid fa-check" style="color: #ffffff;"></i></button>
                                 </div>
-                                <div class="col-1">
-                                    <button class="cancelBtn"><i class="fa-solid fa-x" style="color: #ffffff;"></i></button>
-                                </div>
-                                <div class="col-1">
-                                    <button href="" class="trashBtn"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></button>
-                                </div>
                             </div>
                         </form>
+                        <div class="col-1">
+                            <a href=""><i class="fa-solid fa-x" style="color: #ffffff;"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>

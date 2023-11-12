@@ -1,3 +1,26 @@
+<?php
+session_start();
+include_once(__DIR__ . '/../../PHP/conn.php'); //não faz parte da sessão mas linka com o banco de dados 
+if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha'])) == true){ //Se as variaveis de sessão estiverem vazias, fecha a sessão e joga para a pagina de login
+    unset($_SESSION['email']); //destroi a variavel sessão email
+    unset($_SESSION['senha']); //destroi a variavel sessão senha
+    echo '<script>alert("Acesso Negado faça o login primeiro"); window.location.href = "../../index.html";</script>';
+}
+$log = $_SESSION['email']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do email do usuario
+$nomeFunc = $_SESSION['nome']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do  nome do usuario
+$idFunc = $_SESSION['id_func']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do id do usuario
+
+// Explode o nome completo em partes separadas por espaço
+$parts = explode(" ", $nomeFunc); //usado para separar o nome do primeiro nome 
+// Pega o primeiro elemento do array resultante
+$primeiroNome = $parts[0];
+// Explode o nome completo em partes separadas por espaço
+$avatar = '../../../imgbd/' . $_SESSION['avatarSession'];
+//FIM codigo relacionado a sessão
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -46,12 +69,12 @@
                 </span>
             </nav>
             <aside class="sidebar-header">
-                <img class="logo-img" src="https://sujeitoprogramador.com/steve.png" alt="Foto do usuário">
+                <img class="logo-img" src="<?php echo $avatar; ?>" alt="Foto do usuário">
                 <span class="dados">
                     <!--Nome do Usuário-->
-                    <span class="nome">Nome</span>
+                    <span class="nome"><?php echo $primeiroNome; ?></span>
                     <!--Número de identificação-->
-                    <span class="id">#565555</span>
+                    <span class="id">#<?php echo $idFunc; ?></span>
                 </span>
                 <div class="hamburger-menu">
                     <input type="checkbox" id="checkbox-menu">
@@ -67,7 +90,7 @@
                 <a href="../configuracoes/informacoes.php"><i class="fa-solid fa-gear"
                         style="color: #ffffff;"></i>Configurações</a>
                 <br>
-                <a href="../index.html">Sair</a>
+                <a href="../../PHP/sair_sessao_Caixa.php">Sair</a>
             </aside>
         </header>
         <main>
