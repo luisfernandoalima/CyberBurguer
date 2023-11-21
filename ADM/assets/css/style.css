@@ -2,15 +2,21 @@
     --rosa: #E000C2;
     --azulClaro: #07E8FF;
     --azul: #0000FF;
-    --azulEscuro:#170F40; 
+    --azulEscuro:#191143; 
     --azulDiferenciado:#3214E1;   
 }
 
 body{
+    margin: 0;
     background-image: linear-gradient(to right, var(--azul), var(--rosa));
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 main{
+    box-shadow: 2px 4px 10px #000;
     background-color: var(--azulEscuro);
     border-radius: 20px;
     width: 80%;
@@ -20,8 +26,6 @@ main{
     align-items: center;
     justify-content: center;
     position: relative;
-    top: 50%;
-    transform: translateY(10%); 
 }
 
 /*Imagem*/

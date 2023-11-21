@@ -4,7 +4,7 @@ include_once(__DIR__ . '/../../../PHP/conn.php'); //não faz parte da sessão ma
 if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha'])) == true){ //Se as variaveis de sessão estiverem vazias, fecha a sessão e joga para a pagina de login
     unset($_SESSION['email']); //destroi a variavel sessão email
     unset($_SESSION['senha']); //destroi a variavel sessão senha
-    echo '<script>alert("Acesso Negado faça o login primeiro"); window.location.href = "../../index.html";</script>';
+    echo '<script>alert("Acesso Negado faça o login primeiro"); window.location.href = "../../../index.html";</script>';
 }
 $log = $_SESSION['email']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do email do usuario
 $nomeFunc = $_SESSION['nome']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do  nome do usuario

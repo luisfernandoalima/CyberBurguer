@@ -44,12 +44,19 @@ option {
     color: #000;
     background-color: #fff;
     border-radius: 20px;
-    margin-top: 15px;
     margin-left: 9%;
+    height: 40% !important;
 }
 
 .infoAreaEst h2{
     padding-top: 10px;
+}
+
+.btnArea{
+    margin: auto;
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .graficoImg {
@@ -62,16 +69,28 @@ option {
     border-radius: 20px;
 }
 
-.gaficoBtnArea {
+.graficoBtnArea {
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
-.gaficoBtnArea a {
-    text-decoration: none;
-}
 
 .graficoTexto {
     text-align: center;
     color: #fff;
+}
+
+canvas{
+    margin: auto;
+    height: 40% !important;
+    width: 75% !important;
+}
+
+.numArea{
+    margin: auto;
+    width: 80%;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 6px 4px 10px black;
 }

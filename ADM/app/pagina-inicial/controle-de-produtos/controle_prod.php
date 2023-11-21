@@ -1,10 +1,10 @@
 <?php
 include(__DIR__ . '/../../../PHP/conn.php');
-session_start(); 
-if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha'])) == true){ //Se as variaveis de sessão estiverem vazias, fecha a sessão e joga para a pagina de login
+session_start();
+if ((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha'])) == true) { //Se as variaveis de sessão estiverem vazias, fecha a sessão e joga para a pagina de login
     unset($_SESSION['email']); //destroi a variavel sessão email
     unset($_SESSION['senha']); //destroi a variavel sessão senha
-    header('location: ../index.html'); //joga para a pagina de login
+    header('location: ../../../index.html'); //joga para a pagina de login
 }
 $log = $_SESSION['email']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do email do usuario
 $nomeFunc = $_SESSION['nome']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do  nome do usuario
@@ -16,23 +16,22 @@ $primeiroNome = $parts[0];
 // Explode o nome completo em partes separadas por espaço
 //FIM codigo relacionado a sessão
 $avatar = '../../../../imgbd/' . $_SESSION['avatarSession'];
-if(!empty($_GET['search'])){
-    $sqla =("SELECT * FROM produto WHERE LIKE '%$dados%' OR prod LIKE '%$dados%' WHERE status ='ATIVO'");
-    $sqlb =("SELECT * FROM burguer  WHERE LIKE '%$dados%' OR prod LIKE '%$dados%' WHERE status ='ATIVO'");
-    $sqlc =("SELECT * FROM bebida  WHERE LIKE '%$dados%' OR prod LIKE '%$dados%' WHERE status ='ATIVO'");
-    $sqld =("SELECT * FROM acompanhamento  WHERE LIKE '%$dados%' OR prod LIKE '%$dados%' WHERE status ='ATIVO'");
-    $sqle =("SELECT * FROM fornecedor LIKE '%$dados%' OR prod LIKE '%$dados%'");
-    $sqlf =("SELECT * FROM molho  WHERE LIKE '%$dados%' OR prod LIKE '%$dados%' WHERE status ='ATIVO'");
-    $sqlg =("SELECT * FROM sobremesa  WHERE LIKE '%$dados%' OR prod LIKE '%$dados%' WHERE status ='ATIVO'");
-}
-else{
+if (!empty($_GET['search'])) {
+    $sqla = ("SELECT * FROM produto WHERE LIKE '%$dados%' OR prod LIKE '%$dados%' WHERE status ='ATIVO'");
+    $sqlb = ("SELECT * FROM burguer  WHERE LIKE '%$dados%' OR prod LIKE '%$dados%' WHERE status ='ATIVO'");
+    $sqlc = ("SELECT * FROM bebida  WHERE LIKE '%$dados%' OR prod LIKE '%$dados%' WHERE status ='ATIVO'");
+    $sqld = ("SELECT * FROM acompanhamento  WHERE LIKE '%$dados%' OR prod LIKE '%$dados%' WHERE status ='ATIVO'");
+    $sqle = ("SELECT * FROM fornecedor LIKE '%$dados%' OR prod LIKE '%$dados%'");
+    $sqlf = ("SELECT * FROM molho  WHERE LIKE '%$dados%' OR prod LIKE '%$dados%' WHERE status ='ATIVO'");
+    $sqlg = ("SELECT * FROM sobremesa  WHERE LIKE '%$dados%' OR prod LIKE '%$dados%' WHERE status ='ATIVO'");
+} else {
     $sqla = ("SELECT * FROM produto WHERE status ='ATIVO'");
-    $sqlb =("SELECT * FROM burguer  WHERE status ='ATIVO'");
-    $sqlc =("SELECT * FROM bebida  WHERE status ='ATIVO'");
-    $sqld =("SELECT * FROM acompanhamento  WHERE status ='ATIVO'");
-    $sqle =("SELECT * FROM fornecedor");
-    $sqlf =("SELECT * FROM molho  WHERE status ='ATIVO'");
-    $sqlg =("SELECT * FROM sobremesa  WHERE status ='ATIVO'");
+    $sqlb = ("SELECT * FROM burguer  WHERE status ='ATIVO'");
+    $sqlc = ("SELECT * FROM bebida  WHERE status ='ATIVO'");
+    $sqld = ("SELECT * FROM acompanhamento  WHERE status ='ATIVO'");
+    $sqle = ("SELECT * FROM fornecedor");
+    $sqlf = ("SELECT * FROM molho  WHERE status ='ATIVO'");
+    $sqlg = ("SELECT * FROM sobremesa  WHERE status ='ATIVO'");
 }
 $produtosinfo = $sql->query($sqla);
 $burguerinfo = $sql->query($sqlb);
@@ -51,15 +50,13 @@ $sobremesainfo = $sql->query($sqlg);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../../assets/img/icons/CyberBurguerLogoSmall.png" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="../../../assets/css/menu.css">
     <link rel="stylesheet" href="../../../assets/css/paginaInicial/cont-func.css">
     <!--Font Awesome-->
     <script src="https://kit.fontawesome.com/b95d68622e.js" crossorigin="anonymous"></script>
     <!--Material Symbols Outlined-->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <title>Controle de produtos</title>
 </head>
 
@@ -87,11 +84,11 @@ $sobremesainfo = $sql->query($sqlg);
         transition: .3s;
     }
 
-    .radioButton{
+    .radioButton {
         display: none;
     }
 
-    .labelFiltro:hover{
+    .labelFiltro:hover {
         background-color: #dbdbdb;
     }
 </style>
@@ -151,8 +148,7 @@ $sobremesainfo = $sql->query($sqlg);
                     <span class="opcoes">
                         <div class="optionsMenu disable">
                             <div class="itemList">
-                                <a href="../../meu-perfil/index.php"><i
-                                        class="material-symbols-outlined">settings</i><span>Configurações</span></a>
+                                <a href="../../meu-perfil/index.php"><i class="material-symbols-outlined">settings</i><span>Configurações</span></a>
                             </div>
                             <hr class="menuLinha">
                             <p><a href="">Sair da conta</a></p>
@@ -192,7 +188,7 @@ $sobremesainfo = $sql->query($sqlg);
                     <form action="" method="get">
                         <div class="row">
                             <div class="col-10">
-                                <input type="text" name="search" placeholder="Pesquisar..." class="searchBar" id="search "/>
+                                <input type="text" name="search" placeholder="Pesquisar..." class="searchBar" id="search " />
                             </div>
                             <div class="col-2">
                                 <button onclick="searchItems()" class="searchButton">
@@ -218,27 +214,27 @@ $sobremesainfo = $sql->query($sqlg);
                             <th>Data de vencimento</th>
                             <th>Excluir</th>
                         </thead>
-                <!--Conteudo da tabela de produtos-->
-                                <?php foreach($produtosinfo AS $produtosinfo2): ?>
+                        <!--Conteudo da tabela de produtos-->
+                        <?php foreach ($produtosinfo as $produtosinfo2) : ?>
                             <tbody id="p">
-                            <tr>
-                            <?php $id_prod = $produtosinfo2['id_prod'];?>
-                                <td class="id"><?php echo $produtosinfo2['id_prod']; ?></td>
-                                <td> <?php echo $produtosinfo2['lote']; ?> </td>
-                                <td> <?php echo $produtosinfo2['tipo']; ?> </td>
-                                <td> <?php echo $produtosinfo2['prod']; ?> </td>
-                                <td> <?php echo $produtosinfo2['preco_compra']; ?> </td>
-                                <td> <?php echo $produtosinfo2['preco_venda']; ?> </td>
-                                <td> <?php echo $produtosinfo2['qtd']; ?> </td>
-                                <td> <?php echo $produtosinfo2['dta_compra']; ?> </td>
-                                <td> <?php echo $produtosinfo2['dta_vencimento']; ?> </td>                                                              
-                                <?php echo  "<td class='moreOptions'> <a href='../../../PHP/alter_prod.php?id_prod=$id_prod'; <i class='fa-solid fa-x' style='color: #ffffff;'></i></a></td>"?>
-                            </tr>                           
-                        </tbody>
-                        <?php endforeach; ?>                         
+                                <tr>
+                                    <?php $id_prod = $produtosinfo2['id_prod']; ?>
+                                    <td class="id"><?php echo $produtosinfo2['id_prod']; ?></td>
+                                    <td> <?php echo $produtosinfo2['lote']; ?> </td>
+                                    <td> <?php echo $produtosinfo2['tipo']; ?> </td>
+                                    <td> <?php echo $produtosinfo2['prod']; ?> </td>
+                                    <td> <?php echo $produtosinfo2['preco_compra']; ?> </td>
+                                    <td> <?php echo $produtosinfo2['preco_venda']; ?> </td>
+                                    <td> <?php echo $produtosinfo2['qtd']; ?> </td>
+                                    <td> <?php echo $produtosinfo2['dta_compra']; ?> </td>
+                                    <td> <?php echo $produtosinfo2['dta_vencimento']; ?> </td>
+                                    <?php echo  "<td class='moreOptions'> <a href='../../../PHP/alter_prod.php?id_prod=$id_prod'; <i class='fa-solid fa-x' style='color: #ffffff;'></i></a></td>" ?>
+                                </tr>
+                            </tbody>
+                        <?php endforeach; ?>
                     </table>
                 </div>
-                    <!--índice da tabela hamburguer-->
+                <!--índice da tabela hamburguer-->
                 <div id="tabelaHamburguer" class="tabela">
                     <table>
                         <thead>
@@ -246,20 +242,20 @@ $sobremesainfo = $sql->query($sqlg);
                             <th>Nome</th>
                             <th>Preço</th>
                             <th>Excluir</th>
-                           
+
                         </thead>
                         <tbody>
                             <!--Conteúdo da tabela hamburguer-->
-                        <?php foreach($burguerinfo AS $burguerinfo2): ?>
-                            <tr>
-                            <!--olha ta dando erro pq ele ta tentando pegar um dado q nem foi executado-->
-                            <?php $id_burguer = $burguerinfo2['id_burguer'];?>
-                                <td class="id"><?php echo $burguerinfo2['id_burguer']; ?></td>
-                                <td><?php echo $burguerinfo2['nome']; ?></td>
-                                <td><?php echo $burguerinfo2['preco']; ?></td>
+                            <?php foreach ($burguerinfo as $burguerinfo2) : ?>
+                                <tr>
+                                    <!--olha ta dando erro pq ele ta tentando pegar um dado q nem foi executado-->
+                                    <?php $id_burguer = $burguerinfo2['id_burguer']; ?>
+                                    <td class="id"><?php echo $burguerinfo2['id_burguer']; ?></td>
+                                    <td><?php echo $burguerinfo2['nome']; ?></td>
+                                    <td><?php echo $burguerinfo2['preco']; ?></td>
 
-                                <?php echo  "<td class='moreOptions'> <a href='../../../PHP/alter_burguer.php?id_burguer=$id_burguer'; <i class='fa-solid fa-x' style='color: #ffffff;'></i></a></td>"?>
-                            </tr>
+                                    <?php echo  "<td class='moreOptions'> <a href='../../../PHP/alter_burguer.php?id_burguer=$id_burguer'; <i class='fa-solid fa-x' style='color: #ffffff;'></i></a></td>" ?>
+                                </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
@@ -276,18 +272,18 @@ $sobremesainfo = $sql->query($sqlg);
                         </thead>
                         <tbody>
                             <!--conteúdo da tabela bebidas-->
-                        <?php foreach($bebidainfo AS $bebidainfo2): ?>
-                            <tr>
-                            <?php $id_bebida = $bebidainfo2['id_bebida'];?>
-                                <td class="id"> <?php echo $bebidainfo2['id_bebida']; ?> </td>
-                                <td>  <?php echo $bebidainfo2['nome']; ?> </td>
-                                <td>  <?php echo $bebidainfo2['preco']; ?> </td>
-                                <td><?php echo $bebidainfo2['qtd']; ?></td>
+                            <?php foreach ($bebidainfo as $bebidainfo2) : ?>
+                                <tr>
+                                    <?php $id_bebida = $bebidainfo2['id_bebida']; ?>
+                                    <td class="id"> <?php echo $bebidainfo2['id_bebida']; ?> </td>
+                                    <td> <?php echo $bebidainfo2['nome']; ?> </td>
+                                    <td> <?php echo $bebidainfo2['preco']; ?> </td>
+                                    <td><?php echo $bebidainfo2['qtd']; ?></td>
 
-                                <?php echo  "<td class='moreOptions'> <a href='../../../PHP/alter_bebida.php?id_bebida=$id_bebida'; <i class='fa-solid fa-x' style='color: #ffffff;'></i></a></td>"?>
-                            </tr>
+                                    <?php echo  "<td class='moreOptions'> <a href='../../../PHP/alter_bebida.php?id_bebida=$id_bebida'; <i class='fa-solid fa-x' style='color: #ffffff;'></i></a></td>" ?>
+                                </tr>
                         </tbody>
-                        <?php endforeach; ?>
+                    <?php endforeach; ?>
                     </table>
                 </div>
                 <!--índice da tabela acompanhamentos-->
@@ -296,25 +292,25 @@ $sobremesainfo = $sql->query($sqlg);
                         <thead>
                             <th class="id">Id</th>
                             <th>Nome</th>
-                            <th>Preço</th>                      
+                            <th>Preço</th>
                             <th>Excluir</th>
                         </thead>
                         <tbody>
                             <!--conteúdo da tabela acompanhamentos-->
-                        <?php foreach($acompanhamentoinfo AS $acompanhamentoinfo2): ?>
-                            <tr>
+                            <?php foreach ($acompanhamentoinfo as $acompanhamentoinfo2) : ?>
+                                <tr>
 
 
 
-                            <?php $id_acompanhamento = $acompanhamentoinfo2['id_acompanhamento'];?>
-                                <td class="id"><?php echo $acompanhamentoinfo2['id_acompanhamento']; ?></td>
-                                <td><?php echo $acompanhamentoinfo2['nome']; ?></td>
-                                <td><?php echo $acompanhamentoinfo2['preco']; ?></td>
-        
-                                <?php echo  "<td class='moreOptions'> <a href='../../../PHP/alter_acompanhamento.php?id_acompanhamento=$id_acompanhamento'; <i class='fa-solid fa-x' style='color: #ffffff;'></i></a></td>"?>
-                            </tr>
+                                    <?php $id_acompanhamento = $acompanhamentoinfo2['id_acompanhamento']; ?>
+                                    <td class="id"><?php echo $acompanhamentoinfo2['id_acompanhamento']; ?></td>
+                                    <td><?php echo $acompanhamentoinfo2['nome']; ?></td>
+                                    <td><?php echo $acompanhamentoinfo2['preco']; ?></td>
+
+                                    <?php echo  "<td class='moreOptions'> <a href='../../../PHP/alter_acompanhamento.php?id_acompanhamento=$id_acompanhamento'; <i class='fa-solid fa-x' style='color: #ffffff;'></i></a></td>" ?>
+                                </tr>
                         </tbody>
-                        <?php endforeach; ?>
+                    <?php endforeach; ?>
                     </table>
                 </div>
                 <!--índice da tabela fornecedor-->
@@ -327,64 +323,64 @@ $sobremesainfo = $sql->query($sqlg);
                             <th>Tipo</th>
                         </thead>
                         <tbody>
-                              <!--conteúdo da tabela fornecedor-->
-                        <?php foreach($fornecedorinfo AS $fornecedorinfo2): ?>
-                            <tr>
-                                <td class="id"> <?php echo $fornecedorinfo2['cnpj'];?> </td>
-                                <td><?php echo $fornecedorinfo2['nome']; ?></td>
-                                <td><?php echo $fornecedorinfo2['tel']; ?></td>
-                                <td><?php echo $fornecedorinfo2['tipo']; ?></td>
-                            </tr>
+                            <!--conteúdo da tabela fornecedor-->
+                            <?php foreach ($fornecedorinfo as $fornecedorinfo2) : ?>
+                                <tr>
+                                    <td class="id"> <?php echo $fornecedorinfo2['cnpj']; ?> </td>
+                                    <td><?php echo $fornecedorinfo2['nome']; ?></td>
+                                    <td><?php echo $fornecedorinfo2['tel']; ?></td>
+                                    <td><?php echo $fornecedorinfo2['tipo']; ?></td>
+                                </tr>
                         </tbody>
-                        <?php endforeach; ?>
+                    <?php endforeach; ?>
                     </table>
                 </div>
-<!--índice da tabela molhos-->
-                    <div id="tabelaMolhos" class="tabela">
+                <!--índice da tabela molhos-->
+                <div id="tabelaMolhos" class="tabela">
                     <table>
                         <thead>
                             <th>ID</th>
                             <th>Nome</th>
                             <th>Quantidade</th>
                             <th>Excluir</th>
-                           
+
                         </thead>
                         <tbody>
-                              <!--conteúdo da tabela molhos-->
-                        <?php foreach($molhosinfo AS $molhosinfo2): ?>
-                            <tr>
-                            <?php $id_molhos = $molhosinfo2['id_molho'];?>
-                                <td class="id"> <?php echo $molhosinfo2['id_molho'];?> </td>
-                                <td><?php echo $molhosinfo2['nome']; ?></td>
-                                <td><?php echo $molhosinfo2['qtd']; ?></td>
+                            <!--conteúdo da tabela molhos-->
+                            <?php foreach ($molhosinfo as $molhosinfo2) : ?>
+                                <tr>
+                                    <?php $id_molhos = $molhosinfo2['id_molho']; ?>
+                                    <td class="id"> <?php echo $molhosinfo2['id_molho']; ?> </td>
+                                    <td><?php echo $molhosinfo2['nome']; ?></td>
+                                    <td><?php echo $molhosinfo2['qtd']; ?></td>
 
-                                <?php echo  "<td class='moreOptions'> <a href='../../../PHP/alter_molhos.php?id_molhos=$id_molhos'; <i class='fa-solid fa-x' style='color: #ffffff;'></i></a></td>"?>
-                            </tr>
+                                    <?php echo  "<td class='moreOptions'> <a href='../../../PHP/alter_molhos.php?id_molhos=$id_molhos'; <i class='fa-solid fa-x' style='color: #ffffff;'></i></a></td>" ?>
+                                </tr>
                         </tbody>
-                        <?php endforeach; ?>
+                    <?php endforeach; ?>
                     </table>
                 </div>
 
-                
+
                 <!--índice da tabela molhos-->
                 <div id="tabelaSobremesas" class="tabela">
                     <table>
                         <thead>
-                            <th class= "id">ID</th>
+                            <th class="id">ID</th>
                             <th>Nome</th>
                             <th>Preço</th>
-                            <th>Excluir</th>       
+                            <th>Excluir</th>
                         </thead>
                         <tbody>
-                              <!--conteúdo da tabela molhos-->
-                       <?php foreach($sobremesainfo AS $sobremesainfo2): ?>
-                            <tr>
-                            <?php $id_sobremesa = $sobremesainfo2['id_sobremesa'];?>
-                                <td class="id"> <?php echo $sobremesainfo2['id_sobremesa'];?> </td>
-                                <td><?php echo $sobremesainfo2['nome']; ?></td>
-                                <td><?php echo $sobremesainfo2['preco']; ?></td>
-                                <?php echo  "<td class='moreOptions'> <a href='../../../PHP/alter_sobremesa.php?id_sobremesa=$id_sobremesa'; <i class='fa-solid fa-x' style='color: #ffffff;'></i></a></td>"?>
-                            </tr>
+                            <!--conteúdo da tabela molhos-->
+                            <?php foreach ($sobremesainfo as $sobremesainfo2) : ?>
+                                <tr>
+                                    <?php $id_sobremesa = $sobremesainfo2['id_sobremesa']; ?>
+                                    <td class="id"> <?php echo $sobremesainfo2['id_sobremesa']; ?> </td>
+                                    <td><?php echo $sobremesainfo2['nome']; ?></td>
+                                    <td><?php echo $sobremesainfo2['preco']; ?></td>
+                                    <?php echo  "<td class='moreOptions'> <a href='../../../PHP/alter_sobremesa.php?id_sobremesa=$id_sobremesa'; <i class='fa-solid fa-x' style='color: #ffffff;'></i></a></td>" ?>
+                                </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
@@ -394,38 +390,37 @@ $sobremesainfo = $sql->query($sqlg);
     </div>
     <script src="../../../assets/js/paginaInicial/contProd.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="../../../assets/js/paginaInicial/sidebar.js"></script>
 
 </body>
 <script>
-$(document).ready(function() {
-    $('#search').on('input', function() {
-        pesquisardados();
+    $(document).ready(function() {
+        $('#search').on('input', function() {
+            pesquisardados();
+        });
     });
-});
 
-function pesquisardados() {
-    var searchValue = $('#search').val();
+    function pesquisardados() {
+        var searchValue = $('#search').val();
 
-    $.ajax({
-        type: "GET",
-        url: 'index.php?search=' + encodeURIComponent(searchValue),
-        success: function(response) {
-            var tableBody = $('#tabelaReal tbody');
-            tableBody.empty(); // Limpa o conteúdo atual da tabela
+        $.ajax({
+            type: "GET",
+            url: 'index.php?search=' + encodeURIComponent(searchValue),
+            success: function(response) {
+                var tableBody = $('#tabelaReal tbody');
+                tableBody.empty(); // Limpa o conteúdo atual da tabela
 
-            // Adiciona as linhas da pesquisa à tabela
-            $(response).find('#tabelaReal tbody tr').each(function() {
-                tableBody.append($(this)); // Adiciona a linha à tabela
-            });
+                // Adiciona as linhas da pesquisa à tabela
+                $(response).find('#tabelaReal tbody tr').each(function() {
+                    tableBody.append($(this)); // Adiciona a linha à tabela
+                });
 
-            // Atualiza também a exibição em blocos
-            $('.blocos .row').html($(response).find('.blocos .row').html());
-        }
-    });
-}
+                // Atualiza também a exibição em blocos
+                $('.blocos .row').html($(response).find('.blocos .row').html());
+            }
+        });
+    }
+</script>
 
 </html>
