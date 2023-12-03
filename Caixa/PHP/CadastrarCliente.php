@@ -11,6 +11,8 @@ $CidadeCli = $_POST['Cidade'];
 $BairroCli = $_POST['Bairro'];
 $Rua = $_POST['Rua'];
 $NCli = $_POST['Numero'];
+$dtnasc = $_POST['dtnasc'];
+$dtnasc = implode("-",array_reverse(explode("/",$dtnasc)));
 $EnderecoComple = $Rua . "," . " " . $NCli . " " . "-" .  " " . $BairroCli . " " . "," .  " " . $CidadeCli;
 $SenhaCli = base64_encode($CpfCli);
 $Data = date('Y/m/d');
@@ -30,12 +32,9 @@ if(empty($NomeCli) || empty($CpfCli) || empty($SexoCli) || empty($TelCli) || emp
             if($checar2 == 1){
                 echo '<script>alert("ERRO! Email já Cadastrado no sistema! ");  window.location.href = "../app/area-do-cliente/cadastro-de-clientes/cadastro-de-clientes.php"; </script>';
             }else{
-                //$sql->query("INSERT INTO cliente (cpf_cli,nome,sexo,tel,endereco,email_cli,dta_cadastro,senha_cli) VALUES ('$CpfCli', '$NomeCli', '$SexoCli', '$TelCli', '$EnderecoComple','$EmailCli',$Data,'$SenhaCli')");
-                //echo '<script>alert("Cadastrado concluido com sucesso, sua senha é o seu cpf que é '. $CpfCli .' ");  window.location.href = "../app/area-do-cliente/area-do-cliente.php"; </script>';
-                $concluir = ("INSERT INTO cliente (cpf_cli,nome,sexo,tel,endereco,email_cli,dta_cadastro,senha_cli) VALUES ('$CpfCli', '$NomeCli', '$SexoCli', '$TelCli', '$EnderecoComple','$EmailCli','$Data','$SenhaCli')");
+                $concluir = ("INSERT INTO cliente (cpf_cli,nome,sexo,tel,dta_nasc,endereco,email_cli,senha_cli,dta_cadastro) VALUES ('$CpfCli', '$NomeCli', '$SexoCli', '$TelCli', '$dtnasc' , '$EnderecoComple','$EmailCli','$SenhaCli','$Data')");
                 $sql->query($concluir);
                 echo '<script>alert("Cadastrado concluido com sucesso, sua senha é o seu cpf que é '. $CpfCli .' ");  window.location.href = "../app/area-do-cliente/area-do-cliente.php"; </script>';
-                //echo $concluir;
                 
             }
         }

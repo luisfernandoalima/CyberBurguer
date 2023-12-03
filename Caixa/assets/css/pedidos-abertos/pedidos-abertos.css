@@ -6,7 +6,7 @@ main {
 }
 
 .pedidosAbertosArea {
-    height: 80%;
+    height: 80vh;
     width: 80%;
     padding: 20px 10px 20px 10px;
     color: #fff;
@@ -17,7 +17,7 @@ main {
 
 .pedidosAbertosItems {
     overflow: auto;
-    height: 300px;
+    height: 50vh;
 }
 
 .optionComanda {
@@ -45,6 +45,7 @@ main {
 }
 
 .optionButtonArea{
+    margin-top: 15px;
     display: flex;
     justify-content: space-between;
 }
@@ -114,11 +115,21 @@ main {
     margin: 0%;
 }
 
-.popUpInfo{
+.popUpInfo, .popUpInfoo{
     margin-top: 15px;
+    overflow: auto;
+    height: 55vh;
 }
 
 
 .popDown{
     display: none;
+}
+
+#btnConcluirPedidoFinal{
+    background-color: var(--azulEscuro);
+    color: #fff;
+    border: 3px solid var(--rosa);
+    border-radius: 20px;
+    transition: .3s;
 }

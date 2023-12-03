@@ -1,4 +1,4 @@
-const btnCupom = document.querySelector('.btnCupom')
+/*const btnCupom = document.querySelector('.btnCupom')
 const forms = document.querySelector('.formularioCupom')
 
 btnCupom.addEventListener('click', () => {
@@ -15,3 +15,4 @@ inputCupom.addEventListener('blur', () =>{
         forms.submit()
     }
 })
+*/

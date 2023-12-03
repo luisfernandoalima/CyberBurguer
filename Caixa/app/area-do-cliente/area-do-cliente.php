@@ -9,7 +9,6 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha'])) == true
 $log = $_SESSION['email']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do email do usuario
 $nomeFunc = $_SESSION['nome']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do  nome do usuario
 $idFunc = $_SESSION['id_func']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do id do usuario
-$carrinho = $_SESSION['carrinho'];
 // Explode o nome completo em partes separadas por espaço
 $parts = explode(" ", $nomeFunc); //usado para separar o nome do primeiro nome 
 // Pega o primeiro elemento do array resultante
@@ -18,7 +17,7 @@ $primeiroNome = $parts[0];
 $avatar = '../../../imgbd/' . $_SESSION['avatarSession'];
 //FIM codigo relacionado a sessão
 
-$vendas = $sql->query("SELECT * FROM venda");
+$Cliente = $sql->query("SELECT * FROM cliente");
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -86,16 +85,16 @@ $vendas = $sql->query("SELECT * FROM venda");
             <aside class="menuConfig">
                 <a href="../configuracoes/informacoes.php"><i class="fa-solid fa-gear" style="color: #ffffff;"></i>Configurações</a>
                 <br>
-                <a href="../index.html">Sair</a>
+                <a href="../../PHP/sair_sessao_Caixa.php">Sair</a>
             </aside>
         </header>
         <main>
             <div class="clienteArea">
                 <div class="container">
-                    <h1>Comandas Abertas</h1>
+                    <h1>Clientes Cadastrados</h1>
                     <hr class="linha">
-                    <div class="clienteItems">
-                    <?php foreach ($vendas AS $venda): ?>
+                    <div class="clienteItems barra">
+                    <?php foreach ($Cliente AS $Clientes): ?>
                         <div class="clienteItemsArea">
                             <input type="radio" name="Cliente" id="1" class="radioButton">
                             <label for="1" class="optionCliente">
@@ -103,11 +102,11 @@ $vendas = $sql->query("SELECT * FROM venda");
                                     <div class="row">
                                         <div class="col-2">
                                             <abbr title="CPF">
-                                                <p class="numComanda"><?php echo $venda['id_cli'];?></p>
+                                                <p class="numComanda"><?php echo $Clientes['cpf_cli'];?></p>
                                             </abbr>
                                         </div>
                                         <?php     
-                                        $idCliente = $venda['id_cli'];
+                                        $idCliente = $Clientes['id_cli'];
                                         $sqlCliente = $sql->query("SELECT * FROM cliente WHERE id_cli = $idCliente");
                                         $cliente = $sqlCliente->fetch_assoc(); 
                                         ?>
@@ -118,7 +117,7 @@ $vendas = $sql->query("SELECT * FROM venda");
                                         </div>
                                         <div class="col-2">
                                             <abbr title="Data de nascimento">
-                                                <p><?php echo $venda['valor_total'];?></p>
+                                                <p><?php echo $Clientes['dta_nasc'];?></p>
                                             </abbr>
                                         </div>
                                         <div class="col-2">

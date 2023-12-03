@@ -1,3 +1,38 @@
+<?php
+session_start();
+include_once(__DIR__ . '/../../../PHP/conn.php'); //não faz parte da sessão mas linka com o banco de dados 
+if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha'])) == true){ //Se as variaveis de sessão estiverem vazias, fecha a sessão e joga para a pagina de login
+    unset($_SESSION['email']); //destroi a variavel sessão email
+    unset($_SESSION['senha']); //destroi a variavel sessão senha
+    echo '<script>alert("Acesso Negado faça o login primeiro"); window.location.href = "../../../index.html";</script>';
+}
+$log = $_SESSION['email']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do email do usuario
+$nomeFunc = $_SESSION['nome']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do  nome do usuario
+$idFunc = $_SESSION['id_func']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do id do usuario
+// Explode o nome completo em partes separadas por espaço
+$parts = explode(" ", $nomeFunc); //usado para separar o nome do primeiro nome 
+// Pega o primeiro elemento do array resultante
+$primeiroNome = $parts[0];
+// Explode o nome completo em partes separadas por espaço
+$avatar = '../../../../imgbd/' . $_SESSION['avatarSession'];
+//FIM codigo relacionado a sessão 
+
+$DadosFunc = $sql->query("SELECT * FROM funcionarios WHERE id_func = '$idFunc'");
+if($DadosFunc -> num_rows > 0){
+    while($DadosRecebido = mysqli_fetch_assoc($DadosFunc)){
+        $id_func = $DadosRecebido['id_func'];
+        $tel = $DadosRecebido ['tel'];
+        $nome = $DadosRecebido ['nome'];
+        $senha = $DadosRecebido ['senha_adm'];
+        $email = $DadosRecebido ['email_adm'];
+        $religiao = $DadosRecebido ['religiao'];
+        $nc = $DadosRecebido['conta_bancaria'];
+        $hab = $DadosRecebido['habilitado'];
+        $img = $DadosRecebido['avatar'];
+        $imgFoto = '../../../../imgbd/' . $img; 
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -44,12 +79,12 @@
                 </span>
             </nav>
             <aside class="sidebar-header">
-                <img class="logo-img" src="https://sujeitoprogramador.com/steve.png" alt="Foto do usuário">
+                <img class="logo-img" src="<?php echo $avatar; ?>" alt="Foto do usuário">
                 <span class="dados">
                     <!--Nome do Usuário-->
-                    <span class="nome">Nome</span>
+                    <span class="nome"><?php echo $primeiroNome; ?></span>
                     <!--Número de identificação-->
-                    <span class="id">#565555</span>
+                    <span class="id">#<?php echo $idFunc; ?></span>
                 </span>
                 <div class="hamburger-menu">
                     <input type="checkbox" id="checkbox-menu">
@@ -62,9 +97,9 @@
                 </div>
             </aside>
             <aside class="menuConfig">
-                <a href="../../configuracoes/informacoes.php"><i class="fa-solid fa-gear" style="color: #ffffff;"></i>Configurações</a>
+                <a href="../informacoes.php"><i class="fa-solid fa-gear" style="color: #ffffff;"></i>Configurações</a>
                 <br>
-                <a href="../../index.html">Sair</a>
+                <a href="../../../PHP/sair_sessao_Caixa.php">Sair</a>
             </aside>
         </header>
         <main class="main">
@@ -81,45 +116,45 @@
                         </ul>
                     </div>
                     <div class="col-8 info">
-                        <h1>Informações da pessoais</h1>
+                        <h1>Informações pessoais</h1>
                         <div class="menuOptionConfig">
                             <picture>
-                                <img src="https://sujeitoprogramador.com/steve.png" alt="">
+                                <img src="<?php echo $imgFoto ?>" alt="">
                             </picture>
 
-                            <form action="" id="infoPessoais">
+                            <form action="../../../PHP/UpdateInfoFunc.php" method="post" id="infoPessoais">
                                 <div>
                                     <label for="nomePessoal">Nome de Usuário</label>
                                     <!--As informações vindas do PHP serão colocadas no value-->
-                                    <input type="text" id="nomePessoal" value="Luis">
+                                    <input type="text" id="nomePessoal" name="nomePessoal" value="<?php echo $nome; ?>">
                                 </div>
                                 <div>
                                     <label for="telPessoal">Celular</label>
-                                    <input type="text" id="telPessoal" value="99999999999">
+                                    <input type="text" id="telPessoal" name="telPessoal" value="<?php echo $tel; //VER CAMPOS DO CAMPO NUMERO DA TELEFONE  ?>">
                                 </div>
                                 <div>
                                     <label for="habPessoal">Habilitação</label>
-                                    <input type="text" id="habPessoal" value="55555555">
+                                    <input type="text" id="habPessoal" name="habPessoal" value="<?php echo $hab; ?>">
                                 </div>
                                 <div>
                                     <label for="relPessoal">Religião</label>
-                                    <input type="text" id="relPessoal" value="Budista">
+                                    <input type="text" id="relPessoal" name="relPessoal" value="<?php echo $religiao; ?>">
                                 </div>
                                 <div>
                                     <label for="conPessoal">Nº Conta Bancária</label>
-                                    <input type="text" id="conPessoal" value="5555555">
+                                    <input type="text" id="conPessoal" name="conPessoal" value="<?php echo $nc; ?>">
                                 </div>
                                 <div>
                                     <label for="senhaPessoal">Senha</label>
-                                    <input type="password" id="senhaPessoal" value="55555">
+                                    <input type="password" id="senhaPessoal" name="senhaPessoal" value="<?php echo base64_decode($senha); ?>">
                                 </div>
                                 <div class="passwordClass">
                                     <label for="senhaConPessoal">Confirmar senha</label>
-                                    <input type="password" id="senhaConPessoal">
+                                    <input type="password" id="senhaConPessoal" name="senhaConPessoal">
                                 </div>
 
                             </form>
-                            <button class="btnSubmitJS" disabled>Salvar alterações</button>
+                            <button class="btnSubmitJS" name="Salvar" disabled>Salvar alterações</button>
                         </div>
                     </div>
                 </div>

@@ -130,3 +130,18 @@ select:focus {
 select:hover {
     border: 2px solid var(--azulDiferenciado);
 }
+
+.inputCupom, .inputCliente{
+    color: #fff;
+    background-color: transparent;
+    border: 2px solid var(--rosa);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: .3s;
+}
+
+.inputCupom:focus, .inputCliente:focus{
+    outline: none;
+    border-color: var(--azul);
+}

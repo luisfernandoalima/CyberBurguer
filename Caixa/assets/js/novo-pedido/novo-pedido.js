@@ -5,13 +5,12 @@ const imgOptions = document.querySelectorAll('.imgOption');
 const textLabel = document.querySelectorAll('.labelText');
 
 //Areas dos pedidos
-const combo = document.querySelector('.combos')
 const hamburguer = document.querySelector('.hamburguer')
 const porcoes = document.querySelector('.porcoes')
 const sobremesa = document.querySelector('.sobremesas')
 const bebidas = document.querySelector('.bebidas')
 
-const areaPedidos = [combo, hamburguer, porcoes, sobremesa, bebidas]
+const areaPedidos = [hamburguer, porcoes, sobremesa, bebidas]
 
 for (let i = 0; i < radioButtons.length; i++) {
     radioButtons[i].addEventListener('change', () => {
@@ -75,6 +74,8 @@ const inputComandaArea = document.querySelector('.inputComandaArea')
 
 const tipoConfirmacao = document.querySelector('#tipoConfirmacao')
 const textoConfirm = document.querySelector('#textoConfirm')
+const inputConfirm = document.querySelector('#inputConfirm')
+
 
 const form = document.querySelectorAll('.formsConfirm')
 
@@ -86,12 +87,14 @@ const mostrarPopUp = () => {
 btnCancel.addEventListener("click", function () {
     tipoConfirmacao.innerHTML = 'cancelamento'
     textoConfirm.innerHTML = 'o cancelamento'
+    inputConfirm.innerHTML = ''
     form.action = ''
     inputComandaArea.classList.add('disable')
     mostrarPopUp()
 });
 
 btnConfirm.addEventListener("click", function () {
+    inputConfirm.innerHTML = ' nº da comanda e seu'
     tipoConfirmacao.innerHTML = 'pedido'
     textoConfirm.innerHTML = 'a aprovação'
     form.action = ''

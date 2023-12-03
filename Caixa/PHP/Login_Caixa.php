@@ -15,7 +15,6 @@ if(mysqli_num_rows($logar)< 1){
     $funcionario = mysqli_fetch_assoc($logar);
     $_SESSION['id_func'] = $funcionario['id_func'];
     $_SESSION['nome'] = $funcionario['nome'];
-    $carrinho = $_SESSION['carrinho'];
     $_SESSION['avatarSession'] = $funcionario['avatar']; //Imagem, pode conter erros ou bugs
     echo '<script>alert("Login realizado com sucesso! Bem-vindo, ' . $funcionario['nome'] . '"); window.location.href = "../app/pagina-inicial/home.php";</script>';
 }

@@ -1,0 +1,1991 @@
+<?php
+include_once('conn.php');
+// Receba os dados do corpo da requisição
+$JsonRes = file_get_contents('php://input');
+// Decodifique os dados JSON
+$data = json_decode($JsonRes, true);
+$DataBd = date('Y-m-d'); //Pega a Data
+$SituaçãoVend = "ENTREGUE";
+$SituaçãoPed = "PRONTO";
+//$TaxaServ = 10.00;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $idPedido = $data['idPedido'];
+    $idFuncionario = $data['idFuncionario'];
+    $idcli = $data['idCli'];
+    $cupom = $data['cupom'];
+    $valorDesconto = $data['valorDesconto'];
+    $valorDesconto = str_replace(',', '.', $valorDesconto);
+    $valorFinal = $data['valorFinal'];
+    $porCent = 0.10;
+    $TaxaServ = $valorFinal * $porCent;
+    $formaPagamento = $data['formaPagamento'];
+    $DadosPedido = $sql->query("SELECT * FROM pedidos WHERE id = $idPedido");
+    if(mysqli_num_rows($DadosPedido) > 0 ){
+        foreach ($DadosPedido AS $Resul):
+            $idBurguer = $Resul['id_burguer'];
+            $idbebida = $Resul['id_bebida'];
+            $idacompanhamento = $Resul['id_acompanhamento'];
+            $idsobremesa = $Resul['id_sobremesa'];
+            $qtdBurguer = $Resul['qtd'];
+            $qtdbeb = $Resul['qtdbeb'];
+            $qtdacomp = $Resul['qtdacomp'];
+            $qtdsobremesa = $Resul['qtdsobremesa'];
+            $DadosProd = array();
+            $BurguerDados = "SELECT * FROM burguer WHERE id_burguer = '$idBurguer'";
+            usleep(2000); //Da um certo tempo entre a execução de um script e outro, com o intuito de não saturar o banco de dados  
+            $BebDados = "SELECT * FROM bebida WHERE id_bebida = '$idbebida'";
+            usleep(2000); //Da um certo tempo entre a execução de um script e outro, com o intuito de não saturar o banco de dados 
+            $AcomDados = "SELECT * FROM acompanhamento WHERE id_acompanhamento = '$idacompanhamento'";
+            usleep(2000); //Da um certo tempo entre a execução de um script e outro, com o intuito de não saturar o banco de dados 
+            $SobremesaDados = "SELECT * FROM sobremesa WHERE id_sobremesa = '$idsobremesa'";
+            $Res_Burguer = $sql->query($BurguerDados);
+            usleep(2000); //Da um certo tempo entre a execução de um script e outro, com o intuito de não saturar o banco de dados 
+            $Res_Beb = $sql->query($BebDados);
+            usleep(2000); //Da um certo tempo entre a execução de um script e outro, com o intuito de não saturar o banco de dados 
+            $Res_Acom = $sql->query($AcomDados);
+            usleep(2000); //Da um certo tempo entre a execução de um script e outro, com o intuito de não saturar o banco de dados  
+            $Res_Sobremesa = $sql->query($SobremesaDados);
+            
+            //AQUI É UM ESPAÇO EXCLUSIVO PARA COLOCAR O NOME DO PRODUTO E OS PRODUTOS QUE COMPOE ELE 
+            //Se tiver tempo reduzir o codigo a seguinte logica, receber todos os produtos dentro de um 
+            //vetor e assim colocar em evidencia os nomes e as quantidades do produto, e em vez de 
+            //comparar o nome do banco de dados só comparar o produto.
+            //-------------------------------HAMBURGUERS--------------------------------------------
+            $DarkBurguer = ['Pão Preto' , 'Carne Moida 350g', 'Alface' , 'Queijo mussarela' , 'Tomate', 'Cebola' , 'Caramelo' ];
+            $BurguerCraft = ['Pão Quadrado' , 'Carne Moida 350g', 'Alface', 'Queijo Prato', 'Cebola', 'Molho da Casa'];  //Lembrete: Descontar duas vezes a carne nesse Hamburguer
+            $GarticBurguer = ['Pão de Cookie' , 'Ganache cremoso de Chocolate meio amargo', 'Fatias de morango'];
+            $SimsBurguer = ['Pão Tradicional' , 'Carne de Soja 350g', 'Quacamole', 'Tomate', 'Queijo Cheddar', 'Crispy de Cebola'];
+            $SuperMarioBurguer2 = ['Pão de Cebola' , 'Carne de Soja 350g', 'Tomate', 'Queijo de batata', 'Cebola', 'Cogumelos'];
+            //-------------------------------Acompanhamento------------------------------------------
+            $Nuggets = ['Nuggets']; //Por exemplo o acompanhamento nuggets contém o produto nuggets 
+            $BatataFritacomCheddareBacon = ['Batata Frita', 'Bacon', 'Cheddar'];
+            $BatataFrita = ['Batata Frita'];
+            $OnionRings = ['Onion Rings'];
+            $NachoscomGuacamole = ['Nachos com Guacamole'];
+            //-----------------------------------Bebida----------------------------------------------
+            $AguaNatural = ['Agua Natural 250ml'];
+            $Aguacomgãs = ['Agua com Gãs 250ml'];
+            $RefrigeranteLata = ['Refrigerante Lata'];
+            $RefrigeranteGarrafadeVidro = ['Refrigerante Garrafa de Vidro'];
+            $SucoNaturaldeLaranja = ['Laranja','Açucar'];
+            $SucoNaturaldeMorango = ['Morango','Açucar'];
+            $SucoNaturaldeUva = ['Uva','Açucar'];
+            $SucoNaturaldeLimão = ['Limão','Açucar'];
+            $SucoNaturaldeMaracuja = ['Maracuja','Açucar'];
+            $SucoNaturaldeGoiaba = ['Goiaba','Açucar'];
+            $MilkShakeChocolate = ['Leite', 'Sorvete' ,'Calda de Chocolate'];
+            $MilkShakeMorango = ['Leite', 'Sorvete' ,'Calda de Morango'];
+            $MilkShakeCaramelo = ['Leite', 'Sorvete' ,'Calda de Caramelo'];
+            $MilkShakeOvomaltine = ['Leite', 'Sorvete' ,'Calda de Ovomaltine'];
+            $MilkShakeChocomenta = ['Leite', 'Sorvete' ,'Calda de Chocomenta'];
+            //----------------------------------Sobremesa---------------------------------------------
+            $TortadeLimão = ['Torta de Limão'];
+            $TortaHolandesa = ['Torta Holandesa'];
+            $TortadeMorango = ['Torta de Morango'];
+            $SorvetedeCookiesCream = ['SorvetedeCookiesCream'];
+            $SorvetedeBaunilha = ['Sorvete de Baunilha'];
+            $SorvetedeChocolate = ['Sorvete de Chocolate'];
+            $SorveteNapolitano = ['Sorvete Napolitano'];
+            //------------------------------------FIM-----------------------------------------------
+
+            if($Res_Burguer ->num_rows > 0){ //Se o numero de linhas recebido for maior que 0 executa o resto do script 
+                $linha = $Res_Burguer->fetch_assoc(); //Dissosia as informações recebida no banco de dados 
+                $Dados_Burguer[] = array( //Pega as info e coloca em um array
+                    'id' => $linha['id_burguer'],
+                    'nome' => $linha['nome'],
+                );
+                foreach ($Dados_Burguer as $Burguer): //Estrutura de loop com as info do vetor 
+                    $id = $Burguer['id']; 
+                    $nome = $Burguer['nome'];
+                    $nomeSemEspacos = str_replace(' ', '', $nome); //Remove os espaços em branco no nome 
+                    if($nomeSemEspacos = $DarkBurguer){ //Se o nome for igual ao vetor executará o script, !!Descobrir por que com os dois sinais de igual não vai (Comparação)
+                        $posicao0 = $DarkBurguer[0]; //Pega a primeira posição do vetor 
+                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'"; //Pesquisa no banco 
+                        $Resultado = $sql->query($ProcurarProd);
+                        if(mysqli_num_rows($Resultado)){
+                            $linha = mysqli_fetch_assoc($Resultado);
+                            $QuantidadeProd = $linha['qtd'];
+                            $QuantidadeTotal = $QuantidadeProd - $qtdBurguer;
+                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                            $sql->query($updateQuery);
+                            
+                        }
+                        $posicao1 = $DarkBurguer[1];
+                        $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                        $Resultado1 = $sql->query($ProcurarProd1);
+                        if(mysqli_num_rows($Resultado1)){
+                            $linha = mysqli_fetch_assoc($Resultado1);
+                            $QuantidadeProd1 = $linha['qtd'];
+                            $QuantidadeTotal1 = $QuantidadeProd1 - $qtdBurguer;
+                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                            $sql->query($updateQuery);
+                        }
+                        $posicao2 = $DarkBurguer[2];
+                        $ProcurarProd2 = "SELECT qtd FROM produto WHERE prod = '$posicao2'";
+                        $Resultado2 = $sql->query($ProcurarProd2);
+                        if(mysqli_num_rows($Resultado2)){
+                            $linha = mysqli_fetch_assoc($Resultado2);
+                            $QuantidadeProd2 = $linha['qtd'];
+                            $QuantidadeTotal2 = $QuantidadeProd2 - $qtdBurguer;
+                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal2 WHERE prod = '$posicao2'");
+                            $sql->query($updateQuery);
+                        }
+                        $posicao3 = $DarkBurguer[3];
+                        $ProcurarProd3 = "SELECT qtd FROM produto WHERE prod = '$posicao3'";
+                        $Resultado3 = $sql->query($ProcurarProd3);
+                        if(mysqli_num_rows($Resultado3)){
+                            $linha = mysqli_fetch_assoc($Resultado3);
+                            $QuantidadeProd3 = $linha['qtd'];
+                            $QuantidadeTotal3 = $QuantidadeProd3 - $qtdBurguer;
+                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal3 WHERE prod = '$posicao3'");
+                            $sql->query($updateQuery);
+                        }
+                        $posicao4 = $DarkBurguer[4];
+                        $ProcurarProd4 = "SELECT qtd FROM produto WHERE prod = '$posicao4'";
+                        $Resultado4 = $sql->query($ProcurarProd4);
+                        if(mysqli_num_rows($Resultado4)){
+                            $linha = mysqli_fetch_assoc($Resultado4);
+                            $QuantidadeProd4 = $linha['qtd'];
+                            $QuantidadeTotal4 = $QuantidadeProd4 - $qtdBurguer;
+                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal4 WHERE prod = '$posicao4'");
+                            $sql->query($updateQuery);
+                        }
+                        $posicao5 = $DarkBurguer[5];
+                        $ProcurarProd5 = "SELECT qtd FROM produto WHERE prod = '$posicao5'";
+                        $Resultado5 = $sql->query($ProcurarProd1);
+                        if(mysqli_num_rows($Resultado5)){
+                            $linha = mysqli_fetch_assoc($Resultado5);
+                            $QuantidadeProd5 = $linha['qtd'];
+                            $QuantidadeTotal5 = $QuantidadeProd5 - $qtdBurguer;
+                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal5 WHERE prod = '$posicao5'");
+                            $sql->query($updateQuery);
+                        }
+                        $posicao6 = $DarkBurguer[6];
+                        $ProcurarProd6 = "SELECT qtd FROM produto WHERE prod = '$posicao6'";
+                        $Resultado6 = $sql->query($ProcurarProd6);
+                        if(mysqli_num_rows($Resultado6)){
+                            $linha = mysqli_fetch_assoc($Resultado6);
+                            $QuantidadeProd6 = $linha['qtd'];
+                            $QuantidadeTotal6 = $QuantidadeProd6 - $qtdBurguer;
+                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal6 WHERE prod = '$posicao6'");
+                            $sql->query($updateQuery);
+                        }
+                    }else{
+                        if($nomeSemEspacos = $BurguerCraft){
+                            $posicao0 = $BurguerCraft[0];
+                            $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                            $Resultado = $sql->query($ProcurarProd);
+                            if(mysqli_num_rows($Resultado)){
+                                $linha = mysqli_fetch_assoc($Resultado);
+                                $QuantidadeProd = $linha['qtd'];
+                                $QuantidadeTotal = $QuantidadeProd - $qtdBurguer;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                $sql->query($updateQuery);
+                                
+                            }
+                            $posicao1 = $BurguerCraft[1];
+                            $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                            $Resultado1 = $sql->query($ProcurarProd1);
+                            if(mysqli_num_rows($Resultado1)){
+                                $linha = mysqli_fetch_assoc($Resultado1);
+                                $QuantidadeProd1 = $linha['qtd'];
+                                $QuantidadeTotal1 = $QuantidadeProd1 - $qtdBurguer;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                $sql->query($updateQuery);
+                            }
+                            $posicao2 = $BurguerCraft[2];
+                            $ProcurarProd2 = "SELECT qtd FROM produto WHERE prod = '$posicao2'";
+                            $Resultado2 = $sql->query($ProcurarProd2);
+                            if(mysqli_num_rows($Resultado2)){
+                                $linha = mysqli_fetch_assoc($Resultado2);
+                                $QuantidadeProd2 = $linha['qtd'];
+                                $QuantidadeTotal2 = $QuantidadeProd2 - $qtdBurguer;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal2 WHERE prod = '$posicao2'");
+                                $sql->query($updateQuery);
+                            }
+                            $posicao3 = $BurguerCraft[3];
+                            $ProcurarProd3 = "SELECT qtd FROM produto WHERE prod = '$posicao3'";
+                            $Resultado3 = $sql->query($ProcurarProd3);
+                            if(mysqli_num_rows($Resultado3)){
+                                $linha = mysqli_fetch_assoc($Resultado3);
+                                $QuantidadeProd3 = $linha['qtd'];
+                                $QuantidadeTotal3 = $QuantidadeProd3 - $qtdBurguer;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal3 WHERE prod = '$posicao3'");
+                                $sql->query($updateQuery);
+                            }
+                            $posicao4 = $BurguerCraft[4];
+                            $ProcurarProd4 = "SELECT qtd FROM produto WHERE prod = '$posicao4'";
+                            $Resultado4 = $sql->query($ProcurarProd4);
+                            if(mysqli_num_rows($Resultado4)){
+                                $linha = mysqli_fetch_assoc($Resultado4);
+                                $QuantidadeProd4 = $linha['qtd'];
+                                $QuantidadeTotal4 = $QuantidadeProd4 - $qtdBurguer;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao4'");
+                                $sql->query($updateQuery);
+                            }
+                            $posicao5 = $BurguerCraft[5];
+                            $ProcurarProd5 = "SELECT qtd FROM produto WHERE prod = '$posicao5'";
+                            $Resultado5 = $sql->query($ProcurarProd5);
+                            if(mysqli_num_rows($Resultado5)){
+                                $linha = mysqli_fetch_assoc($Resultado5);
+                                $QuantidadeProd5 = $linha['qtd'];
+                                $QuantidadeTotal5 = $QuantidadeProd5 - $qtdBurguer;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal5 WHERE prod = '$posicao5'");
+                                $sql->query($updateQuery);
+                            }
+                        }else{
+                            if($nomeSemEspacos = $GarticBurguer){
+                                $posicao0 = $GarticBurguer[0];
+                                $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                $Resultado = $sql->query($ProcurarProd);
+                                if(mysqli_num_rows($Resultado)){
+                                    $linha = mysqli_fetch_assoc($Resultado);
+                                    $QuantidadeProd = $linha['qtd'];
+                                    $QuantidadeTotal = $QuantidadeProd - $qtdBurguer;
+                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                    $sql->query($updateQuery);
+                                }
+                                $posicao1 = $GarticBurguer[1];
+                                $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                $Resultado1 = $sql->query($ProcurarProd1);
+                                if(mysqli_num_rows($Resultado1)){
+                                    $linha = mysqli_fetch_assoc($Resultado1);
+                                    $QuantidadeProd1 = $linha['qtd'];
+                                    $QuantidadeTotal1 = $QuantidadeProd1 - $qtdBurguer;
+                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                    $sql->query($updateQuery);
+                                }
+                            }else{
+                                if($nomeSemEspacos = $SimsBurguer){
+                                    $posicao0 = $SimsBurguer[0];
+                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                    $Resultado = $sql->query($ProcurarProd);
+                                    if(mysqli_num_rows($Resultado)){
+                                        $linha = mysqli_fetch_assoc($Resultado);
+                                        $QuantidadeProd = $linha['qtd'];
+                                        $QuantidadeTotal = $QuantidadeProd - $qtdBurguer;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                        $sql->query($updateQuery);
+                                    }
+                                    $posicao1 = $SimsBurguer[1];
+                                    $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                    $Resultado1 = $sql->query($ProcurarProd1);
+                                    if(mysqli_num_rows($Resultado1)){
+                                        $linha = mysqli_fetch_assoc($Resultado1);
+                                        $QuantidadeProd1 = $linha['qtd'];
+                                        $QuantidadeTotal1 = $QuantidadeProd1 - $qtdBurguer;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                        $sql->query($updateQuery);
+                                    }
+                                }else{
+                                    if($nomeSemEspacos = $SuperMarioBurguer2){
+                                        $posicao0 = $SuperMarioBurguer2[0];
+                                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                        $Resultado = $sql->query($ProcurarProd);
+                                        if(mysqli_num_rows($Resultado)){
+                                            $linha = mysqli_fetch_assoc($Resultado);
+                                            $QuantidadeProd = $linha['qtd'];
+                                            $QuantidadeTotal = $QuantidadeProd - $qtdBurguer;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                            $sql->query($updateQuery);
+                                        }
+                                        $posicao1 = $SuperMarioBurguer2[1];
+                                        $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                        $Resultado1 = $sql->query($ProcurarProd1);
+                                        if(mysqli_num_rows($Resultado1)){
+                                            $linha = mysqli_fetch_assoc($Resultado1);
+                                            $QuantidadeProd1 = $linha['qtd'];
+                                            $QuantidadeTotal1 = $QuantidadeProd1 - $qtdBurguer;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                            $sql->query($updateQuery);
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                endforeach;
+                if($Res_Beb -> num_rows > 0 ){
+                    $linha = $Res_Beb->fetch_assoc();
+                    $Dados_Beb[] = array(
+                        'id' => $linha['id_bebida'],
+                        'nome' => $linha['nome'],
+                    );
+                    foreach($Dados_Beb AS $Beb):
+                        $id = $Beb['id'];
+                        $nome = $Beb['nome'];
+                        $nomeSemEspacos = str_replace(' ','',$nome);
+                        if($nomeSemEspacos = $MilkShakeChocolate){
+                            $posicao0 = $MilkShakeChocolate[0];
+                            $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                            $Resultado = $sql->query($ProcurarProd);
+                            if(mysqli_num_rows($Resultado)){
+                                $linha = mysqli_fetch_assoc($Resultado);
+                                $QuantidadeProd = $linha['qtd'];
+                                $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                $sql->query($updateQuery);
+                            }
+                            $posicao1 = $MilkShakeChocolate[1];
+                            $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                            $Resultado1 = $sql->query($ProcurarProd1);
+                            if(mysqli_num_rows($Resultado1)){
+                                $linha = mysqli_fetch_assoc($Resultado1);
+                                $QuantidadeProd1 = $linha['qtd'];
+                                $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                $sql->query($updateQuery);
+                            }
+                            $posicao2 = $MilkShakeChocolate[2];
+                            $ProcurarProd2 = "SELECT qtd FROM produto WHERE prod = '$posicao2'";
+                            $Resultado2 = $sql->query($ProcurarProd2);
+                            if(mysqli_num_rows($Resultado2)){
+                                $linha = mysqli_fetch_assoc($Resultado2);
+                                $QuantidadeProd2 = $linha['qtd'];
+                                $QuantidadeTotal2 = $QuantidadeProd2 - $qtdbeb;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao2'");
+                                $sql->query($updateQuery);
+                            }
+                        }else{
+                            if($nomeSemEspacos = $MilkShakeMorango){
+                                $posicao0 = $MilkShakeMorango[0];
+                                $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                $Resultado = $sql->query($ProcurarProd);
+                                if(mysqli_num_rows($Resultado)){
+                                    $linha = mysqli_fetch_assoc($Resultado);
+                                    $QuantidadeProd = $linha['qtd'];
+                                    $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                    $sql->query($updateQuery);
+                                }
+                                $posicao1 = $MilkShakeMorango[1];
+                                $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                $Resultado1 = $sql->query($ProcurarProd1);
+                                if(mysqli_num_rows($Resultado1)){
+                                    $linha = mysqli_fetch_assoc($Resultado1);
+                                    $QuantidadeProd1 = $linha['qtd'];
+                                    $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                    $sql->query($updateQuery);
+                                }
+                                $posicao2 = $MilkShakeMorango[2];
+                                $ProcurarProd2 = "SELECT qtd FROM produto WHERE prod = '$posicao2'";
+                                $Resultado2 = $sql->query($ProcurarProd2);
+                                if(mysqli_num_rows($Resultado2)){
+                                    $linha = mysqli_fetch_assoc($Resultado2);
+                                    $QuantidadeProd2 = $linha['qtd'];
+                                    $QuantidadeTotal2 = $QuantidadeProd2 - $qtdbeb;
+                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao2'");
+                                    $sql->query($updateQuery);
+                                }
+                            }else{
+                                if($nomeSemEspacos = $MilkShakeCaramelo){
+                                    $posicao0 = $MilkShakeCaramelo[0];
+                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                    $Resultado = $sql->query($ProcurarProd);
+                                    if(mysqli_num_rows($Resultado)){
+                                        $linha = mysqli_fetch_assoc($Resultado);
+                                        $QuantidadeProd = $linha['qtd'];
+                                        $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                        $sql->query($updateQuery);
+                                    }
+                                    $posicao1 = $MilkShakeCaramelo[1];
+                                    $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                    $Resultado1 = $sql->query($ProcurarProd1);
+                                    if(mysqli_num_rows($Resultado1)){
+                                        $linha = mysqli_fetch_assoc($Resultado1);
+                                        $QuantidadeProd1 = $linha['qtd'];
+                                        $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                        $sql->query($updateQuery);
+                                    }
+                                    $posicao2 = $MilkShakeCaramelo[2];
+                                    $ProcurarProd2 = "SELECT qtd FROM produto WHERE prod = '$posicao2'";
+                                    $Resultado2 = $sql->query($ProcurarProd2);
+                                    if(mysqli_num_rows($Resultado2)){
+                                        $linha = mysqli_fetch_assoc($Resultado2);
+                                        $QuantidadeProd2 = $linha['qtd'];
+                                        $QuantidadeTotal2 = $QuantidadeProd2 - $qtdbeb;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao2'");
+                                        $sql->query($updateQuery);
+                                    }
+                                }else{
+                                    if($nomeSemEspacos = $MilkShakeOvomaltine){
+                                        $posicao0 = $MilkShakeOvomaltine[0];
+                                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                        $Resultado = $sql->query($ProcurarProd);
+                                        if(mysqli_num_rows($Resultado)){
+                                            $linha = mysqli_fetch_assoc($Resultado);
+                                            $QuantidadeProd = $linha['qtd'];
+                                            $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                            $sql->query($updateQuery);
+                                        }
+                                        $posicao1 = $MilkShakeOvomaltine[1];
+                                        $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                        $Resultado1 = $sql->query($ProcurarProd1);
+                                        if(mysqli_num_rows($Resultado1)){
+                                            $linha = mysqli_fetch_assoc($Resultado1);
+                                            $QuantidadeProd1 = $linha['qtd'];
+                                            $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                            $sql->query($updateQuery);
+                                        }
+                                        $posicao2 = $MilkShakeOvomaltine[2];
+                                        $ProcurarProd2 = "SELECT qtd FROM produto WHERE prod = '$posicao2'";
+                                        $Resultado2 = $sql->query($ProcurarProd2);
+                                        if(mysqli_num_rows($Resultado2)){
+                                            $linha = mysqli_fetch_assoc($Resultado2);
+                                            $QuantidadeProd2 = $linha['qtd'];
+                                            $QuantidadeTotal2 = $QuantidadeProd2 - $qtdbeb;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao2'");
+                                            $sql->query($updateQuery);
+                                        }
+                                    }else{
+                                        if($nomeSemEspacos = $MilkShakeChocomenta){
+                                            $posicao0 = $MilkShakeChocomenta[0];
+                                            $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                            $Resultado = $sql->query($ProcurarProd);
+                                            if(mysqli_num_rows($Resultado)){
+                                                $linha = mysqli_fetch_assoc($Resultado);
+                                                $QuantidadeProd = $linha['qtd'];
+                                                $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                $sql->query($updateQuery);
+                                            }
+                                            $posicao1 = $MilkShakeChocomenta[1];
+                                            $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                            $Resultado1 = $sql->query($ProcurarProd1);
+                                            if(mysqli_num_rows($Resultado1)){
+                                                $linha = mysqli_fetch_assoc($Resultado1);
+                                                $QuantidadeProd1 = $linha['qtd'];
+                                                $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                                $sql->query($updateQuery);
+                                            }
+                                            $posicao2 = $MilkShakeChocomenta[2];
+                                            $ProcurarProd2 = "SELECT qtd FROM produto WHERE prod = '$posicao2'";
+                                            $Resultado2 = $sql->query($ProcurarProd2);
+                                            if(mysqli_num_rows($Resultado2)){
+                                                $linha = mysqli_fetch_assoc($Resultado2);
+                                                $QuantidadeProd2 = $linha['qtd'];
+                                                $QuantidadeTotal2 = $QuantidadeProd2 - $qtdbeb;
+                                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao2'");
+                                                $sql->query($updateQuery);
+                                            }
+                                        }else{
+                                            if($nomeSemEspacos = $SucoNaturaldeLaranja){
+                                                $posicao0 = $SucoNaturaldeLaranja[0];
+                                                $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                $Resultado = $sql->query($ProcurarProd);
+                                                if(mysqli_num_rows($Resultado)){
+                                                    $linha = mysqli_fetch_assoc($Resultado);
+                                                    $QuantidadeProd = $linha['qtd'];
+                                                    $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                    $sql->query($updateQuery);
+                                                }
+                                                $posicao1 = $SucoNaturaldeLaranja[1];
+                                                $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                                $Resultado1 = $sql->query($ProcurarProd1);
+                                                if(mysqli_num_rows($Resultado1)){
+                                                    $linha = mysqli_fetch_assoc($Resultado1);
+                                                    $QuantidadeProd1 = $linha['qtd'];
+                                                    $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                                    $sql->query($updateQuery);
+                                                }
+                                            }else{
+                                                if($nomeSemEspacos = $SucoNaturaldeMorango){
+                                                    $posicao0 = $SucoNaturaldeMorango[0];
+                                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                    $Resultado = $sql->query($ProcurarProd);
+                                                    if(mysqli_num_rows($Resultado)){
+                                                        $linha = mysqli_fetch_assoc($Resultado);
+                                                        $QuantidadeProd = $linha['qtd'];
+                                                        $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                        $sql->query($updateQuery);
+                                                    }
+                                                    $posicao1 = $SucoNaturaldeMorango[1];
+                                                    $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                                    $Resultado1 = $sql->query($ProcurarProd1);
+                                                    if(mysqli_num_rows($Resultado1)){
+                                                        $linha = mysqli_fetch_assoc($Resultado1);
+                                                        $QuantidadeProd1 = $linha['qtd'];
+                                                        $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                                        $sql->query($updateQuery);
+                                                    }
+                                                }else{
+                                                    if($nomeSemEspacos = $SucoNaturaldeUva){
+                                                        $posicao0 = $SucoNaturaldeUva[0];
+                                                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                        $Resultado = $sql->query($ProcurarProd);
+                                                        if(mysqli_num_rows($Resultado)){
+                                                            $linha = mysqli_fetch_assoc($Resultado);
+                                                            $QuantidadeProd = $linha['qtd'];
+                                                            $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                            $sql->query($updateQuery);
+                                                        }
+                                                        $posicao1 = $SucoNaturaldeUva[1];
+                                                        $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                                        $Resultado1 = $sql->query($ProcurarProd1);
+                                                        if(mysqli_num_rows($Resultado1)){
+                                                            $linha = mysqli_fetch_assoc($Resultado1);
+                                                            $QuantidadeProd1 = $linha['qtd'];
+                                                            $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                                            $sql->query($updateQuery);
+                                                        }
+                                                    }else{
+                                                        if($nomeSemEspacos = $SucoNaturaldeLimão){
+                                                            $posicao0 = $SucoNaturaldeLimão[0];
+                                                            $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                            $Resultado = $sql->query($ProcurarProd);
+                                                            if(mysqli_num_rows($Resultado)){
+                                                                $linha = mysqli_fetch_assoc($Resultado);
+                                                                $QuantidadeProd = $linha['qtd'];
+                                                                $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                                $sql->query($updateQuery);
+                                                            }
+                                                            $posicao1 = $SucoNaturaldeLimão[1];
+                                                            $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                                            $Resultado1 = $sql->query($ProcurarProd1);
+                                                            if(mysqli_num_rows($Resultado1)){
+                                                                $linha = mysqli_fetch_assoc($Resultado1);
+                                                                $QuantidadeProd1 = $linha['qtd'];
+                                                                $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                                                $sql->query($updateQuery);
+                                                            }
+                                                        }else{
+                                                            if($nomeSemEspacos = $SucoNaturaldeGoiaba){
+                                                                $posicao0 = $SucoNaturaldeGoiaba[0];
+                                                                $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                                $Resultado = $sql->query($ProcurarProd);
+                                                                if(mysqli_num_rows($Resultado)){
+                                                                    $linha = mysqli_fetch_assoc($Resultado);
+                                                                    $QuantidadeProd = $linha['qtd'];
+                                                                    $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                                    $sql->query($updateQuery);
+                                                                }
+                                                                $posicao1 = $SucoNaturaldeGoiaba[1];
+                                                                $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                                                $Resultado1 = $sql->query($ProcurarProd1);
+                                                                if(mysqli_num_rows($Resultado1)){
+                                                                    $linha = mysqli_fetch_assoc($Resultado1);
+                                                                    $QuantidadeProd1 = $linha['qtd'];
+                                                                    $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                                                    $sql->query($updateQuery);
+                                                                }
+                                                            }else{
+                                                                if($nomeSemEspacos = $SucoNaturaldeMaracuja){
+                                                                    $posicao0 = $SucoNaturaldeMaracuja[0];
+                                                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                                    $Resultado = $sql->query($ProcurarProd);
+                                                                    if(mysqli_num_rows($Resultado)){
+                                                                        $linha = mysqli_fetch_assoc($Resultado);
+                                                                        $QuantidadeProd = $linha['qtd'];
+                                                                        $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                                        $sql->query($updateQuery);
+                                                                    }
+                                                                    $posicao1 = $SucoNaturaldeMaracuja[1];
+                                                                    $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                                                    $Resultado1 = $sql->query($ProcurarProd1);
+                                                                    if(mysqli_num_rows($Resultado1)){
+                                                                        $linha = mysqli_fetch_assoc($Resultado1);
+                                                                        $QuantidadeProd1 = $linha['qtd'];
+                                                                        $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                                                        $sql->query($updateQuery);
+                                                                    }
+                                                                }else{
+                                                                    if($nomeSemEspacos = $AguaNatural){
+                                                                        $posicao0 = $AguaNatural[0];
+                                                                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                                        $Resultado = $sql->query($ProcurarProd);
+                                                                        if(mysqli_num_rows($Resultado)){
+                                                                            $linha = mysqli_fetch_assoc($Resultado);
+                                                                            $QuantidadeProd = $linha['qtd'];
+                                                                            $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                                            $sql->query($updateQuery);
+                                                                        }
+                                                                    }else{
+                                                                        if($nomeSemEspacos = $Aguacomgãs){
+                                                                            $posicao0 = $Aguacomgãs[0];
+                                                                            $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                                            $Resultado = $sql->query($ProcurarProd);
+                                                                            if(mysqli_num_rows($Resultado)){
+                                                                                $linha = mysqli_fetch_assoc($Resultado);
+                                                                                $QuantidadeProd = $linha['qtd'];
+                                                                                $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                                                $sql->query($updateQuery);
+                                                                            }
+                                                                        }else{
+                                                                            if($nomeSemEspacos = $RefrigeranteLata){
+                                                                                $posicao0 = $RefrigeranteLata[0];
+                                                                                $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                                                $Resultado = $sql->query($ProcurarProd);
+                                                                                if(mysqli_num_rows($Resultado)){
+                                                                                    $linha = mysqli_fetch_assoc($Resultado);
+                                                                                    $QuantidadeProd = $linha['qtd'];
+                                                                                    $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                                                    $sql->query($updateQuery);
+                                                                                }
+                                                                            }else{
+                                                                                if($nomeSemEspacos = $RefrigeranteGarrafadeVidro){
+                                                                                    $posicao0 = $RefrigeranteGarrafadeVidro[0];
+                                                                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                                                    $Resultado = $sql->query($ProcurarProd);
+                                                                                    if(mysqli_num_rows($Resultado)){
+                                                                                        $linha = mysqli_fetch_assoc($Resultado);
+                                                                                        $QuantidadeProd = $linha['qtd'];
+                                                                                        $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                                                        $sql->query($updateQuery);
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    endforeach;
+                    //-----------------------------------Acompanhamento----------------------------------------------
+                    if($Res_Acom -> num_rows > 0){
+                        $linha = $Res_Acom->fetch_assoc();
+                        $Dados_Acompanhamento[] = array(
+                            'id' => $linha['id_acompanhamento'],
+                            'nome' => $linha['nome'],
+                        );
+                        foreach ($Dados_Acompanhamento as $Acompanhamento):
+                            $id = $Acompanhamento['id'];
+                            $nome = $Acompanhamento['nome'];
+                            $nomeSemEspacos = str_replace(' ', '', $nome);
+                            if($nomeSemEspacos = $Nuggets){
+                                $posicao0 = $Nuggets[0];
+                                $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                $Resultado = $sql->query($ProcurarProd);
+                                if (mysqli_num_rows($Resultado)) {
+                                    $linha = mysqli_fetch_assoc($Resultado);
+                                    $QuantidadeProd = $linha['qtd'];
+                                    $QuantidadeTotal = $QuantidadeProd - $qtdAcom;
+                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                    $sql->query($updateQuery);
+                                }
+                            }else{
+                                if($nomeSemEspacos = $BatataFritacomCheddareBacon){
+                                    $posicao0 = $NuBatataFritacomCheddareBaconggets[0];
+                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                    $Resultado = $sql->query($ProcurarProd);
+                                    if (mysqli_num_rows($Resultado)) {
+                                        $linha = mysqli_fetch_assoc($Resultado);
+                                        $QuantidadeProd = $linha['qtd'];
+                                        $QuantidadeTotal = $QuantidadeProd - $qtdAcom;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                        $sql->query($updateQuery);
+                                    }
+                                    $posicao1 = $NuBatataFritacomCheddareBaconggets[1];
+                                    $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                    $Resultado1 = $sql->query($ProcurarProd1);
+                                    if (mysqli_num_rows($Resultado1)) {
+                                        $linha = mysqli_fetch_assoc($Resultado1);
+                                        $QuantidadeProd1 = $linha['qtd'];
+                                        $QuantidadeTotal1 = $QuantidadeProd1 - $qtdAcom;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                        $sql->query($updateQuery);
+                                    }
+                                    $posicao2 = $NuBatataFritacomCheddareBaconggets[2];
+                                    $ProcurarProd2 = "SELECT qtd FROM produto WHERE prod = '$posicao2'";
+                                    $Resultado2 = $sql->query($ProcurarProd2);
+                                    if (mysqli_num_rows($Resultado2)) {
+                                        $linha = mysqli_fetch_assoc($Resultado2);
+                                        $QuantidadeProd2 = $linha['qtd'];
+                                        $QuantidadeTotal2 = $QuantidadeProd2 - $qtdAcom;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal2 WHERE prod = '$posicao2'");
+                                        $sql->query($updateQuery);
+                                    }
+                                }else{
+                                    if($nomeSemEspacos = $BatataFrita){
+                                        $posicao0 = $BatataFrita[0];
+                                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                        $Resultado = $sql->query($ProcurarProd);
+                                        if (mysqli_num_rows($Resultado)) {
+                                            $linha = mysqli_fetch_assoc($Resultado);
+                                            $QuantidadeProd = $linha['qtd'];
+                                            $QuantidadeTotal = $QuantidadeProd - $qtdAcom;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                            $sql->query($updateQuery);
+                                        }
+                                    }else{
+                                        if($nomeSemEspacos = $OnionRings){
+                                            $posicao0 = $OnionRings[0];
+                                            $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                            $Resultado = $sql->query($ProcurarProd);
+                                            if (mysqli_num_rows($Resultado)) {
+                                                $linha = mysqli_fetch_assoc($Resultado);
+                                                $QuantidadeProd = $linha['qtd'];
+                                                $QuantidadeTotal = $QuantidadeProd - $qtdAcom;
+                                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                $sql->query($updateQuery);
+                                            }
+                                        }else{
+                                            if($nomeSemEspacos = $NachoscomGuacamole){
+                                                $posicao0 = $NachoscomGuacamole[0];
+                                                $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                $Resultado = $sql->query($ProcurarProd);
+                                                if (mysqli_num_rows($Resultado)) {
+                                                    $linha = mysqli_fetch_assoc($Resultado);
+                                                    $QuantidadeProd = $linha['qtd'];
+                                                    $QuantidadeTotal = $QuantidadeProd - $qtdAcom;
+                                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                    $sql->query($updateQuery);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        endforeach;
+                        if($Res_Sobremesa -> num_rows > 0){
+                            $linha = $Res_Sobremesa->fetch_assoc();
+                            $Dados_Sobremesa[] = array(
+                                'id' => $linha['id_sobremesa'],
+                                'nome' => $linha['nome'],
+                            );
+                            foreach ($Dados_Sobremesa as $Sobremesa):
+                                $id = $Sobremesa['id'];
+                                $nome = $Sobremesa['nome'];
+                                $nomeSemEspacos = str_replace(' ', '', $nome);
+                                if($nomeSemEspacos = $TortadeLimão){ //Se o nome for igual ao vetor executará o script, !!Descobrir por que com os dois sinais de igual não vai (Comparação)
+                                    $posicao0 = $TortadeLimão[0]; //Pega a primeira posição do vetor 
+                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'"; //Pesquisa no banco 
+                                    $Resultado = $sql->query($ProcurarProd);
+                                    if(mysqli_num_rows($Resultado)){
+                                        $linha = mysqli_fetch_assoc($Resultado);
+                                        $QuantidadeProd = $linha['qtd'];
+                                        $QuantidadeTotal = $QuantidadeProd - $qtdsobremesa;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                        $sql->query($updateQuery);
+                                        
+                                    }
+                                }
+                                if($nomeSemEspacos = $TortaHolandesa){ //Se o nome for igual ao vetor executará o script, !!Descobrir por que com os dois sinais de igual não vai (Comparação)
+                                    $posicao0 = $TortaHolandesa[0]; //Pega a primeira posição do vetor 
+                                    echo $posicao0;
+                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'"; //Pesquisa no banco 
+                                    echo $ProcurarProd;
+                                    $Resultado = $sql->query($ProcurarProd);
+                                    if(mysqli_num_rows($Resultado)){
+                                        $linha = mysqli_fetch_assoc($Resultado);
+                                        $QuantidadeProd = $linha['qtd'];
+                                        $QuantidadeTotal = $QuantidadeProd - $qtdsobremesa;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                        $sql->query($updateQuery);
+                                        
+                                    }
+                                }
+                                if($nomeSemEspacos = $TortadeMorango){ //Se o nome for igual ao vetor executará o script, !!Descobrir por que com os dois sinais de igual não vai (Comparação)
+                                    $posicao0 = $TortadeMorango[0]; //Pega a primeira posição do vetor 
+                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'"; //Pesquisa no banco 
+                                    $Resultado = $sql->query($ProcurarProd);
+                                    if(mysqli_num_rows($Resultado)){
+                                        $linha = mysqli_fetch_assoc($Resultado);
+                                        $QuantidadeProd = $linha['qtd'];
+                                        $QuantidadeTotal = $QuantidadeProd - $qtdsobremesa;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                        $sql->query($updateQuery);
+                                        
+                                    }
+                                }
+                                if($nomeSemEspacos = $SorvetedeCookiesCream){ //Se o nome for igual ao vetor executará o script, !!Descobrir por que com os dois sinais de igual não vai (Comparação)
+                                    $posicao0 = $SorvetedeCookiesCream[0]; //Pega a primeira posição do vetor 
+                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'"; //Pesquisa no banco 
+                                    $Resultado = $sql->query($ProcurarProd);
+                                    if(mysqli_num_rows($Resultado)){
+                                        $linha = mysqli_fetch_assoc($Resultado);
+                                        $QuantidadeProd = $linha['qtd'];
+                                        $QuantidadeTotal = $QuantidadeProd - $qtdsobremesa;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                        $sql->query($updateQuery);
+                                        
+                                    }
+                                }
+                                if($nomeSemEspacos = $SorvetedeBaunilha){ //Se o nome for igual ao vetor executará o script, !!Descobrir por que com os dois sinais de igual não vai (Comparação)
+                                    $posicao0 = $SorvetedeBaunilha[0]; //Pega a primeira posição do vetor 
+                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'"; //Pesquisa no banco 
+                                    $Resultado = $sql->query($ProcurarProd);
+                                    if(mysqli_num_rows($Resultado)){
+                                        $linha = mysqli_fetch_assoc($Resultado);
+                                        $QuantidadeProd = $linha['qtd'];
+                                        $QuantidadeTotal = $QuantidadeProd - $qtdsobremesa;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                        $sql->query($updateQuery);
+                                        
+                                    }
+                                }
+                                if($nomeSemEspacos = $SorvetedeChocolate){ //Se o nome for igual ao vetor executará o script, !!Descobrir por que com os dois sinais de igual não vai (Comparação)
+                                    $posicao0 = $SorvetedeChocolate[0]; //Pega a primeira posição do vetor 
+                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'"; //Pesquisa no banco 
+                                    $Resultado = $sql->query($ProcurarProd);
+                                    if(mysqli_num_rows($Resultado)){
+                                        $linha = mysqli_fetch_assoc($Resultado);
+                                        $QuantidadeProd = $linha['qtd'];
+                                        $QuantidadeTotal = $QuantidadeProd - $qtdsobremesa;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                        $sql->query($updateQuery);
+                                        
+                                    }
+                                }
+                                if($nomeSemEspacos = $SorveteNapolitano){ //Se o nome for igual ao vetor executará o script, !!Descobrir por que com os dois sinais de igual não vai (Comparação)
+                                    $posicao0 = $SorveteNapolitano[0]; //Pega a primeira posição do vetor 
+                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'"; //Pesquisa no banco 
+                                    $Resultado = $sql->query($ProcurarProd);
+                                    if(mysqli_num_rows($Resultado)){
+                                        $linha = mysqli_fetch_assoc($Resultado);
+                                        $QuantidadeProd = $linha['qtd'];
+                                        $QuantidadeTotal = $QuantidadeProd - $qtdsobremesa;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                        $sql->query($updateQuery);
+                                        
+                                    }
+                                }
+                            endforeach;
+                        }
+                    }
+                }
+            } 
+            $InserirVenda = "INSERT INTO venda (id, id_func, id_cli, data, codigo_desconto, forma_pagamento, desconto, taxa_servico, situacao, valor_total) VALUES ($idPedido,$idFuncionario,$idcli,'$DataBd','$cupom','$formaPagamento', $valorDesconto ,$TaxaServ,'$SituaçãoVend', $valorFinal)";
+            //echo $InserirVenda;
+            $ResInserirVenda = $sql->query($InserirVenda);
+            //echo $ResInserirVenda;   
+       endforeach;
+    }
+   // $InserirVenda = "INSERT INTO venda (id, id_func, id_cli, data, codigo_desconto, forma_pagamento, desconto, taxa_servico, situacao, valor_total) VALUES 
+   // ($idPedido,$idFuncionario,$idcli,'$DataBd','$cupom','$formaPagamento', $valorDesconto ,$TaxaServ,'$SituaçãoVend', $valorFinal)";
+    //echo $InserirVenda;
+    //$ResInserirVenda = $sql->query($InserirVenda);
+    //echo $ResInserirVenda;
+    /*if(mysqli_num_rows($ResInserirVenda) > 0){
+        $AtualizarBeb = "UPDATE pedidos SET situacao = $id , qtdbeb = '$quantidade' WHERE comanda = '$NumeroComanda'";
+        $sql->query($AtualizarBeb);
+    }
+    */
+    //$response = array('status' => 'success', 'message' => 'Pedido finalizado com sucesso');
+    //ob_clean();
+    // Adicione mensagens de log para depuração
+    //error_log("Resposta do PHP: " . json_encode($response));
+    //echo json_encode($response);
+} else {
+    // Se a requisição não for do tipo POST, retorna um erro
+    //$response = array('status' => 'error', 'message' => 'Método não permitido');
+
+    // Adicione mensagens de log para depuração
+    //error_log("Resposta do PHP: " . json_encode($response));
+    //echo json_encode($response);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Caso dê erro
+/*include_once('conn.php');
+// Receba os dados do corpo da requisição
+$JsonRes = file_get_contents('php://input');
+// Decodifique os dados JSON
+$data = json_decode($JsonRes, true);
+$DataBd = date('Y-m-d'); //Pega a Data
+$SituaçãoVend = "ENTREGUE";
+$SituaçãoPed = "PRONTO";
+//$TaxaServ = 10.00;
+
+
+
+// Verifica se a requisição é do tipo POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $idPedido = $data['idPedido'];
+    //echo "Id:" . $idPedido;
+    $idFuncionario = $data['idFuncionario'];
+    //echo "idFuncionario:" . $idFuncionario;
+    $idcli = $data['idCli'];
+    //echo "idCli:" . $idcli;
+    $cupom = $data['cupom'];
+    //echo "cupom:" . $cupom;
+    $valorDesconto = $data['valorDesconto'];
+    $valorDesconto = str_replace(',', '.', $valorDesconto);
+    //echo "valorDesconto:" . $valorDesconto;
+    $valorFinal = $data['valorFinal'];
+    $porCent = 0.10;
+    $TaxaServ = $valorFinal * $porCent;
+    echo $TaxaServ;
+    //echo "valorFinal:" . $valorFinal;
+    $formaPagamento = $data['formaPagamento'];
+    //echo "formaPagamento:" . $formaPagamento;
+    //$cupomAdd = "NENHUM CUPOM SELECIONADO";
+    $InserirVenda = "INSERT INTO venda (id, id_func, id_cli, data, codigo_desconto, forma_pagamento, desconto, taxa_servico, situacao, valor_total) VALUES 
+    ($idPedido,$idFuncionario,$idcli,'$DataBd','$cupom','$formaPagamento', $valorDesconto ,$TaxaServ,'$SituaçãoVend', $valorFinal)";
+    //echo $InserirVenda;
+    $ResInserirVenda = $sql->query($InserirVenda);
+    //echo $ResInserirVenda;
+    /*if(mysqli_num_rows($ResInserirVenda) > 0){
+        $AtualizarBeb = "UPDATE pedidos SET situacao = $id , qtdbeb = '$quantidade' WHERE comanda = '$NumeroComanda'";
+        $sql->query($AtualizarBeb);
+    }
+    */
+    //$response = array('status' => 'success', 'message' => 'Pedido finalizado com sucesso');
+    //ob_clean();
+    // Adicione mensagens de log para depuração
+    //error_log("Resposta do PHP: " . json_encode($response));
+    //echo json_encode($response);
+/*} else {
+    // Se a requisição não for do tipo POST, retorna um erro
+    //$response = array('status' => 'error', 'message' => 'Método não permitido');
+
+    // Adicione mensagens de log para depuração
+    //error_log("Resposta do PHP: " . json_encode($response));
+    //echo json_encode($response);
+}
+*/
+
+
+?>
+
+<?php
+include_once('conn.php');
+// Receba os dados do corpo da requisição
+$JsonRes = file_get_contents('php://input');
+// Decodifique os dados JSON
+$data = json_decode($JsonRes, true);
+$DataBd = date('Y-m-d'); //Pega a Data
+$SituaçãoVend = "ENTREGUE";
+$SituaçãoPed = "PRONTO";
+//$TaxaServ = 10.00;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $idPedido = $data['idPedido'];
+    $idFuncionario = $data['idFuncionario'];
+    $idcli = $data['idCli'];
+    $cupom = $data['cupom'];
+    $valorDesconto = $data['valorDesconto'];
+    $valorDesconto = str_replace(',', '.', $valorDesconto);
+    $valorFinal = $data['valorFinal'];
+    $porCent = 0.10;
+    $TaxaServ = $valorFinal * $porCent;
+    $formaPagamento = $data['formaPagamento'];
+    $DadosPedido = $sql->query("SELECT * FROM pedidos WHERE id = $idPedido");
+    if(mysqli_num_rows($DadosPedido) > 0 ){
+        foreach ($DadosPedido AS $Resul):
+            $idBurguer = $Resul['id_burguer'];
+            $idbebida = $Resul['id_bebida'];
+            $idacompanhamento = $Resul['id_acompanhamento'];
+            $idsobremesa = $Resul['id_sobremesa'];
+            $qtdBurguer = $Resul['qtd'];
+            $qtdbeb = $Resul['qtdbeb'];
+            $qtdacomp = $Resul['qtdacomp'];
+            $qtdsobremesa = $Resul['qtdsobremesa'];
+            $DadosProd = array();
+            $BurguerDados = "SELECT * FROM burguer WHERE id_burguer = '$idBurguer'";
+            usleep(2000); //Da um certo tempo entre a execução de um script e outro, com o intuito de não saturar o banco de dados  
+            $BebDados = "SELECT * FROM bebida WHERE id_bebida = '$idbebida'";
+            usleep(2000); //Da um certo tempo entre a execução de um script e outro, com o intuito de não saturar o banco de dados 
+            $AcomDados = "SELECT * FROM acompanhamento WHERE id_acompanhamento = '$idacompanhamento'";
+            usleep(2000); //Da um certo tempo entre a execução de um script e outro, com o intuito de não saturar o banco de dados 
+            $SobremesaDados = "SELECT * FROM sobremesa WHERE id_sobremesa = '$idsobremesa'";
+            $Res_Burguer = $sql->query($BurguerDados);
+            usleep(2000); //Da um certo tempo entre a execução de um script e outro, com o intuito de não saturar o banco de dados 
+            $Res_Beb = $sql->query($BebDados);
+            usleep(2000); //Da um certo tempo entre a execução de um script e outro, com o intuito de não saturar o banco de dados 
+            $Res_Acom = $sql->query($AcomDados);
+            usleep(2000); //Da um certo tempo entre a execução de um script e outro, com o intuito de não saturar o banco de dados  
+            $Res_Sobremesa = $sql->query($SobremesaDados);
+            
+            //AQUI É UM ESPAÇO EXCLUSIVO PARA COLOCAR O NOME DO PRODUTO E OS PRODUTOS QUE COMPOE ELE 
+            //Se tiver tempo reduzir o codigo a seguinte logica, receber todos os produtos dentro de um 
+            //vetor e assim colocar em evidencia os nomes e as quantidades do produto, e em vez de 
+            //comparar o nome do banco de dados só comparar o produto.
+            //-------------------------------HAMBURGUERS--------------------------------------------
+            $DarkBurguer = ['Pão Preto' , 'Carne Moida 350g', 'Alface' , 'Queijo mussarela' , 'Tomate', 'Cebola' , 'Caramelo' ];
+            $BurguerCraft = ['Pão Quadrado' , 'Carne Moida 350g', 'Alface', 'Queijo Prato', 'Cebola', 'Molho da Casa'];  //Lembrete: Descontar duas vezes a carne nesse Hamburguer
+            $GarticBurguer = ['Pão de Cookie' , 'Ganache cremoso de Chocolate meio amargo', 'Fatias de morango'];
+            $SimsBurguer = ['Pão Tradicional' , 'Carne de Soja 350g', 'Quacamole', 'Tomate', 'Queijo Cheddar', 'Crispy de Cebola'];
+            $SuperMarioBurguer2 = ['Pão de Cebola' , 'Carne de Soja 350g', 'Tomate', 'Queijo de batata', 'Cebola', 'Cogumelos'];
+            //-------------------------------Acompanhamento------------------------------------------
+            $Nuggets = ['Nuggets']; //Por exemplo o acompanhamento nuggets contém o produto nuggets 
+            $BatataFritacomCheddareBacon = ['Batata Frita', 'Bacon', 'Cheddar'];
+            $BatataFrita = ['Batata Frita'];
+            $OnionRings = ['Onion Rings'];
+            $NachoscomGuacamole = ['Nachos com Guacamole'];
+            //-----------------------------------Bebida----------------------------------------------
+            $AguaNatural = ['Agua Natural 250ml'];
+            $Aguacomgãs = ['Agua com Gãs 250ml'];
+            $RefrigeranteLata = ['Refrigerante Lata'];
+            $RefrigeranteGarrafadeVidro = ['Refrigerante Garrafa de Vidro'];
+            $SucoNaturaldeLaranja = ['Laranja','Açucar'];
+            $SucoNaturaldeMorango = ['Morango','Açucar'];
+            $SucoNaturaldeUva = ['Uva','Açucar'];
+            $SucoNaturaldeLimão = ['Limão','Açucar'];
+            $SucoNaturaldeMaracuja = ['Maracuja','Açucar'];
+            $SucoNaturaldeGoiaba = ['Goiaba','Açucar'];
+            $MilkShakeChocolate = ['Leite', 'Sorvete' ,'Calda de Chocolate'];
+            $MilkShakeMorango = ['Leite', 'Sorvete' ,'Calda de Morango'];
+            $MilkShakeCaramelo = ['Leite', 'Sorvete' ,'Calda de Caramelo'];
+            $MilkShakeOvomaltine = ['Leite', 'Sorvete' ,'Calda de Ovomaltine'];
+            $MilkShakeChocomenta = ['Leite', 'Sorvete' ,'Calda de Chocomenta'];
+            //----------------------------------Sobremesa---------------------------------------------
+            $TortadeLimão = ['Torta de Limão'];
+            $TortaHolandesa = ['Torta Holandesa'];
+            $TortadeMorango = ['Torta de Morango'];
+            $SorvetedeCookiesCream = ['SorvetedeCookiesCream'];
+            $SorvetedeBaunilha = ['Sorvete de Baunilha'];
+            $SorvetedeChocolate = ['Sorvete de Chocolate'];
+            $SorveteNapolitano = ['Sorvete Napolitano'];
+            //------------------------------------FIM-----------------------------------------------
+
+            if($Res_Burguer ->num_rows > 0){ //Se o numero de linhas recebido for maior que 0 executa o resto do script 
+                $linha = $Res_Burguer->fetch_assoc(); //Dissosia as informações recebida no banco de dados 
+                $Dados_Burguer[] = array( //Pega as info e coloca em um array
+                    'id' => $linha['id_burguer'],
+                    'nome' => $linha['nome'],
+                );
+                foreach ($Dados_Burguer as $Burguer): //Estrutura de loop com as info do vetor 
+                    $idHam = $Burguer['id']; 
+                    $nomeHam = $Burguer['nome'];
+                    $nomeSemEspacosHam = str_replace(' ', '', $nomeHam); //Remove os espaços em branco no nome 
+                endforeach;
+                    if($nomeSemEspacosHam == 'DarkBurguer'){ //Se o nome for igual ao vetor executará o script, !!Descobrir por que com os dois sinais de igual não vai (Comparação)
+                        var_dump($nomeSemEspacosHam == 'DarkBurguer');
+                        $posicao0 = $DarkBurguer[0]; //Pega a primeira posição do vetor 
+                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'"; //Pesquisa no banco 
+                        $Resultado = $sql->query($ProcurarProd);
+                        if(mysqli_num_rows($Resultado)){
+                            $linha = mysqli_fetch_assoc($Resultado);
+                            $QuantidadeProd = $linha['qtd'];
+                            $QuantidadeTotal = $QuantidadeProd - $qtdBurguer;
+                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                            $sql->query($updateQuery);
+                            
+                        }
+                        $posicao1 = $DarkBurguer[1];
+                        $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                        $Resultado1 = $sql->query($ProcurarProd1);
+                        if(mysqli_num_rows($Resultado1)){
+                            $linha = mysqli_fetch_assoc($Resultado1);
+                            $QuantidadeProd1 = $linha['qtd'];
+                            $QuantidadeTotal1 = $QuantidadeProd1 - $qtdBurguer;
+                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                            $sql->query($updateQuery);
+                        }
+                        $posicao2 = $DarkBurguer[2];
+                        $ProcurarProd2 = "SELECT qtd FROM produto WHERE prod = '$posicao2'";
+                        $Resultado2 = $sql->query($ProcurarProd2);
+                        if(mysqli_num_rows($Resultado2)){
+                            $linha = mysqli_fetch_assoc($Resultado2);
+                            $QuantidadeProd2 = $linha['qtd'];
+                            $QuantidadeTotal2 = $QuantidadeProd2 - $qtdBurguer;
+                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal2 WHERE prod = '$posicao2'");
+                            $sql->query($updateQuery);
+                        }
+                        $posicao3 = $DarkBurguer[3];
+                        $ProcurarProd3 = "SELECT qtd FROM produto WHERE prod = '$posicao3'";
+                        $Resultado3 = $sql->query($ProcurarProd3);
+                        if(mysqli_num_rows($Resultado3)){
+                            $linha = mysqli_fetch_assoc($Resultado3);
+                            $QuantidadeProd3 = $linha['qtd'];
+                            $QuantidadeTotal3 = $QuantidadeProd3 - $qtdBurguer;
+                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal3 WHERE prod = '$posicao3'");
+                            $sql->query($updateQuery);
+                        }
+                        $posicao4 = $DarkBurguer[4];
+                        $ProcurarProd4 = "SELECT qtd FROM produto WHERE prod = '$posicao4'";
+                        $Resultado4 = $sql->query($ProcurarProd4);
+                        if(mysqli_num_rows($Resultado4)){
+                            $linha = mysqli_fetch_assoc($Resultado4);
+                            $QuantidadeProd4 = $linha['qtd'];
+                            $QuantidadeTotal4 = $QuantidadeProd4 - $qtdBurguer;
+                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal4 WHERE prod = '$posicao4'");
+                            $sql->query($updateQuery);
+                        }
+                        $posicao5 = $DarkBurguer[5];
+                        $ProcurarProd5 = "SELECT qtd FROM produto WHERE prod = '$posicao5'";
+                        $Resultado5 = $sql->query($ProcurarProd1);
+                        if(mysqli_num_rows($Resultado5)){
+                            $linha = mysqli_fetch_assoc($Resultado5);
+                            $QuantidadeProd5 = $linha['qtd'];
+                            $QuantidadeTotal5 = $QuantidadeProd5 - $qtdBurguer;
+                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal5 WHERE prod = '$posicao5'");
+                            $sql->query($updateQuery);
+                        }
+                        $posicao6 = $DarkBurguer[6];
+                        $ProcurarProd6 = "SELECT qtd FROM produto WHERE prod = '$posicao6'";
+                        $Resultado6 = $sql->query($ProcurarProd6);
+                        if(mysqli_num_rows($Resultado6)){
+                            $linha = mysqli_fetch_assoc($Resultado6);
+                            $QuantidadeProd6 = $linha['qtd'];
+                            $QuantidadeTotal6 = $QuantidadeProd6 - $qtdBurguer;
+                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal6 WHERE prod = '$posicao6'");
+                            $sql->query($updateQuery);
+                        }
+                    }else{
+                        if($nomeSemEspacosHam == 'BurguerCraft'){
+                            $posicao0 = $BurguerCraft[0];
+                            $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                            $Resultado = $sql->query($ProcurarProd);
+                            if(mysqli_num_rows($Resultado)){
+                                $linha = mysqli_fetch_assoc($Resultado);
+                                $QuantidadeProd = $linha['qtd'];
+                                $QuantidadeTotal = $QuantidadeProd - $qtdBurguer;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                $sql->query($updateQuery);
+                                
+                            }
+                            $posicao1 = $BurguerCraft[1];
+                            $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                            $Resultado1 = $sql->query($ProcurarProd1);
+                            if(mysqli_num_rows($Resultado1)){
+                                $linha = mysqli_fetch_assoc($Resultado1);
+                                $QuantidadeProd1 = $linha['qtd'];
+                                $QuantidadeTotal1 = $QuantidadeProd1 - $qtdBurguer;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                $sql->query($updateQuery);
+                            }
+                            $posicao2 = $BurguerCraft[2];
+                            $ProcurarProd2 = "SELECT qtd FROM produto WHERE prod = '$posicao2'";
+                            $Resultado2 = $sql->query($ProcurarProd2);
+                            if(mysqli_num_rows($Resultado2)){
+                                $linha = mysqli_fetch_assoc($Resultado2);
+                                $QuantidadeProd2 = $linha['qtd'];
+                                $QuantidadeTotal2 = $QuantidadeProd2 - $qtdBurguer;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal2 WHERE prod = '$posicao2'");
+                                $sql->query($updateQuery);
+                            }
+                            $posicao3 = $BurguerCraft[3];
+                            $ProcurarProd3 = "SELECT qtd FROM produto WHERE prod = '$posicao3'";
+                            $Resultado3 = $sql->query($ProcurarProd3);
+                            if(mysqli_num_rows($Resultado3)){
+                                $linha = mysqli_fetch_assoc($Resultado3);
+                                $QuantidadeProd3 = $linha['qtd'];
+                                $QuantidadeTotal3 = $QuantidadeProd3 - $qtdBurguer;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal3 WHERE prod = '$posicao3'");
+                                $sql->query($updateQuery);
+                            }
+                            $posicao4 = $BurguerCraft[4];
+                            $ProcurarProd4 = "SELECT qtd FROM produto WHERE prod = '$posicao4'";
+                            $Resultado4 = $sql->query($ProcurarProd4);
+                            if(mysqli_num_rows($Resultado4)){
+                                $linha = mysqli_fetch_assoc($Resultado4);
+                                $QuantidadeProd4 = $linha['qtd'];
+                                $QuantidadeTotal4 = $QuantidadeProd4 - $qtdBurguer;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao4'");
+                                $sql->query($updateQuery);
+                            }
+                            $posicao5 = $BurguerCraft[5];
+                            $ProcurarProd5 = "SELECT qtd FROM produto WHERE prod = '$posicao5'";
+                            $Resultado5 = $sql->query($ProcurarProd5);
+                            if(mysqli_num_rows($Resultado5)){
+                                $linha = mysqli_fetch_assoc($Resultado5);
+                                $QuantidadeProd5 = $linha['qtd'];
+                                $QuantidadeTotal5 = $QuantidadeProd5 - $qtdBurguer;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal5 WHERE prod = '$posicao5'");
+                                $sql->query($updateQuery);
+                            }
+                        }else{
+                            if($nomeSemEspacosHam = 'GarticBurguer'){
+                                $posicao0 = $GarticBurguer[0];
+                                $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                $Resultado = $sql->query($ProcurarProd);
+                                if(mysqli_num_rows($Resultado)){
+                                    $linha = mysqli_fetch_assoc($Resultado);
+                                    $QuantidadeProd = $linha['qtd'];
+                                    $QuantidadeTotal = $QuantidadeProd - $qtdBurguer;
+                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                    $sql->query($updateQuery);
+                                }
+                                $posicao1 = $GarticBurguer[1];
+                                $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                $Resultado1 = $sql->query($ProcurarProd1);
+                                if(mysqli_num_rows($Resultado1)){
+                                    $linha = mysqli_fetch_assoc($Resultado1);
+                                    $QuantidadeProd1 = $linha['qtd'];
+                                    $QuantidadeTotal1 = $QuantidadeProd1 - $qtdBurguer;
+                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                    $sql->query($updateQuery);
+                                }
+                            }else{
+                                if($nomeSemEspacosHam == 'SimsBurguer'){
+                                    var_dump($nomeSemEspacosHam == 'SimsBurguer');
+                                    $posicao0 = $SimsBurguer[0];
+                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                    $Resultado = $sql->query($ProcurarProd);
+                                    if(mysqli_num_rows($Resultado)){
+                                        $linha = mysqli_fetch_assoc($Resultado);
+                                        $QuantidadeProd = $linha['qtd'];
+                                        $QuantidadeTotal = $QuantidadeProd - $qtdBurguer;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                        $sql->query($updateQuery);
+                                    }
+                                    $posicao1 = $SimsBurguer[1];
+                                    $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                    $Resultado1 = $sql->query($ProcurarProd1);
+                                    if(mysqli_num_rows($Resultado1)){
+                                        $linha = mysqli_fetch_assoc($Resultado1);
+                                        $QuantidadeProd1 = $linha['qtd'];
+                                        $QuantidadeTotal1 = $QuantidadeProd1 - $qtdBurguer;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                        $sql->query($updateQuery);
+                                    }
+                                }else{
+                                    if($nomeSemEspacos = $SuperMarioBurguer2){
+                                        $posicao0 = $SuperMarioBurguer2[0];
+                                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                        $Resultado = $sql->query($ProcurarProd);
+                                        if(mysqli_num_rows($Resultado)){
+                                            $linha = mysqli_fetch_assoc($Resultado);
+                                            $QuantidadeProd = $linha['qtd'];
+                                            $QuantidadeTotal = $QuantidadeProd - $qtdBurguer;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                            $sql->query($updateQuery);
+                                        }
+                                        $posicao1 = $SuperMarioBurguer2[1];
+                                        $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                        $Resultado1 = $sql->query($ProcurarProd1);
+                                        if(mysqli_num_rows($Resultado1)){
+                                            $linha = mysqli_fetch_assoc($Resultado1);
+                                            $QuantidadeProd1 = $linha['qtd'];
+                                            $QuantidadeTotal1 = $QuantidadeProd1 - $qtdBurguer;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                            $sql->query($updateQuery);
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                if($Res_Beb -> num_rows > 0 ){
+                    $linha = $Res_Beb->fetch_assoc();
+                    $Dados_Beb[] = array(
+                        'id' => $linha['id_bebida'],
+                        'nome' => $linha['nome'],
+                    );
+                    foreach($Dados_Beb AS $Beb):
+                        $id = $Beb['id'];
+                        $nome = $Beb['nome'];
+                        $nomeSemEspacos = str_replace(' ','',$nome);
+                        if($nomeSemEspacos = $MilkShakeChocolate){
+                            $posicao0 = $MilkShakeChocolate[0];
+                            $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                            $Resultado = $sql->query($ProcurarProd);
+                            if(mysqli_num_rows($Resultado)){
+                                $linha = mysqli_fetch_assoc($Resultado);
+                                $QuantidadeProd = $linha['qtd'];
+                                $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                $sql->query($updateQuery);
+                            }
+                            $posicao1 = $MilkShakeChocolate[1];
+                            $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                            $Resultado1 = $sql->query($ProcurarProd1);
+                            if(mysqli_num_rows($Resultado1)){
+                                $linha = mysqli_fetch_assoc($Resultado1);
+                                $QuantidadeProd1 = $linha['qtd'];
+                                $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                $sql->query($updateQuery);
+                            }
+                            $posicao2 = $MilkShakeChocolate[2];
+                            $ProcurarProd2 = "SELECT qtd FROM produto WHERE prod = '$posicao2'";
+                            $Resultado2 = $sql->query($ProcurarProd2);
+                            if(mysqli_num_rows($Resultado2)){
+                                $linha = mysqli_fetch_assoc($Resultado2);
+                                $QuantidadeProd2 = $linha['qtd'];
+                                $QuantidadeTotal2 = $QuantidadeProd2 - $qtdbeb;
+                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao2'");
+                                $sql->query($updateQuery);
+                            }
+                        }else{
+                            if($nomeSemEspacos = $MilkShakeMorango){
+                                $posicao0 = $MilkShakeMorango[0];
+                                $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                $Resultado = $sql->query($ProcurarProd);
+                                if(mysqli_num_rows($Resultado)){
+                                    $linha = mysqli_fetch_assoc($Resultado);
+                                    $QuantidadeProd = $linha['qtd'];
+                                    $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                    $sql->query($updateQuery);
+                                }
+                                $posicao1 = $MilkShakeMorango[1];
+                                $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                $Resultado1 = $sql->query($ProcurarProd1);
+                                if(mysqli_num_rows($Resultado1)){
+                                    $linha = mysqli_fetch_assoc($Resultado1);
+                                    $QuantidadeProd1 = $linha['qtd'];
+                                    $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                    $sql->query($updateQuery);
+                                }
+                                $posicao2 = $MilkShakeMorango[2];
+                                $ProcurarProd2 = "SELECT qtd FROM produto WHERE prod = '$posicao2'";
+                                $Resultado2 = $sql->query($ProcurarProd2);
+                                if(mysqli_num_rows($Resultado2)){
+                                    $linha = mysqli_fetch_assoc($Resultado2);
+                                    $QuantidadeProd2 = $linha['qtd'];
+                                    $QuantidadeTotal2 = $QuantidadeProd2 - $qtdbeb;
+                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao2'");
+                                    $sql->query($updateQuery);
+                                }
+                            }else{
+                                if($nomeSemEspacos = $MilkShakeCaramelo){
+                                    $posicao0 = $MilkShakeCaramelo[0];
+                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                    $Resultado = $sql->query($ProcurarProd);
+                                    if(mysqli_num_rows($Resultado)){
+                                        $linha = mysqli_fetch_assoc($Resultado);
+                                        $QuantidadeProd = $linha['qtd'];
+                                        $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                        $sql->query($updateQuery);
+                                    }
+                                    $posicao1 = $MilkShakeCaramelo[1];
+                                    $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                    $Resultado1 = $sql->query($ProcurarProd1);
+                                    if(mysqli_num_rows($Resultado1)){
+                                        $linha = mysqli_fetch_assoc($Resultado1);
+                                        $QuantidadeProd1 = $linha['qtd'];
+                                        $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                        $sql->query($updateQuery);
+                                    }
+                                    $posicao2 = $MilkShakeCaramelo[2];
+                                    $ProcurarProd2 = "SELECT qtd FROM produto WHERE prod = '$posicao2'";
+                                    $Resultado2 = $sql->query($ProcurarProd2);
+                                    if(mysqli_num_rows($Resultado2)){
+                                        $linha = mysqli_fetch_assoc($Resultado2);
+                                        $QuantidadeProd2 = $linha['qtd'];
+                                        $QuantidadeTotal2 = $QuantidadeProd2 - $qtdbeb;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao2'");
+                                        $sql->query($updateQuery);
+                                    }
+                                }else{
+                                    if($nomeSemEspacos = $MilkShakeOvomaltine){
+                                        $posicao0 = $MilkShakeOvomaltine[0];
+                                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                        $Resultado = $sql->query($ProcurarProd);
+                                        if(mysqli_num_rows($Resultado)){
+                                            $linha = mysqli_fetch_assoc($Resultado);
+                                            $QuantidadeProd = $linha['qtd'];
+                                            $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                            $sql->query($updateQuery);
+                                        }
+                                        $posicao1 = $MilkShakeOvomaltine[1];
+                                        $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                        $Resultado1 = $sql->query($ProcurarProd1);
+                                        if(mysqli_num_rows($Resultado1)){
+                                            $linha = mysqli_fetch_assoc($Resultado1);
+                                            $QuantidadeProd1 = $linha['qtd'];
+                                            $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                            $sql->query($updateQuery);
+                                        }
+                                        $posicao2 = $MilkShakeOvomaltine[2];
+                                        $ProcurarProd2 = "SELECT qtd FROM produto WHERE prod = '$posicao2'";
+                                        $Resultado2 = $sql->query($ProcurarProd2);
+                                        if(mysqli_num_rows($Resultado2)){
+                                            $linha = mysqli_fetch_assoc($Resultado2);
+                                            $QuantidadeProd2 = $linha['qtd'];
+                                            $QuantidadeTotal2 = $QuantidadeProd2 - $qtdbeb;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao2'");
+                                            $sql->query($updateQuery);
+                                        }
+                                    }else{
+                                        if($nomeSemEspacos = $MilkShakeChocomenta){
+                                            $posicao0 = $MilkShakeChocomenta[0];
+                                            $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                            $Resultado = $sql->query($ProcurarProd);
+                                            if(mysqli_num_rows($Resultado)){
+                                                $linha = mysqli_fetch_assoc($Resultado);
+                                                $QuantidadeProd = $linha['qtd'];
+                                                $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                $sql->query($updateQuery);
+                                            }
+                                            $posicao1 = $MilkShakeChocomenta[1];
+                                            $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                            $Resultado1 = $sql->query($ProcurarProd1);
+                                            if(mysqli_num_rows($Resultado1)){
+                                                $linha = mysqli_fetch_assoc($Resultado1);
+                                                $QuantidadeProd1 = $linha['qtd'];
+                                                $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                                $sql->query($updateQuery);
+                                            }
+                                            $posicao2 = $MilkShakeChocomenta[2];
+                                            $ProcurarProd2 = "SELECT qtd FROM produto WHERE prod = '$posicao2'";
+                                            $Resultado2 = $sql->query($ProcurarProd2);
+                                            if(mysqli_num_rows($Resultado2)){
+                                                $linha = mysqli_fetch_assoc($Resultado2);
+                                                $QuantidadeProd2 = $linha['qtd'];
+                                                $QuantidadeTotal2 = $QuantidadeProd2 - $qtdbeb;
+                                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao2'");
+                                                $sql->query($updateQuery);
+                                            }
+                                        }else{
+                                            if($nomeSemEspacos = $SucoNaturaldeLaranja){
+                                                $posicao0 = $SucoNaturaldeLaranja[0];
+                                                $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                $Resultado = $sql->query($ProcurarProd);
+                                                if(mysqli_num_rows($Resultado)){
+                                                    $linha = mysqli_fetch_assoc($Resultado);
+                                                    $QuantidadeProd = $linha['qtd'];
+                                                    $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                    $sql->query($updateQuery);
+                                                }
+                                                $posicao1 = $SucoNaturaldeLaranja[1];
+                                                $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                                $Resultado1 = $sql->query($ProcurarProd1);
+                                                if(mysqli_num_rows($Resultado1)){
+                                                    $linha = mysqli_fetch_assoc($Resultado1);
+                                                    $QuantidadeProd1 = $linha['qtd'];
+                                                    $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                                    $sql->query($updateQuery);
+                                                }
+                                            }else{
+                                                if($nomeSemEspacos = $SucoNaturaldeMorango){
+                                                    $posicao0 = $SucoNaturaldeMorango[0];
+                                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                    $Resultado = $sql->query($ProcurarProd);
+                                                    if(mysqli_num_rows($Resultado)){
+                                                        $linha = mysqli_fetch_assoc($Resultado);
+                                                        $QuantidadeProd = $linha['qtd'];
+                                                        $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                        $sql->query($updateQuery);
+                                                    }
+                                                    $posicao1 = $SucoNaturaldeMorango[1];
+                                                    $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                                    $Resultado1 = $sql->query($ProcurarProd1);
+                                                    if(mysqli_num_rows($Resultado1)){
+                                                        $linha = mysqli_fetch_assoc($Resultado1);
+                                                        $QuantidadeProd1 = $linha['qtd'];
+                                                        $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                                        $sql->query($updateQuery);
+                                                    }
+                                                }else{
+                                                    if($nomeSemEspacos = $SucoNaturaldeUva){
+                                                        $posicao0 = $SucoNaturaldeUva[0];
+                                                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                        $Resultado = $sql->query($ProcurarProd);
+                                                        if(mysqli_num_rows($Resultado)){
+                                                            $linha = mysqli_fetch_assoc($Resultado);
+                                                            $QuantidadeProd = $linha['qtd'];
+                                                            $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                            $sql->query($updateQuery);
+                                                        }
+                                                        $posicao1 = $SucoNaturaldeUva[1];
+                                                        $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                                        $Resultado1 = $sql->query($ProcurarProd1);
+                                                        if(mysqli_num_rows($Resultado1)){
+                                                            $linha = mysqli_fetch_assoc($Resultado1);
+                                                            $QuantidadeProd1 = $linha['qtd'];
+                                                            $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                                            $sql->query($updateQuery);
+                                                        }
+                                                    }else{
+                                                        if($nomeSemEspacos = $SucoNaturaldeLimão){
+                                                            $posicao0 = $SucoNaturaldeLimão[0];
+                                                            $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                            $Resultado = $sql->query($ProcurarProd);
+                                                            if(mysqli_num_rows($Resultado)){
+                                                                $linha = mysqli_fetch_assoc($Resultado);
+                                                                $QuantidadeProd = $linha['qtd'];
+                                                                $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                                $sql->query($updateQuery);
+                                                            }
+                                                            $posicao1 = $SucoNaturaldeLimão[1];
+                                                            $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                                            $Resultado1 = $sql->query($ProcurarProd1);
+                                                            if(mysqli_num_rows($Resultado1)){
+                                                                $linha = mysqli_fetch_assoc($Resultado1);
+                                                                $QuantidadeProd1 = $linha['qtd'];
+                                                                $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                                                $sql->query($updateQuery);
+                                                            }
+                                                        }else{
+                                                            if($nomeSemEspacos = $SucoNaturaldeGoiaba){
+                                                                $posicao0 = $SucoNaturaldeGoiaba[0];
+                                                                $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                                $Resultado = $sql->query($ProcurarProd);
+                                                                if(mysqli_num_rows($Resultado)){
+                                                                    $linha = mysqli_fetch_assoc($Resultado);
+                                                                    $QuantidadeProd = $linha['qtd'];
+                                                                    $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                                    $sql->query($updateQuery);
+                                                                }
+                                                                $posicao1 = $SucoNaturaldeGoiaba[1];
+                                                                $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                                                $Resultado1 = $sql->query($ProcurarProd1);
+                                                                if(mysqli_num_rows($Resultado1)){
+                                                                    $linha = mysqli_fetch_assoc($Resultado1);
+                                                                    $QuantidadeProd1 = $linha['qtd'];
+                                                                    $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                                                    $sql->query($updateQuery);
+                                                                }
+                                                            }else{
+                                                                if($nomeSemEspacos = $SucoNaturaldeMaracuja){
+                                                                    $posicao0 = $SucoNaturaldeMaracuja[0];
+                                                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                                    $Resultado = $sql->query($ProcurarProd);
+                                                                    if(mysqli_num_rows($Resultado)){
+                                                                        $linha = mysqli_fetch_assoc($Resultado);
+                                                                        $QuantidadeProd = $linha['qtd'];
+                                                                        $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                                        $sql->query($updateQuery);
+                                                                    }
+                                                                    $posicao1 = $SucoNaturaldeMaracuja[1];
+                                                                    $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                                                    $Resultado1 = $sql->query($ProcurarProd1);
+                                                                    if(mysqli_num_rows($Resultado1)){
+                                                                        $linha = mysqli_fetch_assoc($Resultado1);
+                                                                        $QuantidadeProd1 = $linha['qtd'];
+                                                                        $QuantidadeTotal1 = $QuantidadeProd1 - $qtdbeb;
+                                                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                                                        $sql->query($updateQuery);
+                                                                    }
+                                                                }else{
+                                                                    if($nomeSemEspacos = $AguaNatural){
+                                                                        $posicao0 = $AguaNatural[0];
+                                                                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                                        $Resultado = $sql->query($ProcurarProd);
+                                                                        if(mysqli_num_rows($Resultado)){
+                                                                            $linha = mysqli_fetch_assoc($Resultado);
+                                                                            $QuantidadeProd = $linha['qtd'];
+                                                                            $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                                            $sql->query($updateQuery);
+                                                                        }
+                                                                    }else{
+                                                                        if($nomeSemEspacos = $Aguacomgãs){
+                                                                            $posicao0 = $Aguacomgãs[0];
+                                                                            $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                                            $Resultado = $sql->query($ProcurarProd);
+                                                                            if(mysqli_num_rows($Resultado)){
+                                                                                $linha = mysqli_fetch_assoc($Resultado);
+                                                                                $QuantidadeProd = $linha['qtd'];
+                                                                                $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                                                $sql->query($updateQuery);
+                                                                            }
+                                                                        }else{
+                                                                            if($nomeSemEspacos = $RefrigeranteLata){
+                                                                                $posicao0 = $RefrigeranteLata[0];
+                                                                                $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                                                $Resultado = $sql->query($ProcurarProd);
+                                                                                if(mysqli_num_rows($Resultado)){
+                                                                                    $linha = mysqli_fetch_assoc($Resultado);
+                                                                                    $QuantidadeProd = $linha['qtd'];
+                                                                                    $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                                                    $sql->query($updateQuery);
+                                                                                }
+                                                                            }else{
+                                                                                if($nomeSemEspacos = $RefrigeranteGarrafadeVidro){
+                                                                                    $posicao0 = $RefrigeranteGarrafadeVidro[0];
+                                                                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                                                    $Resultado = $sql->query($ProcurarProd);
+                                                                                    if(mysqli_num_rows($Resultado)){
+                                                                                        $linha = mysqli_fetch_assoc($Resultado);
+                                                                                        $QuantidadeProd = $linha['qtd'];
+                                                                                        $QuantidadeTotal = $QuantidadeProd - $qtdbeb;
+                                                                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                                                        $sql->query($updateQuery);
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    endforeach;
+                    //-----------------------------------Acompanhamento----------------------------------------------
+                    if($Res_Acom -> num_rows > 0){
+                        $linha = $Res_Acom->fetch_assoc();
+                        $Dados_Acompanhamento[] = array(
+                            'id' => $linha['id_acompanhamento'],
+                            'nome' => $linha['nome'],
+                        );
+                        foreach ($Dados_Acompanhamento as $Acompanhamento):
+                            $id = $Acompanhamento['id'];
+                            $nome = $Acompanhamento['nome'];
+                            $nomeSemEspacos = str_replace(' ', '', $nome);
+                            if($nomeSemEspacos = $Nuggets){
+                                $posicao0 = $Nuggets[0];
+                                $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                $Resultado = $sql->query($ProcurarProd);
+                                if (mysqli_num_rows($Resultado)) {
+                                    $linha = mysqli_fetch_assoc($Resultado);
+                                    $QuantidadeProd = $linha['qtd'];
+                                    $QuantidadeTotal = $QuantidadeProd - $qtdAcom;
+                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                    $sql->query($updateQuery);
+                                }
+                            }else{
+                                if($nomeSemEspacos = $BatataFritacomCheddareBacon){
+                                    $posicao0 = $NuBatataFritacomCheddareBaconggets[0];
+                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                    $Resultado = $sql->query($ProcurarProd);
+                                    if (mysqli_num_rows($Resultado)) {
+                                        $linha = mysqli_fetch_assoc($Resultado);
+                                        $QuantidadeProd = $linha['qtd'];
+                                        $QuantidadeTotal = $QuantidadeProd - $qtdAcom;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                        $sql->query($updateQuery);
+                                    }
+                                    $posicao1 = $NuBatataFritacomCheddareBaconggets[1];
+                                    $ProcurarProd1 = "SELECT qtd FROM produto WHERE prod = '$posicao1'";
+                                    $Resultado1 = $sql->query($ProcurarProd1);
+                                    if (mysqli_num_rows($Resultado1)) {
+                                        $linha = mysqli_fetch_assoc($Resultado1);
+                                        $QuantidadeProd1 = $linha['qtd'];
+                                        $QuantidadeTotal1 = $QuantidadeProd1 - $qtdAcom;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal1 WHERE prod = '$posicao1'");
+                                        $sql->query($updateQuery);
+                                    }
+                                    $posicao2 = $NuBatataFritacomCheddareBaconggets[2];
+                                    $ProcurarProd2 = "SELECT qtd FROM produto WHERE prod = '$posicao2'";
+                                    $Resultado2 = $sql->query($ProcurarProd2);
+                                    if (mysqli_num_rows($Resultado2)) {
+                                        $linha = mysqli_fetch_assoc($Resultado2);
+                                        $QuantidadeProd2 = $linha['qtd'];
+                                        $QuantidadeTotal2 = $QuantidadeProd2 - $qtdAcom;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal2 WHERE prod = '$posicao2'");
+                                        $sql->query($updateQuery);
+                                    }
+                                }else{
+                                    if($nomeSemEspacos = $BatataFrita){
+                                        $posicao0 = $BatataFrita[0];
+                                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                        $Resultado = $sql->query($ProcurarProd);
+                                        if (mysqli_num_rows($Resultado)) {
+                                            $linha = mysqli_fetch_assoc($Resultado);
+                                            $QuantidadeProd = $linha['qtd'];
+                                            $QuantidadeTotal = $QuantidadeProd - $qtdAcom;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                            $sql->query($updateQuery);
+                                        }
+                                    }else{
+                                        if($nomeSemEspacos = $OnionRings){
+                                            $posicao0 = $OnionRings[0];
+                                            $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                            $Resultado = $sql->query($ProcurarProd);
+                                            if (mysqli_num_rows($Resultado)) {
+                                                $linha = mysqli_fetch_assoc($Resultado);
+                                                $QuantidadeProd = $linha['qtd'];
+                                                $QuantidadeTotal = $QuantidadeProd - $qtdAcom;
+                                                $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                $sql->query($updateQuery);
+                                            }
+                                        }else{
+                                            if($nomeSemEspacos = $NachoscomGuacamole){
+                                                $posicao0 = $NachoscomGuacamole[0];
+                                                $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'";
+                                                $Resultado = $sql->query($ProcurarProd);
+                                                if (mysqli_num_rows($Resultado)) {
+                                                    $linha = mysqli_fetch_assoc($Resultado);
+                                                    $QuantidadeProd = $linha['qtd'];
+                                                    $QuantidadeTotal = $QuantidadeProd - $qtdAcom;
+                                                    $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                                    $sql->query($updateQuery);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        endforeach;
+                        if($Res_Sobremesa -> num_rows > 0){
+                            $linha = $Res_Sobremesa->fetch_assoc();
+                            $Dados_Sobremesa[] = array(
+                                'id' => $linha['id_sobremesa'],
+                                'nome' => $linha['nome'],
+                            );
+                            foreach ($Dados_Sobremesa as $Sobremesa):
+                                $id = $Sobremesa['id'];
+                                $nome = $Sobremesa['nome'];
+                                $nomeSemEspacos = str_replace(' ', '', $nome);
+                                if($nomeSemEspacos = $TortadeLimão){ //Se o nome for igual ao vetor executará o script, !!Descobrir por que com os dois sinais de igual não vai (Comparação)
+                                    $posicao0 = $TortadeLimão[0]; //Pega a primeira posição do vetor 
+                                    $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'"; //Pesquisa no banco 
+                                    $Resultado = $sql->query($ProcurarProd);
+                                    if(mysqli_num_rows($Resultado)){
+                                        $linha = mysqli_fetch_assoc($Resultado);
+                                        $QuantidadeProd = $linha['qtd'];
+                                        $QuantidadeTotal = $QuantidadeProd - $qtdsobremesa;
+                                        $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                        $sql->query($updateQuery);
+                                        
+                                    }
+                                }else{
+                                    if($nomeSemEspacos = $TortaHolandesa){ //Se o nome for igual ao vetor executará o script, !!Descobrir por que com os dois sinais de igual não vai (Comparação)
+                                        $posicao0 = $TortaHolandesa[0]; //Pega a primeira posição do vetor 
+                                        echo $posicao0;
+                                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'"; //Pesquisa no banco 
+                                        echo $ProcurarProd;
+                                        $Resultado = $sql->query($ProcurarProd);
+                                        if(mysqli_num_rows($Resultado)){
+                                            $linha = mysqli_fetch_assoc($Resultado);
+                                            $QuantidadeProd = $linha['qtd'];
+                                            $QuantidadeTotal = $QuantidadeProd - $qtdsobremesa;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                            $sql->query($updateQuery);
+                                            
+                                        }
+                                    }
+                                    if($nomeSemEspacos = $TortadeMorango){ //Se o nome for igual ao vetor executará o script, !!Descobrir por que com os dois sinais de igual não vai (Comparação)
+                                        $posicao0 = $TortadeMorango[0]; //Pega a primeira posição do vetor 
+                                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'"; //Pesquisa no banco 
+                                        $Resultado = $sql->query($ProcurarProd);
+                                        if(mysqli_num_rows($Resultado)){
+                                            $linha = mysqli_fetch_assoc($Resultado);
+                                            $QuantidadeProd = $linha['qtd'];
+                                            $QuantidadeTotal = $QuantidadeProd - $qtdsobremesa;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                            $sql->query($updateQuery);
+                                            
+                                        }
+                                    }
+                                    if($nomeSemEspacos = $SorvetedeCookiesCream){ //Se o nome for igual ao vetor executará o script, !!Descobrir por que com os dois sinais de igual não vai (Comparação)
+                                        $posicao0 = $SorvetedeCookiesCream[0]; //Pega a primeira posição do vetor 
+                                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'"; //Pesquisa no banco 
+                                        $Resultado = $sql->query($ProcurarProd);
+                                        if(mysqli_num_rows($Resultado)){
+                                            $linha = mysqli_fetch_assoc($Resultado);
+                                            $QuantidadeProd = $linha['qtd'];
+                                            $QuantidadeTotal = $QuantidadeProd - $qtdsobremesa;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                            $sql->query($updateQuery);
+                                            
+                                        }
+                                    }
+                                    if($nomeSemEspacos = $SorvetedeBaunilha){ //Se o nome for igual ao vetor executará o script, !!Descobrir por que com os dois sinais de igual não vai (Comparação)
+                                        $posicao0 = $SorvetedeBaunilha[0]; //Pega a primeira posição do vetor 
+                                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'"; //Pesquisa no banco 
+                                        $Resultado = $sql->query($ProcurarProd);
+                                        if(mysqli_num_rows($Resultado)){
+                                            $linha = mysqli_fetch_assoc($Resultado);
+                                            $QuantidadeProd = $linha['qtd'];
+                                            $QuantidadeTotal = $QuantidadeProd - $qtdsobremesa;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                            $sql->query($updateQuery);
+                                            
+                                        }
+                                    }
+                                    if($nomeSemEspacos = $SorvetedeChocolate){ //Se o nome for igual ao vetor executará o script, !!Descobrir por que com os dois sinais de igual não vai (Comparação)
+                                        $posicao0 = $SorvetedeChocolate[0]; //Pega a primeira posição do vetor 
+                                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'"; //Pesquisa no banco 
+                                        $Resultado = $sql->query($ProcurarProd);
+                                        if(mysqli_num_rows($Resultado)){
+                                            $linha = mysqli_fetch_assoc($Resultado);
+                                            $QuantidadeProd = $linha['qtd'];
+                                            $QuantidadeTotal = $QuantidadeProd - $qtdsobremesa;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                            $sql->query($updateQuery);
+                                            
+                                        }
+                                    }
+                                    if($nomeSemEspacos = $SorveteNapolitano){ //Se o nome for igual ao vetor executará o script, !!Descobrir por que com os dois sinais de igual não vai (Comparação)
+                                        $posicao0 = $SorveteNapolitano[0]; //Pega a primeira posição do vetor 
+                                        $ProcurarProd = "SELECT qtd FROM produto WHERE prod = '$posicao0'"; //Pesquisa no banco 
+                                        $Resultado = $sql->query($ProcurarProd);
+                                        if(mysqli_num_rows($Resultado)){
+                                            $linha = mysqli_fetch_assoc($Resultado);
+                                            $QuantidadeProd = $linha['qtd'];
+                                            $QuantidadeTotal = $QuantidadeProd - $qtdsobremesa;
+                                            $updateQuery = ("UPDATE produto SET qtd = $QuantidadeTotal WHERE prod = '$posicao0'");
+                                            $sql->query($updateQuery);
+                                            
+                                        }
+                                    }
+                                }
+                            endforeach;
+                        }
+                    }
+                }
+            } 
+            //$InserirVenda = "INSERT INTO venda (id, id_func, id_cli, data, codigo_desconto, forma_pagamento, desconto, taxa_servico, situacao, valor_total) VALUES ($idPedido,$idFuncionario,$idcli,'$DataBd','$cupom','$formaPagamento', $valorDesconto ,$TaxaServ,'$SituaçãoVend', $valorFinal)";
+            //echo $InserirVenda;
+            //$ResInserirVenda = $sql->query($InserirVenda);
+            //echo $ResInserirVenda;   
+       endforeach;
+    }
+   // $InserirVenda = "INSERT INTO venda (id, id_func, id_cli, data, codigo_desconto, forma_pagamento, desconto, taxa_servico, situacao, valor_total) VALUES 
+   // ($idPedido,$idFuncionario,$idcli,'$DataBd','$cupom','$formaPagamento', $valorDesconto ,$TaxaServ,'$SituaçãoVend', $valorFinal)";
+    //echo $InserirVenda;
+    //$ResInserirVenda = $sql->query($InserirVenda);
+    //echo $ResInserirVenda;
+    /*if(mysqli_num_rows($ResInserirVenda) > 0){
+        $AtualizarBeb = "UPDATE pedidos SET situacao = $id , qtdbeb = '$quantidade' WHERE comanda = '$NumeroComanda'";
+        $sql->query($AtualizarBeb);
+    }
+    */
+    //$response = array('status' => 'success', 'message' => 'Pedido finalizado com sucesso');
+    //ob_clean();
+    // Adicione mensagens de log para depuração
+    //error_log("Resposta do PHP: " . json_encode($response));
+    //echo json_encode($response);
+} else {
+    // Se a requisição não for do tipo POST, retorna um erro
+    //$response = array('status' => 'error', 'message' => 'Método não permitido');
+
+    // Adicione mensagens de log para depuração
+    //error_log("Resposta do PHP: " . json_encode($response));
+    //echo json_encode($response);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Caso dê erro
+/*include_once('conn.php');
+// Receba os dados do corpo da requisição
+$JsonRes = file_get_contents('php://input');
+// Decodifique os dados JSON
+$data = json_decode($JsonRes, true);
+$DataBd = date('Y-m-d'); //Pega a Data
+$SituaçãoVend = "ENTREGUE";
+$SituaçãoPed = "PRONTO";
+//$TaxaServ = 10.00;
+
+
+
+// Verifica se a requisição é do tipo POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $idPedido = $data['idPedido'];
+    //echo "Id:" . $idPedido;
+    $idFuncionario = $data['idFuncionario'];
+    //echo "idFuncionario:" . $idFuncionario;
+    $idcli = $data['idCli'];
+    //echo "idCli:" . $idcli;
+    $cupom = $data['cupom'];
+    //echo "cupom:" . $cupom;
+    $valorDesconto = $data['valorDesconto'];
+    $valorDesconto = str_replace(',', '.', $valorDesconto);
+    //echo "valorDesconto:" . $valorDesconto;
+    $valorFinal = $data['valorFinal'];
+    $porCent = 0.10;
+    $TaxaServ = $valorFinal * $porCent;
+    echo $TaxaServ;
+    //echo "valorFinal:" . $valorFinal;
+    $formaPagamento = $data['formaPagamento'];
+    //echo "formaPagamento:" . $formaPagamento;
+    //$cupomAdd = "NENHUM CUPOM SELECIONADO";
+    $InserirVenda = "INSERT INTO venda (id, id_func, id_cli, data, codigo_desconto, forma_pagamento, desconto, taxa_servico, situacao, valor_total) VALUES 
+    ($idPedido,$idFuncionario,$idcli,'$DataBd','$cupom','$formaPagamento', $valorDesconto ,$TaxaServ,'$SituaçãoVend', $valorFinal)";
+    //echo $InserirVenda;
+    $ResInserirVenda = $sql->query($InserirVenda);
+    //echo $ResInserirVenda;
+    /*if(mysqli_num_rows($ResInserirVenda) > 0){
+        $AtualizarBeb = "UPDATE pedidos SET situacao = $id , qtdbeb = '$quantidade' WHERE comanda = '$NumeroComanda'";
+        $sql->query($AtualizarBeb);
+    }
+    */
+    //$response = array('status' => 'success', 'message' => 'Pedido finalizado com sucesso');
+    //ob_clean();
+    // Adicione mensagens de log para depuração
+    //error_log("Resposta do PHP: " . json_encode($response));
+    //echo json_encode($response);
+/*} else {
+    // Se a requisição não for do tipo POST, retorna um erro
+    //$response = array('status' => 'error', 'message' => 'Método não permitido');
+
+    // Adicione mensagens de log para depuração
+    //error_log("Resposta do PHP: " . json_encode($response));
+    //echo json_encode($response);
+}
+*/
+
+?>

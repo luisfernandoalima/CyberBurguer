@@ -11,14 +11,17 @@
     $idFunc = $_SESSION['id_func']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do id do usuario
 
     $NumeroComanda = $_POST['Nc'];
-    //$Id_func = $_POST['Nc'];
-    $Dados = $sql->query("SELECT * FROM funcionarios WHERE id_func = $idFunc");
-    if($Checar = mysqli_num_rows ($Dados)< 1){
-        echo '<script>alert("Numero Não existente ou não encontrado");</script>';
-
-    }else{
+    $Id_func = $_POST['Ni'];
+    //$Dados = $sql->query("SELECT * FROM funcionarios WHERE id_func = $Id_func");
+    //$r = mysqli_fetch_assoc($Dados);
+    //$Idfuncs = $r['id_func'];
+    //var_dump($Idfuncs);
+    //$Checar = mysqli_num_rows($Dados);
+    if($Id_func == $idFunc){
         echo '<script>alert("Login realizado com sucesso! Bem-vindo, ' . $idFunc . ' e Nº Comanda '. $NumeroComanda .'");</script>';
         $_SESSION['NumeroComanda'] = $NumeroComanda;
-        
+    }else{
+        echo '<script>alert("Numero Não existente ou não encontrado");</script>';
+        unset($_SESSION['NumeroComanda']);
     }
 ?>

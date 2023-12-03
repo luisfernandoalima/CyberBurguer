@@ -9,7 +9,6 @@ if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha'])) == true
 $log = $_SESSION['email']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do email do usuario
 $nomeFunc = $_SESSION['nome']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do  nome do usuario
 $idFunc = $_SESSION['id_func']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do id do usuario
-
 // Explode o nome completo em partes separadas por espaço
 $parts = explode(" ", $nomeFunc); //usado para separar o nome do primeiro nome 
 // Pega o primeiro elemento do array resultante
@@ -17,9 +16,6 @@ $primeiroNome = $parts[0];
 // Explode o nome completo em partes separadas por espaço
 $avatar = '../../../imgbd/' . $_SESSION['avatarSession'];
 //FIM codigo relacionado a sessão
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

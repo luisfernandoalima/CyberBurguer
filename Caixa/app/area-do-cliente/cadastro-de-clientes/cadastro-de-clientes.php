@@ -4,12 +4,11 @@ include_once(__DIR__ . '/../../../PHP/conn.php'); //não faz parte da sessão ma
 if((!isset($_SESSION['email']) == true) and (!isset($_SESSION['senha'])) == true){ //Se as variaveis de sessão estiverem vazias, fecha a sessão e joga para a pagina de login
     unset($_SESSION['email']); //destroi a variavel sessão email
     unset($_SESSION['senha']); //destroi a variavel sessão senha
-    echo '<script>alert("Acesso Negado faça o login primeiro"); window.location.href = "../../index.html";</script>';
+    echo '<script>alert("Acesso Negado faça o login primeiro"); window.location.href = "../../../index.html";</script>';
 }
 $log = $_SESSION['email']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do email do usuario
 $nomeFunc = $_SESSION['nome']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do  nome do usuario
 $idFunc = $_SESSION['id_func']; //pega informações atraves da sessão e coloca ela em uma variavel, no caso a informação do id do usuario
-$carrinho = $_SESSION['carrinho'];
 // Explode o nome completo em partes separadas por espaço
 $parts = explode(" ", $nomeFunc); //usado para separar o nome do primeiro nome 
 // Pega o primeiro elemento do array resultante
@@ -122,6 +121,10 @@ $vendas = $sql->query("SELECT * FROM venda");
                                         <div class="campoForms">
                                             <label for="nome">Email:</label>
                                             <input type="text" name="Email" id="nome">
+                                        </div>
+                                        <div class="campoForms">
+                                            <label for="nome">DataNascimento:</label>
+                                            <input type="date" name="dtnasc" id="dtnasc">
                                         </div>
                                     </div>
                                     <div class="col-6">
