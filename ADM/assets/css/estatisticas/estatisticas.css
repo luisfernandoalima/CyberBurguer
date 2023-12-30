@@ -8,7 +8,8 @@
     margin-left: 10px;
 }
 .radio-label {
-    color: black;
+position: absolute;
+left: -999999px;
 }
 
 .selectDataArea {
@@ -17,6 +18,20 @@
     border-radius: 20px;
     padding-right: 20px;
     padding-left: 10px;
+}
+
+.selectDataArea label{
+    color: #fff;
+    margin-right: 10px;
+    margin-left: 5px;
+    padding: 3px 7px;
+    transition: .3s;
+}
+
+.radioSelect{  
+    background-color: #000;
+    border-radius: 10px;
+    text-decoration: underline;
 }
 
 .seta-dia {
@@ -45,7 +60,7 @@ option {
     background-color: #fff;
     border-radius: 20px;
     margin-left: 9%;
-    height: 40% !important;
+    height: 13% !important;
 }
 
 .infoAreaEst h2{

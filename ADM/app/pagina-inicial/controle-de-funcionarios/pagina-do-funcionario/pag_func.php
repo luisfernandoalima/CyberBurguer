@@ -88,7 +88,7 @@ if(!empty($_GET['id_func'])){
                     </button>
                 </a>
 
-                <a href="../../../estatisticas/estatisticas.php">
+                <a href="../../../estatisticas/index.php">
                     <button>
                         <span>
                             <i class="material-symbols-outlined">paid</i>
@@ -188,6 +188,8 @@ if(!empty($_GET['id_func'])){
                                     <p class="perg">Conta bancária:</p>
                                     <p class="res"><?php echo $user_dados['conta_bancaria'];?></p>
                                     <a href="../editar-funcionario/editar-funcionario.php?id_func=<?php echo $id; ?>"><button class="btn btn-primary">Editar</button></a>
+                                    <br></br>
+                                    <a href="javascript:void(0);" onclick="confirmarDesligamento();"><button class="btn btn-danger">Desligar funcionário</button></a>
                                 </div>
                             </div>
                         </div>
@@ -199,6 +201,17 @@ if(!empty($_GET['id_func'])){
     <script src="../../../../assets/js/paginaInicial/func.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="../../../../assets/js/paginaInicial/sidebar.js"></script>
+    <script>
+        function confirmarDesligamento() {
+        var resposta = confirm("Tem certeza que deseja desligar este funcionário?");
+
+        if (resposta) {
+            window.location.href = "../../../../PHP/demitir-funcionario.php?id_func=<?php echo $id; ?>";
+        } else {
+            console.log("Desligamento cancelado");
+        }
+    }
+    </script>
 
 </body>
 

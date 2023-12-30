@@ -155,6 +155,11 @@ $listagem = $sql->query($sqlc);?>
                                     <label for="relig_func">Religião:</label><br>
                                     <input type="text" name="relig_func" id="relig_func" required>
                                 </div>
+                                <div>
+                                    <!--CPF do funcionário-->
+                                    <label for="CPF">CPF:</label><br>
+                                    <input type="text" name="CPF" id="cpfInput" class="cpfInput" required>
+                                </div>
                             </div>
                             <div class="col-md-4">
                                 <div>
@@ -211,8 +216,14 @@ $listagem = $sql->query($sqlc);?>
                                 <div>
                                     <!--Habilitação do funcionário-->
                                     <label for="habi_func">Habilitação:</label><br>
-                                    <input type="radio" name="habi_func" id="Sim" value="SIM"><label for="Sim">Sim</label><br>
-                                    <input type="radio" name="habi_func" id="Nao" value="NÃO" checked><label for="Nao">Não</label>
+                                    <select name="habi_func" id="habi_func">
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                                    <option value="NÃO">NÃO</option>
+                                    </select>
                                 </div>
                                 <div>
                                     <!--Reservista do funcionário-->
@@ -222,8 +233,6 @@ $listagem = $sql->query($sqlc);?>
 
                                     <input type="radio" name="reser_func" id="NaoPossui" value="NÃO" checked><label
                                         for="NaoPossui">Não possui</label>
-
-                                    v>
                                     <div>
                                         <!--Tipo sanguíneo do funcionário-->
                                         <label for="sang_func">Tipo sanguíneo</label><br>

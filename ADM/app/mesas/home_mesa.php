@@ -19,13 +19,6 @@ $avatar = '../../../imgbd/' . $_SESSION['avatarSession'];
 
 $mesa = $sql->query("SELECT * FROM mesas");
 
-/*$mesa = $sql->query("SELECT mesas.mesa, mesas.qtdCadeiras, mesas.estado, pedidos.id, pedidos.mesa
-FROM mesas, pedidos
-WHERE mesas.mesa = pedidos.mesa");
-*/
-
-// $nome = "Ocupada"; //Teste js + css para ver se estão correspondentes as variaveis php
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

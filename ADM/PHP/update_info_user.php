@@ -9,37 +9,6 @@ if(!empty($_GET['id_func'])){
     $contBanc = $_GET['contabanc'];
     $senha = base64_encode($_GET['senha']);
     $confSenha = base64_encode($_GET['confsenha']);
-    //Imagem bugada
-    /*$uploadAvatar = "imgbd/avatar/";
-    echo "<br/>";
-    echo $uploadAvatar;
-    echo "<br/>";
-    $arquivoAvatar = $_FILES["Avatarimg"]["name"];
-    echo "<br/>";
-    echo $arquivoAvatar;
-    echo "<br/>";
-    $separaAvatar = explode(".", $arquivoAvatar);
-    echo "<br/>";
-    echo $separaAvatar;
-    echo "<br/>";
-    $separaAvatar = array_reverse($separaAvatar);
-    echo "<br/>";
-    echo $separaAvatar;
-    echo "<br/>";
-    $tipoAvatar = $separaAvatar[0];
-    echo "<br/>";
-    echo $tipoAvatar;
-    echo "<br/>";
-    $imgAvatar = $nomeUser. '.' . $tipoAvatar;
-    echo "<br/>";
-    echo $imgAvatar;
-    echo "<br/>";
-    if (move_uploaded_file($_FILES['Avatarimg']['tmp_name'], '../../' . $uploadAvatar . $imgAvatar)) {
-        $uploadfileAvatar = $uploadAvatar . $imgAvatar;        
-    }else{
-        echo '<script>alert("Erro: falha no upload da imagem!");</script>'; 
-    }
-    */
     if ($senha == $confSenha){
         $edit = $sql->query("SELECT * FROM funcionarios WHERE id_func =$id");
         if($edit->num_rows > 0){

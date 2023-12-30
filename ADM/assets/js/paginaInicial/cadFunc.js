@@ -5,3 +5,8 @@ const formulariojs = () =>{
 
     inputData.value = myDate
 }
+
+var cpfInput = document.querySelector('.cpfInput')
+var cpfInput = IMask(cpfInput, {
+    mask: '000.000.000-00'
+});

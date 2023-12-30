@@ -53,8 +53,8 @@ $estoqueInfoTb = $sql->query($sqlb);
                 <a href="../pagina-inicial/home.php">
                     <button >
                         <span>
-                                <i class="material-symbols-outlined">home</i>
-                                <span>Home</span>
+                            <i class="material-symbols-outlined">home</i>
+                            <span>Home</span>
                         </span>
                     </button>
                 </a>
@@ -161,9 +161,11 @@ $estoqueInfoTb = $sql->query($sqlb);
                                         <div class="col-6 infoBloco">
                                             <p class="itemHeader"><?php echo $estoqueInfos['prod']; ?></p>
                                             <hr class="estoqueLinha">
-                                            <p>Lote: <?php echo $estoqueInfos['lote']; ?> </p>
+                                            <p class="quantidade <?php echo ($estoqueInfos['qtd'] < 5) ? 'baixa-quantidade' : ''; ?>"> Unidades: <?php echo $estoqueInfos['qtd']; ?></p>
                                             <p>Unidades: <?php echo $estoqueInfos['qtd']; ?></p>
-                                            <p>Validade: <?php echo $estoqueInfos['dta_vencimento']; ?></p>
+                                            <p class="<?php echo (strtotime($estoqueInfos['dta_vencimento']) <= strtotime(date('Y-m-d'))) ? 'vencido' : ''; ?>">
+                                            <?php echo $estoqueInfos['dta_vencimento']; ?>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -176,7 +178,7 @@ $estoqueInfoTb = $sql->query($sqlb);
                             <thead>
                                 <th>Nome:</th>
                                 <th>Lote:</th>
-                                <th>Unidades:</th>
+                                <th class="Uni">Unidades:</th>
                                 <th>Validade:</th>
                             </thead>
                             <tbody>
@@ -184,8 +186,10 @@ $estoqueInfoTb = $sql->query($sqlb);
                                 <tr>
                                     <td><?php echo $estoqueInfosTb['prod']; ?></td>
                                     <Td><?php echo $estoqueInfosTb['lote']; ?></Td>
-                                    <td><?php echo $estoqueInfosTb['qtd']; ?></td>
-                                    <td><?php echo $estoqueInfosTb['dta_vencimento']; ?></td>
+                                    <td class="<?php echo ($estoqueInfosTb['qtd'] <= 10) ? 'baixa-quantidadeTb' : ''; ?>"><?php echo $estoqueInfosTb['qtd']; ?><?php if ($estoqueInfosTb['qtd'] <= 10): ?> (Baixa quantidade) <?php endif; ?></td>
+                                    <td class="<?php echo (strtotime($estoqueInfosTb['dta_vencimento']) <= strtotime(date('Y-m-d'))) ? 'vencido' : ''; ?>">
+                                    <?php echo $estoqueInfosTb['dta_vencimento']; ?>
+                                    </td>
                                 </tr>
                                 <?php endforeach; ?>  
                             </tbody>
@@ -199,6 +203,20 @@ $estoqueInfoTb = $sql->query($sqlb);
             </div>
         </main>
     </div>
+    <style>
+    .vencido {
+        color: red;
+        font-weight: bold;
+    }
+    .baixa-quantidade {
+        color: yellow;
+        font-weight: bold;
+    }
+    .baixa-quantidadeTb {
+        font-weight: bold;
+        color: yellow;
+    }
+</style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../assets/js/paginaInicial/searchBar.js"></script>
     <script src="../../assets/js/estoque/estoque.js"></script>
@@ -219,18 +237,21 @@ function pesquisardados() {
         url: 'estoque.php?search=' + encodeURIComponent(searchValue),
         success: function(response) {
             var tableBody = $('#tabelaReal tbody');
-            tableBody.empty(); // Limpa o conteúdo atual da tabela
-
-            // Adiciona as linhas da pesquisa à tabela
+            tableBody.empty();
             $(response).find('#tabelaReal tbody tr').each(function() {
-                tableBody.append($(this)); // Adiciona a linha à tabela
+                tableBody.append($(this));
             });
-
-            // Atualiza também a exibição em blocos
             $('.blocos .row').html($(response).find('.blocos .row').html());
         }
     });
 }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.vencido').forEach(function(cell) {
+            cell.textContent = 'Produto Vencido';
+        });
+    });
+
 
 
 </script>

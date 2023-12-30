@@ -112,7 +112,7 @@ $avatar = '../../../imgbd/' . $_SESSION['avatarSession'];
             <hr>
             <div class="mainArea">
                 <div class="container">
-                        <form action="../../PHP/confim_infoAdm.php" method="post" class="confirmForms" style="margin: auto;">
+                        <form action="../../PHP/confim_infoAdm.php" method="post" class="confirmForms">
                             <div class="forms">
                                 <h2>Confirmar informações</h2>
                                 <div class="input-contain">

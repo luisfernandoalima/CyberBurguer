@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cardapio_cyber</title>
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <style>
+        /*body*/
+        :root {
+            --pink: #ff058c;
+            --blue: #191143;
+            --rose: #ff006b;
+            --black: #1e1e1e;
+            --white: #ffff;
+            --lightblue: #b4b4db;
+            --yellow: #f6be00;
+            --red: #da0000;
+            --gray: rgb(37, 37, 37);
+        }
+
+        body {
+            background-color: var(--blue);
+        }
+
+        h1 {
+            color: var(--lightblue);
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        h5 {
+            color: var(--pink);
+            text-align: center;
+        }
+
+        /* CSS personalizado para os menus laterais */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-right {
+            right: 0;
+            left: auto;
+        }
+
+        .sidebar-left {
+            right: 0;
+            left: auto;
+        }
+
+        .logo {
+            width: 9rem;
+            margin-top: 20px;
+            user-select: none;
+        }
+
+        .elipse {
+            width: 17rem;
+            margin-left: -40px;
+            position: fixed;
+            margin-top: -55px;
+            user-select: none;
+        }
+
+        #sidebar-left,
+        #sidebar-right {
+            background-color: var(--blue) !important;
+        }
+
+        #sidebar-left .nav-item {
+            font-size: 30px;
+            background-color: var(--rose);
+            border-radius: 60px;
+            text-align: center;
+            margin-left: -45px;
+            margin-top: 25px;
+            font-size: x-large;
+        }
+
+        #sidebar-left .nav-item:hover {
+            transition: 0.9s;
+            color: var(--white);
+            box-shadow: 0px 6px 4px 0px;
+            border-radius: 40px;
+            margin-left: 2rem;
+            font-size: 30px;
+            border: none;
+            text-decoration: none;
+            padding-bottom: 5px;
+            background-color: var(--lightblue);
+        }
+
+        .col-md-4 {
+            padding: auto;
+        }
+
+        /* Ajuste de margem para a área de conteúdo */
+        .main-content {
+            margin: auto;
+        }
+
+        .circle {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--rose);
+            clip-path: circle(27% at bottom right);
+            user-select: none;
+        }
+
+        button {
+            text-decoration: none;
+            border: none;
+            border-radius: 90px;
+            background-color: #191143;
+            width: 100%;
+            align-items: center;
+            margin: auto !important;
+            display: block;
+        }
+
+        button:hover {
+            text-decoration: none;
+            border: none;
+            border-radius: 40px;
+            background-color: var(--lightblue);
+        }
+
+        a {
+            color: var(--white) !important;
+        }
+
+        /*modal*/
+        #modal1,
+        #modal2,
+        #modal3,
+        #modal4,
+        #modal5,
+        #modal6,
+        #modal7,
+        #modal8,
+        #modal9,
+        #modal10,
+        #modal11,
+        #modal12,
+        #modal13,
+        #modal14,
+        #modal15,
+        #modal16,
+        #modal17,
+        #modal18,
+        #modal19,
+        #modal20,
+        #modal21,
+        #modal22 {
+            left: 35%;
+            margin: -250px 0 0 -40%;
+            opacity: 0;
+            position: fixed;
+            top: -50%;
+            visibility: hidden;
+            text-align: center;
+            width: 30%;
+            box-shadow: 0 1px 22px rgba(255, 255, 255, 0.25);
+            box-sizing: border-box;
+            transition: all 0.4s ease-in-out;
+            -moz-transition: all 0.4s ease-in-out;
+            -webkit-transition: all 0.4s ease-in-out;
+        }
+
+        /* Make the modal appear when targeted */
+        #modal1:target,
+        #modal2:target,
+        #modal3:target,
+        #modal4:target,
+        #modal5:target,
+        #modal6:target,
+        #modal7:target,
+        #modal8:target,
+        #modal9:target,
+        #modal10:target,
+        #modal11:target,
+        #modal12:target,
+        #modal13:target,
+        #modal14:target,
+        #modal15:target,
+        #modal16:target,
+        #modal17:target,
+        #modal18:target,
+        #modal19:target,
+        #modal20:target,
+        #modal21:target,
+        #modal22:target {
+            opacity: 1;
+            top: 1%;
+            visibility: visible;
+        }
+
+        .header,
+        .footer {
+            border-bottom: 1px solid var(--rose);
+            border-radius: 5px 5px 0 0;
+        }
+
+        .footer {
+            border: none;
+            border-top: 5px var(--lightblue);
+            border-radius: 0 0 5px 5px;
+        }
+
+        #modal1,
+        #modal2,
+        #modal3,
+        #modal4,
+        #modal5,
+        #modal6,
+        #modal7,
+        #modal8,
+        #modal9,
+        #modal10,
+        #modal11,
+        #modal12,
+        #modal13,
+        #modal14,
+        #modal15,
+        #modal16,
+        #modal17,
+        #modal18,
+        #modal19,
+        #modal20,
+        #modal21,
+        #modal22 p {
+            font-size: 20px;
+            color: var(--white);
+        }
+
+        #modal1,
+        #modal2,
+        #modal3,
+        #modal4,
+        #modal5,
+        #modal6,
+        #modal7,
+        #modal8,
+        #modal9,
+        #modal10,
+        #modal11,
+        #modal12,
+        #modal13,
+        #modal14,
+        #modal15,
+        #modal16,
+        #modal17,
+        #modal18,
+        #modal19,
+        #modal20,
+        #modal21,
+        #modal22 h2 {
+            margin: 0;
+            color: var(--white);
+        }
+
+        #modalt .btn {
+            position: center;
+        }
+
+        #modalt .btn:hover {
+            background-color: var(--red);
+            transition: 1s;
+        }
+
+        .copy,
+        .header,
+        .footer {
+            padding: 15px;
+        }
+
+        .modal-content {
+            background: var(--black);
+            position: relative;
+            z-index: 20;
+            border-radius: 5px;
+            border-radius: 5%;
+        }
+
+        .copy {
+            background: var(--gray);
+        }
+
+        .overlay {
+            background: var(--white);
+            left: 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .card-body {
+            width: 100%;
+            height: 5.5rem;
+        }
+
+        .card-img-top {
+            height: 130px;
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        /*começo iframe*/
+        #iframe-container {
+            position: fixed;
+            width: 100% !important;
+        }
+
+        .card {
+            height: 270px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Área de Conteúdo -->
+
+    <main class="col-md-6 main-content align-self-center">
+        <!-- Centralize os Cards em duas linhas -->
+        <div class="row">
+            <!-- Primeira Linha de Cards -->
+            <div class="col-md-4">
+                <div class="card mb-4" style="border-radius: 13px;">
+                    <img src="../img/torta_limao.png" class="card-img-top" alt="Imagem 1">
+                    <div class="card-body">
+                        <h5 class="card-title">torta de <br>limão</h5>
+                        <button><a href="#modal1" class="btn go">ver mais</a></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4" style="border-radius: 13px;">
+                    <img src="../img/torta_holandesa.png" class="card-img-top" alt="Imagem 1">
+                    <div class="card-body">
+                        <h5 class="card-title">torta <br>holandesa</h5>
+                        <button><a href="#modal2" class="btn go">ver mais</a></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4" style="border-radius: 13px;">
+                    <img src="../img/torta_morango.png" class="card-img-top" alt="Imagem 1">
+                    <div class="card-body">
+                        <h5 class="card-title">torta de<br> morango</h5>
+                        <button><a href="#modal3" class="btn go">ver mais</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- segunda Linha de Cards -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4" style="border-radius: 13px;">
+                    <img src="../img/sorvete_cookies.png" class="card-img-top" alt="Imagem 1">
+                    <div class="card-body">
+                        <h5 class="card-title">sorvete de <br>cookies</h5>
+                        <button><a href="#modal4" class="btn go">ver mais</a></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4" style="border-radius: 13px;">
+                    <img src="../img/sorvete_baunilha.png" class="card-img-top" alt="Imagem 1">
+                    <div class="card-body">
+                        <h5 class="card-title">sorvete de <br>baunilha</h5>
+                        <button><a href="#modal5" class="btn go">ver mais</a></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4" style="border-radius: 13px;">
+                    <img src="../img/sorvete_chocolate.png" class="card-img-top" alt="Imagem 1">
+                    <div class="card-body">
+                        <h5 class="card-title">sorvete de<br> chocolate</h5>
+                        <button><a href="#modal6" class="btn go">ver mais</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- terceira Linha de Cards -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4" style="border-radius: 13px;">
+                    <img src="../img/sorvete_napolitano.png" class="card-img-top" alt="Imagem 1">
+                    <div class="card-body">
+                        <h5 class="card-title">sorvete napolitano</h5>
+                        <button><a href="#modal7" class="btn go">ver mais</a></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4" style="border-radius: 13px;">
+                    <img src="../img/milkshake.jpg" class="card-img-top" alt="Imagem 1">
+                    <div class="card-body">
+                        <h5 class="card-title">milkshake</h5>
+                        <button><a href="#modal8" class="btn go">ver mais</a></button>
+                    </div>
+                </div>
+            </div>
+    </main>
+    <!-- fim dos Cards -->
+
+    <!--começo do modal-->
+    <div id="modalt">
+        <div id="modal1">
+            <div class="modal-content">
+                <div class="header">
+                    <h2>torta de limão</h2>
+                </div>
+                <div class="copy">
+                    <p>Ingredientes:<br>
+                        - torta cozida no forno,<br>
+                        - recheada com creme a base de limão,<br>
+                        - raspas de casca de limão<br>
+                        <br>
+                        . Preço: R$15,00 .<br>
+                    </p>
+                </div>
+                <div class="cf footer">
+                    <a href="#" class="btn">ok</a>
+                </div>
+            </div>
+            <div class="overlay"></div>
+        </div>
+        <div id="modal2">
+            <div class="modal-content">
+                <div class="header">
+                    <h2>torta holandesa</h2>
+                </div>
+                <div class="copy">
+                    <p>Ingredientes:<br>
+                        - creme de leite gelado,<br>
+                        - chocolate meio amargo derretido,<br>
+                        - biscoito de maizena<br>
+                        <br>
+                        . Preço: R$15,00 .<br>
+                    </p>
+                </div>
+                <div class="cf footer">
+                    <a href="#" class="btn">ok</a>
+                </div>
+            </div>
+            <div class="overlay"></div>
+        </div>
+        <div id="modalt">
+            <div id="modal3">
+                <div class="modal-content">
+                    <div class="header">
+                        <h2>torta de morango</h2>
+                    </div>
+                    <div class="copy">
+                        <p>Ingredientes:<br>
+                            - torta cozida no forno,<br>
+                            - Massa crocante com recheio de creme baunilha,<br>
+                            - cobertura de morangos e geléia de morango<br>
+                            <br>
+                            . Preço: R$15,00 .<br>
+                        </p>
+                    </div>
+                    <div class="cf footer">
+                        <a href="#" class="btn">ok</a>
+                    </div>
+                </div>
+                <div class="overlay"></div>
+            </div>
+            <!--segunda fileira-->
+            <div id="modal4">
+                <div class="modal-content">
+                    <div class="header">
+                        <h2>sorvete de cookies</h2>
+                    </div>
+                    <div class="copy">
+                        <p>Ingredientes:<br>
+                            - Gelato sabor baunilha,<br>
+                            - gotas de chocolate,<br>
+                            - cobertura de chocolate branco,<br>
+                            - pedaços de oreon<br>
+                            <br>
+                            . Preço: R$5,00 .<br>
+                        </p>
+                    </div>
+                    <div class="cf footer">
+                        <a href="#" class="btn">ok</a>
+                    </div>
+                </div>
+                <div class="overlay"></div>
+            </div>
+            <div id="modal5">
+                <div class="modal-content">
+                    <div class="header">
+                        <h2>sorvete de
+                            baunilha</h2>
+                    </div>
+                    <div class="copy">
+                        <p>Ingredientes:<br>
+                            - 5 bolas de sorvete de baunilha,<br>
+                            - acompanhamentos<br>(sua preferencia)<br>
+                            - granulado,<br>
+                            - m&m`s,<br>
+                            - caldas<br>
+                            <br>
+                            . Preço: R$5,00 .<br>
+                        </p>
+                    </div>
+                    <div class="cf footer">
+                        <a href="#" class="btn">ok</a>
+                    </div>
+                </div>
+                <div class="overlay"></div>
+            </div>
+            <div id="modal6">
+                <div class="modal-content">
+                    <div class="header">
+                        <h2>sorvete de
+                            chocolate</h2>
+                    </div>
+                    <div class="copy">
+                        <p>Ingredientes:<br>
+                            - 5 bolas de sorvete de chocolate,<br>
+                            - acompanhamentos<br>(sua preferencia)<br>
+                            - granulado,<br>
+                            - m&m`s,<br>
+                            - caldas<br>
+                            <br>
+                            . Preço: R$5,00 .<br>
+                        </p>
+                    </div>
+                    <div class="cf footer">
+                        <a href="#" class="btn">ok</a>
+                    </div>
+                </div>
+                <div class="overlay"></div>
+            </div>
+            <!-- terceira fileira -->
+            <div id="modalt">
+                <div id="modal7">
+                    <div class="modal-content">
+                        <div class="header">
+                            <h2>sorvete napolitano</h2>
+                        </div>
+                        <div class="copy">
+                            <p>Ingredientes:<br>
+                                - 5 bolas de sorvete mistos de chocolate, baunilha e morango,<br>
+                                - acompanhamentos<br>(sua preferencia)<br>
+                                - granulado,<br>
+                                - m&m`s,<br>
+                                - caldas<br>
+                                <br>
+                                . Preço: R$5,00 .<br>
+                            </p>
+                        </div>
+                        <div class="cf footer">
+                            <a href="#" class="btn">ok</a>
+                        </div>
+                    </div>
+                    <div class="overlay"></div>
+                </div>
+                <div id="modal8">
+                    <div class="modal-content">
+                        <div class="header">
+                            <h2>milkshake</h2>
+                        </div>
+                        <div class="copy">
+                            <p>Ingredientes:<br>
+                                - 200ml de leite integral gelado,<br>
+                                - 5 bolas de sorvete de chocolate,<br>
+                                - chantilly,<br>
+                                - calda de sua preferência<br>
+                                <br>
+                                . Preço: R$10,00 .<br>
+                            </p>
+                        </div>
+                        <div class="cf footer">
+                            <a href="#" class="btn">ok</a>
+                        </div>
+                    </div>
+                    <div class="overlay"></div>
+                </div>
+                <!-- Bootstrap JavaScript Libraries -->
+                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+                    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+                    crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+                    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+                    crossorigin="anonymous"></script>
+</body>
+
+</html>

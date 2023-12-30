@@ -21,9 +21,9 @@ $avatar = '../../../../imgbd/' . $_SESSION['avatarSession'];
 
 if(!empty($_GET['search'])){
     $dados = $_GET['search'];
-    $sqlc = "SELECT * FROM funcionarios WHERE id_func LIKE '%$dados%' OR email_adm LIKE '%$dados%' OR nome LIKE '%$dados%'";
+    $sqlc = "SELECT * FROM funcionarios WHERE dta_demissao IS NULL AND (id_func LIKE '%$dados%' OR email_adm LIKE '%$dados%' OR nome LIKE '%$dados%')";
 }else{
-    $sqlc = "SELECT * FROM funcionarios";
+    $sqlc = "SELECT * FROM funcionarios WHERE dta_demissao IS NULL";
 }
 $funcInfo = $sql->query($sqlc);
 ?>
@@ -169,18 +169,6 @@ $funcInfo = $sql->query($sqlc);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="../../../assets/js/paginaInicial/searchBar.js"></script>
     <script src="../../../assets/js/paginaInicial/sidebar.js"></script>
-    <script>
-/*var search = document.getElementById('search');
-        search.addEventListener("keydown", function(event){
-            if(event.key === "Enter")
-            pesquisardados();
-        })
-        function pesquisardados(){
-            console.log("Pesquisando: " + search.value);
-            window.location = 'index.php?search=' + search.value;
-        }
-        */
-    </script>
 <script>
 // Aguarda até que o documento HTML esteja totalmente carregado e pronto para interação
 $(document).ready(function() {

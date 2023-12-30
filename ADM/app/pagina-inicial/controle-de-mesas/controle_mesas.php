@@ -267,28 +267,6 @@ $mesa = $sql->query($sqlc);
 </body>
 
 <script>
-/*$(document).ready(function() {
-    $('#search').on('input', function() {
-        pesquisardados();
-    });
-});
-
-function pesquisardados() {
-    var searchValue = $('#search').val();
-    
-    $.ajax({
-        type: "GET",
-        url: 'controle_mesas.php?search=' + encodeURIComponent(searchValue),
-        success: function(response) {
-            var mesasContainer = $('#mesasContainer');
-            mesasContainer.empty(); // Limpa o conteúdo atual do contêiner
-
-            // Adiciona o conteúdo da resposta ao contêiner de mesas
-            mesasContainer.append($(response).find('#mesasContainer').html());
-        }
-    });
-}
-*/
 //Codigo em FETCH API 
 document.addEventListener("DOMContentLoaded", function () {
   const searchInput = document.getElementById("search");

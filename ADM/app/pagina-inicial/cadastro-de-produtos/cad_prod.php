@@ -206,11 +206,6 @@ $listagem = $sql->query($sqlc);
                                     <input type="text" name="preHam" id="preHam">
                                 </div>
                                 <div>
-                                    <label for="qtdHam">Quantidade</label>
-                                    <br>
-                                    <input type="text" name="qtdHam" id="qtdHam">
-                                </div>
-                                <div>
                                     <label for="imgProd">Imagem do produto:</label>
                                     <br>
                                     <input type="file" name="imgBurguer" id="imgProd" accept="image/*">
@@ -231,11 +226,6 @@ $listagem = $sql->query($sqlc);
                                     <input type="text" name="preBeb" id="preBeb">
                                 </div>
                                 <div>
-                                    <label for="qtdBeb">Quantidade:</label>
-                                    <br>
-                                    <input type="text" name="qtdBeb" id="qtdBeb" maxlength="5">
-                                </div>
-                                <div>
                                     <label for="imgProd">Imagem do produto:</label>
                                     <br>
                                     <input type="file" name="imgBeb" id="imgProd" accept="image/*">
@@ -253,11 +243,6 @@ $listagem = $sql->query($sqlc);
                                     <label for="preAcom">Preço:</label>
                                     <br>
                                     <input type="text" name="preAcom" id="preAcom">
-                                </div>
-                                <div>
-                                    <label for="qtdAcom">Quantidade:</label>
-                                    <br>
-                                    <input type="text" name="qtdAcom" id="qtdAcom" maxlength="5">
                                 </div>
                                 <div>
                                     <label for="imgProd">Imagem do produto:</label>

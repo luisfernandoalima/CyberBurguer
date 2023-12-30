@@ -2,7 +2,6 @@
 include_once('conn.php');
 
 $cat_prod = $_POST['cat_prod']; //Categoria de produtos 
-
 $loteProd = $_POST['lote_func']; // Lote do produto
 $nomeProd = $_POST['nomeProd'];
 $preComProd = $_POST['preComProd']; //preço da compra
@@ -14,15 +13,12 @@ $tipo = $_POST['tipoProd'];
 //Formulário Hamburguer
 $nomeHan = $_POST['nomeHan'];
 $preHam = $_POST['preHam'];
-$statusHan = $_POST['qtdHam'];
 //Formulario bebida
 $nomeBeb = $_POST['nomeBeb'];
 $preBeb = $_POST['preBeb'];
-$qtdBeb = $_POST['qtdBeb'];
 //Formulario de acompanhamento
 $nomeAcom = $_POST['nomeAcom'];
 $preAcom = $_POST['preAcom'];
-$qtdAcom = $_POST['qtdAcom'];
 //Formulário de fornecedores
 $cnpjForn = $_POST['cnpjForn'];
 $nomeForn = $_POST['nomeForn'];
@@ -30,13 +26,14 @@ $telForn = $_POST['telForn'];
 $tipoForn = $_POST['tipoForn'];
 //Cadastro Produtos
 if ($cat_prod == 1) {
+    date_default_timezone_set('America/Sao_Paulo');
     $dataAtual = date('Y-m-d');
     // Convertendo as datas para timestamps
     if(empty($tipo) || empty($nomeProd) || empty($preComProd)|| empty($preVenProd)|| empty($qtdProd)|| empty($preComProd)|| empty($dtComProd)|| empty($preVenProd) ){
         echo '<script>alert("Preencha todos os campos para concluir o cadastro!"); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php"; </script>'; 
     }elseif(empty($_FILES["imgProd"]) || empty($_FILES["imgProd"]["name"])){
         echo '<script>alert("Erro: Coloque uma imagem no produto!"); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php"; </script>';
-    }elseif ($dtVenProd < $dataAtual) {
+    }elseif ($dtVenProd <= $dataAtual) {
         $dtVenFormatada = date('d-m-Y', strtotime($dtVenProd));
         echo '<script>alert("Erro: Está tentando cadastrar um Produto VENCIDO! de Data de vencimento: '. $dtVenFormatada .'. Insira uma data válida."); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php"; </script>';
     }else{
@@ -51,20 +48,20 @@ if ($cat_prod == 1) {
             $separaProd = array_reverse($separaProd);
             $tipoProd = $separaProd[0];
             $imgProd = $nomeProd . '.' . $tipoProd;
+            $status = "ATIVO";
             if (move_uploaded_file($_FILES['imgProd']['tmp_name'], '../../' . $uploadProd . $imgProd)) {
                     $uploadfileProd = $uploadProd . $imgProd;
                 } else {
                     echo '<script>alert("Erro: falha no upload da imagem!"); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php"; </script>'; 
                 }
-            $sql->query("INSERT INTO produto (lote, tipo, prod, preco_compra, preco_venda, qtd, dta_compra, dta_vencimento, img) 
-            VALUES ('$loteProd','$tipo', '$nomeProd', '$preComProd','$preVenProd','$qtdProd','$dtComProd','$dtVenProd','$uploadfileProd')");
-            echo '<script>alert("Produto: ' . $nomeProd . ' Cadastrado com sucesso!"); window.location.href = "../app/pagina-inicial/home.php"; </script>';   
-            print_r($sql);
+            $sql->query("INSERT INTO produto (lote, tipo, prod, preco_compra, preco_venda, qtd, dta_compra, dta_vencimento, status ,img) 
+            VALUES ('$loteProd','$tipo', '$nomeProd', '$preComProd','$preVenProd','$qtdProd','$dtComProd','$dtVenProd','$status', '$uploadfileProd')");
+            echo '<script>alert("Produto: ' . $nomeProd . ' Cadastrado com sucesso!"); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php"; </script>';   
         }
     }
     //Cadastro Hamburguer
 } elseif ($cat_prod  == 2) {
-    if(empty($nomeHan) || empty($preHam) || empty($statusHan)) { //Verifica se tem algum campo vazio
+    if(empty($nomeHan) || empty($preHam)) { //Verifica se tem algum campo vazio
         echo '<script>alert("Preencha todos os campos para concluir o cadastro!"); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php"; </script>';
     }elseif (empty($_FILES["imgBurguer"]) || empty($_FILES["imgBurguer"]["name"])) {
         echo '<script>alert("Erro: Coloque uma imagem no produto!"); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php"; </script>';
@@ -80,18 +77,19 @@ if ($cat_prod == 1) {
             $separaBurguer = array_reverse($separaBurguer);
             $tipoBurguer = $separaBurguer[0];
             $imgBurguer = $nomeHan . '.' . $tipoBurguer;
+            $status = "ATIVO";
             if (move_uploaded_file($_FILES['imgBurguer']['tmp_name'], '../../' . $uploadBurguer . $imgBurguer)) {
                 $uploadfileBurguer = $uploadBurguer . $imgBurguer;
             } else {
                 echo '<script>alert("Erro: falha no upload da imagem!"); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php"; </script>'; 
             }
-            $sql->query("INSERT INTO burguer (nome, preco, qtd, img) VALUES ('$nomeHan', '$preHam', '$statusHan', '$uploadfileBurguer')");
-            echo '<script>alert("Hamburguer: ' . $nomeHan . ' Cadastrado com sucesso!"); window.location.href = "../app/pagina-inicial/home.php"; </script>';      
+            $sql->query("INSERT INTO burguer (nome, preco, status, img) VALUES ('$nomeHan', '$preHam', '$status', '$uploadfileBurguer')");
+            echo '<script>alert("Hamburguer: ' . $nomeHan . ' Cadastrado com sucesso!"); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php"; </script>';      
         }
     }
     //Cadastro Bebidas
 } elseif ($cat_prod  == 3) {
-    if(empty($nomeBeb) || empty($preBeb) || empty($qtdBeb)) { //Verifica se tem algum campo vazio
+    if(empty($nomeBeb) || empty($preBeb)) { //Verifica se tem algum campo vazio
         echo '<script>alert("Preencha todos os campos para concluir o cadastro!");</script>';
     }elseif (empty($_FILES["imgBeb"]) || empty($_FILES["imgBeb"]["name"])) {
         echo '<script>alert("Erro: Coloque uma imagem no produto!"); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php"; </script>';
@@ -107,18 +105,19 @@ if ($cat_prod == 1) {
             $separaBeb = array_reverse($separaBeb);
             $tipoBeb = $separaBeb[0];
             $imgBeb = $nomeBeb . '.' . $tipoBeb;
+            $status = "ATIVO";
             if (move_uploaded_file($_FILES['imgBeb']['tmp_name'], '../../' . $uploadBeb . $imgBeb)) {
                 $uploadfileBeb = $uploadBeb . $imgBeb;
             } else {
                 echo '<script>alert("Erro: falha no upload da imagem!"); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php";</script>'; 
             }
-            $sql->query("INSERT INTO bebida (nome, preco, qtd, img ) VALUES ('$nomeBeb', '$preBeb' , '$qtdBeb', '$uploadfileBeb')");
-            echo '<script>alert("Bebida: ' . $nomeBeb . ' Cadastrado com sucesso!"); window.location.href = "../app/pagina-inicial/home.php"; </script>'; 
+            $sql->query("INSERT INTO bebida (nome, preco, status, img ) VALUES ('$nomeBeb', '$preBeb' , '$status', '$uploadfileBeb')");
+            echo '<script>alert("Bebida: ' . $nomeBeb . ' Cadastrado com sucesso!"); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php"; </script>'; 
         }
     }
     //Cadastro Acompanhamento
 } elseif ($cat_prod  == 4) {
-    if(empty($nomeAcom) || empty($preAcom) || empty($qtdAcom)) { //Verifica se tem algum campo vazio
+    if(empty($nomeAcom) || empty($preAcom)) { //Verifica se tem algum campo vazio
         echo '<script>alert("Preencha todos os campos para concluir o cadastro!");</script>';
     }elseif (empty($_FILES["imgAcom"]) || empty($_FILES["imgAcom"]["name"])) {
         echo '<script>alert("Erro: Coloque uma imagem no produto!"); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php";</script>';
@@ -126,7 +125,7 @@ if ($cat_prod == 1) {
     $array4 = $sql->query("SELECT * FROM acompanhamento WHERE nome = '$nomeAcom'");
     $check4 = mysqli_num_rows($array4);
     if ($check4 >= 1) {
-        echo '<script>alert("acompanhamento: ' . $nomeAcom . ' Já cadastrado!"); window.location.href = "../app/pagina-inicial/home.php"; </script>'; 
+        echo '<script>alert("acompanhamento: ' . $nomeAcom . ' Já cadastrado!"); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php"; </script>'; 
     } else {
         $uploadAcom = "imgbd/acompanhamento/";
         $arquivoAcom = $_FILES["imgAcom"]["name"];
@@ -134,14 +133,15 @@ if ($cat_prod == 1) {
         $separaAcom = array_reverse($separaAcom);
         $tipoAcom = $separaAcom[0];
         $imgAcom = $nomeAcom. '.' . $tipoAcom;
+        $status = "ATIVO";
         if (move_uploaded_file($_FILES['imgAcom']['tmp_name'], '../../' . $uploadAcom . $imgAcom)) {
             $uploadfileAcom = $uploadAcom . $imgAcom;        
         }else{
             echo '<script>alert("Erro: falha no upload da imagem!"); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php";</script>'; 
         }
         
-        $sql->query("INSERT INTO acompanhamento (nome, preco, qtd, img) VALUES ('$nomeAcom', '$preAcom' , '$qtdAcom' ,'$uploadfileAcom')");
-        echo '<script>alert("acompanhamento: ' . $nomeAcom . ' Cadastrado com sucesso!"); window.location.href = "../app/pagina-inicial/home.php"; </script>'; 
+        $sql->query("INSERT INTO acompanhamento (nome, preco, status, img) VALUES ('$nomeAcom', '$preAcom' , '$status' ,'$uploadfileAcom')");
+        echo '<script>alert("acompanhamento: ' . $nomeAcom . ' Cadastrado com sucesso!"); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php"; </script>'; 
     }
     }
     //Cadastro Fornecedor
@@ -156,82 +156,7 @@ if ($cat_prod == 1) {
         } else {
             $sql->query("INSERT INTO fornecedor VALUES ('$cnpjForn', '$nomeForn','$telForn','$tipoForn')");
         }
-        echo '<script>alert("Fornecedor: ' . $nomeForn . ' Cadastrado com sucesso!"); window.location.href = "../app/pagina-inicial/home.php"; </script>'; 
+        echo '<script>alert("Fornecedor: ' . $nomeForn . ' Cadastrado com sucesso!"); window.location.href = "../app/pagina-inicial/cadastro-de-produtos/cad_prod.php"; </script>'; 
     }
 }
-
-/*
-elseif ($cat_prod  == 4) {
-    if(empty($nomeAcom) || empty($preAcom) || empty($qtdAcom)) { //Verifica se tem algum campo vazio
-        echo '<script>alert("Preencha todos os campos para concluir o cadastro!");</script>';
-    }
-    else{
-    $array4 = $sql->query("SELECT * FROM acompanhamento WHERE nome = '$nomeAcom'");
-    $check4 = mysqli_num_rows($array4);
-    if ($check4 >= 1) {
-        echo '<script>alert("acompanhamento: ' . $nomeAcom . ' Já cadastrado!");</script>'; 
-    } else {
-        $uploadAcom = "imgbd/acompanhamento/";
-        $arquivoAcom = $_FILES["imgAcom"]["name"];
-        $separaAcom = explode(".", $arquivoAcom);
-        $separaAcom = array_reverse($separaAcom);
-        $tipoAcom = $separaAcom[0];
-        $imgAcom = $nomeAcom. '.' . $tipoAcom;
-        if (move_uploaded_file($_FILES['imgAcom']['tmp_name'], '../../' . $uploadAcom . $imgAcom)) {
-            $uploadfileAcom = $uploadAcom . $imgAcom;
-            if(empty($imgAcom)){ 
-                echo '<script>alert("Erro: Coloque uma imagem no produto");</script>';                
-            }else{
-                $sql->query("INSERT INTO acompanhamento (nome, preco, qtd, img) VALUES ('$nomeAcom', '$preAcom' , '$qtdAcom' ,'$uploadfileAcom')"); //Caso esteja tudo certo cadastra 
-                echo '<script>alert("acompanhamento: ' . $nomeAcom . ' Cadastrado com sucesso!");</script>'; 
-            }
-        }
-        //$sql->query("INSERT INTO acompanhamento (nome, preco, qtd, img) VALUES ('$nomeAcom', '$preAcom' , '$qtdAcom' ,'$uploadfileAcom')");
-        //echo '<script>alert("acompanhamento: ' . $nomeAcom . ' Cadastrado com sucesso!");</script>'; 
-        }
-    }
-    //Cadastro Fornecedor
-}
-*/
-/*if (isset($_POST['cat_prod'])) {
-    $categoria = $_POST['cat_prod'];
-
-    // Processar o formulário com base na categoria selecionada
-    if ($categoria == 1) {
-        echo $categoria;
-        // Recolher os dados do formulário, validar e inserir no banco de dados
-    } elseif ($categoria == 2) {
-        echo $categoria;
-        // Processar o formulário de Hamburguer
-        // Recolher os dados do formulário, validar e inserir no banco de dados
-    } elseif ($categoria == 3) {
-        echo $categoria;
-        // Processar o formulário de Bebidas
-        // Recolher os dados do formulário, validar e inserir no banco de dados
-    } elseif ($categoria == 4) {
-        echo $categoria;
-        // Processar o formulário de Acompanhamento
-        // Recolher os dados do formulário, validar e inserir no banco de dados
-    } elseif ($categoria == 5) {
-        echo $categoria;
-        // Processar o formulário de Fornecedores
-        // Recolher os dados do formulário, validar e inserir no banco de dados
-    }
-} else {
-    echo "NADA";
-}
-
-
-        $uploaddir = "imgbd/burguer/";
-        $arquivo = $_FILES["imgBurguer"]["name"];
-        $separa = explode(".", $arquivo);
-        $separa = array_reverse($separa);
-        $tipo = $separa[0];
-        $imgBurguer = $nomeHan . '.' . $tipo;
-        if (move_uploaded_file($_FILES['imgBurguer']['tmp_name'], '../../' . $uploaddir . $imgBurguer)) {
-            $uploadfile = $uploaddir . $imgBurguer;
-        } else {
-            echo "Não foi possível concluir o upload da imagem.";
-        }
-*/
 ?>

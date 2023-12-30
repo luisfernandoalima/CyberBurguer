@@ -72,7 +72,7 @@ $prod = $sql->query($sqlc);
                         </span>
                     </button>
                 </a>
-                <a href="../../estatisticas/index.php">
+                <a href="../../estatisticas/estatisticas.php">
                     <button>
                         <span>
                             <i class="material-symbols-outlined">paid</i>
@@ -156,7 +156,7 @@ $prod = $sql->query($sqlc);
                                     <input type="text" name="qtdProd" placeholder="Quantidade" class="qtdProd" value="<?php echo $prods['qtd']; ?>">
                                 </div>
                                 <div class="col-2">
-                                    <abbr title="Validade"><input type="date" name="valProd" class="valProd" value="<?php echo $prods['dta_compra']; ?>"></abbr>
+                                    <abbr title="Validade"><input type="date" name="valProd" class="valProd" value="<?php echo $prods['dta_vencimento']; ?>"></abbr>
                                 </div>
                                 <div class="col-1">
                                     <button formaction="../../../PHP/att_prodInfo.php?id_prod=<?php echo $prods['id_prod']; ?>" class="checkBtn"><i class="fa-solid fa-check" style="color: #ffffff;"></i></button>
