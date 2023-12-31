@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cardapio_cyber</title>
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <style>
+        /*body*/
+        :root{
+            --pink:#ff058c;
+            --blue:#191143;
+            --rose:#ff006b;
+            --black:#1e1e1e;
+            --white:#ffff;
+            --lightblue:#b4b4db;
+            --yellow:#f6be00;
+            --red:#da0000;
+            --gray:	rgb(37, 37, 37);
+}
+        body{
+            background-color: var(--blue);
+        }
+        h1{
+            color: var(--lightblue);
+            text-align: center;
+            margin-top: 30px;
+        }
+        h5{
+            color: var(--pink);
+            text-align: center;
+        }
+        /* CSS personalizado para os menus laterais */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+        }
+        .sidebar-right {
+            right: 0;
+            left: auto;
+        }
+        .sidebar-left {
+            right: 0;
+            left: auto;
+        }
+        .logo{
+            width: 9rem;
+            margin-top: 20px;
+            user-select: none;
+        }
+        .elipse{
+            width: 17rem;
+            margin-left: -40px;
+            position: fixed;
+            margin-top: -55px;
+            user-select: none;
+        }
+        #sidebar-left,
+        #sidebar-right {
+            background-color:var(--blue)!important;
+        }
+        #sidebar-left .nav-item{
+            font-size: 30px;
+            background-color: var(--rose);
+            border-radius: 60px;
+            text-align: center;
+            margin-left: -45px;
+            margin-top: 25px;
+            font-size:x-large;
+        }
+        #sidebar-left .nav-item:hover{
+            transition: 0.9s;
+            color: var(--white);
+            box-shadow: 0px 6px 4px 0px ;
+            border-radius: 40px;
+            margin-left: 2rem;
+            font-size: 30px;
+            border:none;
+            text-decoration: none;
+            padding-bottom: 5px;
+            background-color: var(--lightblue);
+        }
+        .col-md-4{
+            padding: auto;
+        }
+
+        /* Ajuste de margem para a área de conteúdo */
+        .main-content {
+            margin:auto; 
+        }
+        .circle{
+           position: fixed;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           background-color: var(--rose);
+           clip-path:circle(27% at bottom right) ;
+           user-select: none;
+        }
+        button{
+            text-decoration: none;
+            border: none;
+            border-radius: 90px;
+            background-color: #191143;
+            width: 100%;
+            align-items: center;
+            margin: auto !important;
+            display: block;
+        }
+        button:hover{
+            text-decoration: none;
+            border: none;
+            border-radius: 40px;
+            background-color: var(--lightblue);
+        }
+        a{
+            color: var(--white)!important;
+        }
+        /*modal*/
+#modal1,
+#modal2,
+#modal3,
+#modal4,
+#modal5,
+#modal6,
+#modal7,
+#modal8,
+#modal9,
+#modal10,
+#modal11,
+#modal12,
+#modal13,
+#modal14,
+#modal15,
+#modal16,
+#modal17,
+#modal18,
+#modal19,
+#modal20,
+#modal21,
+#modal22{
+	left: 35%;
+    margin: -250px 0 0 -40%;
+	opacity: 0;
+	position: fixed;
+	top: -50%;
+	visibility: hidden;
+    text-align: center;
+	width: 30%;
+	box-shadow: 0 1px 22px rgba(255, 255, 255, 0.25);
+	box-sizing: border-box;
+	transition: all 0.4s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	-webkit-transition: all 0.4s ease-in-out;
+}
+
+/* Make the modal appear when targeted */
+#modal1:target,
+#modal2:target,
+#modal3:target,
+#modal4:target,
+#modal5:target,
+#modal6:target,
+#modal7:target,
+#modal8:target,
+#modal9:target,
+#modal10:target,
+#modal11:target,
+#modal12:target,
+#modal13:target,
+#modal14:target,
+#modal15:target,
+#modal16:target,
+#modal17:target,
+#modal18:target,
+#modal19:target,
+#modal20:target,
+#modal21:target,
+#modal22:target{
+	opacity: 1;
+	top: 1%;
+	visibility: visible;
+}
+
+.header,
+.footer {
+	border-bottom: 1px solid var(--rose);
+	border-radius: 5px 5px 0 0;
+}
+
+.footer {
+	border: none;
+	border-top: 5px var(--lightblue);
+	border-radius: 0 0 5px 5px;
+}
+#modal1,
+#modal2,
+#modal3,
+#modal4,
+#modal5,
+#modal6,
+#modal7,
+#modal8,
+#modal9,
+#modal10,
+#modal11,
+#modal12,
+#modal13,
+#modal14,
+#modal15,
+#modal16,
+#modal17,
+#modal18,
+#modal19,
+#modal20,
+#modal21,
+#modal22 p{
+    font-size: 20px;
+    color: var(--white);
+}
+
+#modal1,
+#modal2,
+#modal3,
+#modal4,
+#modal5,
+#modal6,
+#modal7,
+#modal8,
+#modal9,
+#modal10,
+#modal11,
+#modal12,
+#modal13,
+#modal14,
+#modal15,
+#modal16,
+#modal17,
+#modal18,
+#modal19,
+#modal20,
+#modal21,
+#modal22 h2 {
+	margin: 0;
+    color: var(--white);
+}
+
+#modalt .btn{
+	position: center;
+}
+#modalt .btn:hover {
+    background-color: var(--red);
+    transition: 1s;
+}
+
+.copy,
+.header,
+.footer {
+	padding: 15px;
+}
+
+.modal-content {
+	background:var(--black);
+	position: relative;
+	z-index: 20;
+	border-radius: 5px;
+    border-radius: 5%;
+}
+
+.copy {
+	background: var(--gray);
+}
+
+.overlay {
+	background: var(--white);
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 10;
+}
+.card-body{
+    width: 100%;
+    height: 5.5rem;
+}
+.card-img-top{
+    height: 130px;
+    width: 100%;
+    border-radius: 20px;
+}
+/*começo iframe*/
+#iframe-container{
+    position: fixed;
+    width: 100%!important;
+}
+.card {
+    height: 270px;
+}
+     </style>
+</head>
+<body>
+            <!-- Área de Conteúdo -->
+            
+            <main class="col-md-6 main-content align-self-center">
+                <!-- Centralize os Cards em duas linhas -->
+                <div class="row">
+                    <!-- Primeira Linha de Cards -->
+                    <div class="col-md-4">
+                        <div class="card mb-4" style="border-radius: 13px;">
+                            <img src="../img/black-burger.png" class="card-img-top" alt="Imagem 1">
+                            <div class="card-body">
+                                <h5 class="card-title">dark burger</h5>
+                                <button><a href="#modal1" class="btn go">ver mais</a></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4" style="border-radius: 13px;">
+                            <img src="../img/hamburguer_qd.png" class="card-img-top" alt="Imagem 2">
+                            <div class="card-body">
+                                <h5 class="card-title">craft burguer</h5>
+                                <button><a href="#modal2" class="btn go">ver mais</a></button>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="col-md-4">
+                            <div class="card mb-4" style="border-radius: 13px;">
+                                <img src="../img/Hamburguer vegie.jpg" class="card-img-top" alt="Imagem 1">
+                                <div class="card-body">
+                                    <h5 class="card-title">SimsBurguer</h5>
+                                    <button><a href="#modal7" class="btn go">ver mais</a></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- Segunda Linha de Cards -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-4" style="border-radius: 13px;">
+                            <img src="../img/hamburguer_choc.png" class="card-img-top" alt="Imagem 1">
+                            <div class="card-body">
+                                <h5 class="card-title">GarticBurguer</h5>
+                                <button><a href="#modal9" class="btn go">ver mais</a></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4" style="border-radius: 13px;">
+                            <img src="../img/super_burguer.png" class="card-img-top" alt="Imagem 1">
+                            <div class="card-body">
+                                <h5 class="card-title">SuperMario</h5>
+                                <button><a href="#modal10" class="btn go">ver mais</a></button>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+            </main>
+            <!-- fim dos Cards -->
+
+    <!--começo do modal-->
+ <div id="modalt">
+		<div id="modal1">
+			<div class="modal-content">
+				<div class="header">
+					<h2>Dark Burguer</h2>
+				</div>
+				<div class="copy">
+					<p>Ingredientes:<br>
+                        - pão preto,<br>
+                        - 1 carne,<br>
+                        - queijo mussarela,<br>
+                        - tomate,<br>
+                        - cebola caramelizada<br>
+                        <br>
+                        . Preço: R$25,00 .<br>                 
+                    </p>
+				</div>
+				<div class="cf footer">
+					<a href="#" class="btn">ok</a>
+				</div>
+			</div>
+			<div class="overlay"></div>
+		</div>
+		<div id="modal2">
+			<div class="modal-content">
+				<div class="header">
+					<h2>Burguer Craft</h2>
+				</div>
+				<div class="copy">
+					<p>Ingredientes:<br>
+                        - pão com formato de quadrado,<br>
+                        - tomate,<br>
+                        - alface,<br>
+                        - queijo prato,<br>
+                        - duas carnes,<br>
+                        - cebola,<br>
+                        - molho da casa<br>
+                        <br>
+                        . Preço: R$32,00 .<br>
+                    </p>
+				</div>
+				<div class="cf footer">
+					<a href="#" class="btn">ok</a>
+				</div>
+			</div>
+			<div class="overlay"></div>
+		</div>
+         <!--segunda fileira-->
+         <div id="modal7">
+			<div class="modal-content">
+				<div class="header">
+					<h2>SimsBurguer</h2>
+				</div>
+				<div class="copy">
+					<p>Ingredientes:<br>
+                       - Pão tradicional,<br>
+                       - 1 Carne de soja,<br>
+                       - Quacamole,<br>
+                       - Tomate,<br>
+                       - Queijo Cheddar,<br>
+                       - Crispy de Cebola<br>
+                       <br>
+                       . Preço: R$25,00 .<br>
+                    </p>
+				</div>
+				<div class="cf footer">
+					<a href="#" class="btn">ok</a>
+				</div>
+			</div>
+			<div class="overlay"></div>
+		</div>
+     <div id="modal9">
+			<div class="modal-content">
+				<div class="header">
+					<h2>GarticBurguer</h2>
+				</div>
+				<div class="copy">
+					<p>Ingredientes:<br>
+                       - Pão de Cookie,<br>
+                       - Ganache cremoso de chocolate meio amargo,<br>
+                       - Fatias de morango<br>
+                       <br>
+                       . Preço: R$27,00 .<br>
+                    </p>
+				</div>
+				<div class="cf footer">
+					<a href="#" class="btn">ok</a>
+				</div>
+			</div>
+			<div class="overlay"></div>
+		</div>
+                <!--quarta fileira-->
+     <div id="modal10">
+			<div class="modal-content">
+				<div class="header">
+					<h2>SuperMario Burguer</h2>
+				</div>
+				<div class="copy">
+					<p>Ingredientes:<br>
+                       - Pão de cebola,<br>
+                       - 1 Carne de soja,<br>
+                       - tomate,<br>
+                       - Queijo de batata,<br>
+                       - Cebola,<br>
+                       - cogumelos<br>
+                       <br>
+                       . Preço: R$27,00 .<br> 
+                    </p>
+				</div>
+				<div class="cf footer">
+					<a href="#" class="btn">ok</a>
+				</div>
+			</div>
+			<div class="overlay"></div>
+		</div>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+        crossorigin="anonymous"></script>
+</body>
+</html>

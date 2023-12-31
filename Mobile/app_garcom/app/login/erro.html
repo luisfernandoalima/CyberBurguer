@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--CSS-->
+    <link rel="stylesheet" href="../../assets/css/login/erro.css" />
+    <link rel="stylesheet" href="../../assets/css/menu.css" />
+    <!--CSS Bootstrap-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <title>Erro</title>
+  </head>
+
+  <body>
+    <header class="cabeçalho">
+      <h1><span>//</span>Cyberburguer</h1>
+    </header>
+    <main>
+      <div class="mensagemArea">
+        <h2>Falha no login</h2>
+        <p><b>Confirme seus dados.</b></p>
+        <p>Em caso de necessidade, contate o RH.</p>
+      </div>
+      <div class="btnArea">
+        <a href="../login/login.html" style="text-decoration: none;">
+          <button class="btnButton">Voltar</button>
+        </a>
+      </div>
+    </main>
+    <!--JS-->
+    <script>
+      //voltar
+      const btnVoltar = document.querySelector(".btnButton");
+
+      btnVoltar.addEventListener("click", (e) => {
+        window.history.back();
+      });
+    </script>
+    <!--JS Bootstrap-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

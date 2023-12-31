@@ -1,0 +1,127 @@
+:root{
+    --rosa: #E000C2;
+    --azulClaro: #07E8FF;
+    --azul: #0000FF;
+    --azulEscuro:#191143; 
+    --azulDiferenciado:#3214E1;   
+}
+
+body{
+    margin: 0;
+    background-image: linear-gradient(to right, var(--azul), var(--rosa));
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main{
+    box-shadow: 2px 4px 10px #000;
+    background-color: var(--azulEscuro);
+    border-radius: 20px;
+    width: 80%;
+    height: 500px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/*Imagem*/
+#img {
+    width: 50%;
+}
+
+#img > img{
+    display: block;
+    margin: auto;
+    height: 400px;
+}
+
+/*formulário*/
+form{
+    width: 50%;
+    color: #fff;
+}
+
+/*input*/
+.input-contain{
+    position: relative;
+    margin-top: 17px;
+}
+
+input {
+    color: #fff;
+    height: 2rem;
+    width: 80%;
+    border: 2px solid var(--azulDiferenciado);
+    border-radius: 1rem;
+    background-color: var(--azulEscuro);
+}
+
+input:focus{
+    outline: none;
+    border-color: var(--rosa);
+}
+
+input:focus + .placeholder-text .text, :not(input[value=""]) + .placeholder-text .text{
+    background-color: var(--azulEscuro);
+    font-size: 1.1rem;
+    color: white;
+    transform: translate(0, -100%);
+} 
+
+input :focus + .placeholder-text .text{
+    border-color: var(--rosa);
+    color: var(--rosa);
+} 
+
+
+/*Texto do placeholder*/
+.placeholder-text{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 3px solid transparent;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+}
+
+
+.text{
+    font-size: 1.4rem;
+    padding: 0 0.5rem;
+    background-color: transparent;
+    transform: translate(0);
+    color: #fff;
+    transition: transform 0.15s ease-out, font-size 0.15s ease-out, background-color 0.2s ease-out, color 0.15s ease-out;
+}
+
+input, .placeholder-text{
+    font-size: 1.4rem;
+    padding: 0 1.2rem;
+}
+
+/*Botão*/
+.btnEntrar{
+    display: block;
+    margin-left: 25%;
+    margin-top: 20px;
+    color: #fff;
+    background-color: var(--azul);
+    width: 200px;
+    height: 50px;
+    border-radius: 50px;
+    font-size:24px;
+}
+
+.btnEntrar:hover{
+    border-color: #fff;
+    background-color: var(--azulDiferenciado);
+}
+

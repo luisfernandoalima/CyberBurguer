@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cardapio_cyber</title>
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <style>
+         :root{
+            --pink:#ff058c;
+            --blue:#191143;
+            --rose:#ff006b;
+            --black:#1e1e1e;
+            --white:#ffff;
+            --lightblue:#b4b4db;
+            --yellow:#f6be00;
+            --red:#da0000;
+            --gray:	rgb(37, 37, 37);
+        }
+        body{
+            background-color:var(--blue);
+        }
+        article {
+            position: fixed;
+            width: 27%;
+            height: 200px;
+            border-radius: 40px;
+            margin-top: 40px;
+            margin-left: 20rem;
+            z-index: -1;
+        }
+        label{
+            color: var(--white);
+            
+        }
+
+        #iframe-container {
+            width: 90%;
+            height: 730px;
+            border: none;
+        }
+        h2{
+            font-size:45px;
+            margin: 10px;
+            color: var(--pink)!important;
+        }
+        #comanda{
+            border-radius: 10px;
+            margin-left: 20px;
+        }
+        #btn{
+            border-radius: 30px;
+            margin-left: 2rem;
+            margin-top: 10px;
+            width: 7rem;
+            height: 3rem;
+            border: none;
+        }
+        #btn:hover{
+            border-radius: 30px;
+            background-color: var(--rose);
+            margin-left: 2rem;
+            border: none;
+        }
+       
+    </style>
+</head>
+
+<body>
+
+    <!-- Área de Conteúdo -->
+    <article>
+        <h2>Digite a comanda</h2>
+        <form id="form_comanda" method="POST" action="../PHP/chamar.php" onsubmit="aviso">
+            <!-- Campos padrões -->
+            <label for="comanda1">COMANDA 1:</label>
+            <input id="comanda" type="text" id="comanda1" name="comanda1" required>
+            <br>
+            <input id="btn" type="submit" value="Enviar" href="../html/garçom.html" >
+        </form>
+    </article>
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    </script>
+
+ 
+
+</body>
+
+</html>

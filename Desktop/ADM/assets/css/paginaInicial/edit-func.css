@@ -1,0 +1,98 @@
+.hover {
+    text-decoration: underline;
+}
+
+.card {
+    margin: auto;
+    width: 400px !important;
+    background-color: var(--azulescuro);
+    color: #fff;
+    border: 2px solid transparent;
+
+}
+
+.card img {
+    display: block;
+    margin: auto;
+    border: 3px solid var(--rosa);
+    border-radius: 100%;
+    padding: 10px;
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.card p {
+    line-height: 20px;
+    width: 100%;
+}
+
+.card span {
+    display: block;
+}
+
+.card strong {
+    font-size: 1.8em;
+    text-decoration: underline;
+}
+
+.importantInfo:hover {
+    cursor: default;
+}
+
+.card-text {
+    font-size: 1em !important;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.card-text::before {
+    content: '- ';
+}
+
+.informacoes {
+    border: 2px solid transparent;
+}
+
+.informacoes>div {
+    margin-top: 10px;
+}
+
+
+p {
+    line-height: 10px;
+    font-size: 1.1em;
+}
+
+
+.perg {
+    margin-top: 10px;
+    margin-bottom: .5rem !important;
+}
+
+
+.res {
+    width: 80%;
+    margin-left: 25px;
+    padding-bottom: 0px;
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    font-size: 1.3em;
+    line-height: 15px;
+    font-weight: bold;
+    cursor: default;
+}
+
+.res:hover {
+    border-bottom: 2px solid #fff;
+}
+
+.res:focus {
+    outline: none;
+    border-bottom: 2px solid #fff;
+}
+
+.btn {
+    width: 80%;
+}

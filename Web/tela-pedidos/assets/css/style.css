@@ -1,0 +1,78 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+main{
+    height: 100vh;
+   background-image: url(../img/E000C2.png);
+}
+
+h1{
+    color: #fff;
+}
+
+h2{
+    width: 100%;
+    color: #fff;
+    margin-left: 15px;
+}
+
+.col-6{
+    padding: 0px;
+}
+
+#carouselExampleSlidesOnly{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-inner{
+    width: 55%;
+    box-shadow: 6px 6px 20px #000;
+}
+
+.imgArea{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nPedido{
+    height: 80vh;
+    padding-left: 15px;
+}
+
+li{
+    list-style-type: none;
+    font-size: 3em;
+    font-weight: bold;
+    color: #fff;
+
+}
+
+.pedido{
+    list-style-type: none;
+    font-size: 3em;
+    font-weight: bold;
+    color: #fff;
+}
+.changing-color {
+    animation: changeColor 3s ease; /* Animação com duração de 3 segundos */
+  }
+  
+  @keyframes changeColor {
+    0% {
+      color: #ff006b; /* Cor inicial (por exemplo, vermelho) */
+    }
+    50% {
+      color: #e100ff; /* Cor intermediária (por exemplo, azul) */
+    }
+    100% {
+      color: #ffffff; /* Volta à cor original (vermelho) */
+    }
+  }
+  
